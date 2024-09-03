@@ -8,4 +8,3 @@
 - Brandon Maverick Winarto
 - Jonathan Immanuel
 - Fatin adas
-added
