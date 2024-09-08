@@ -58,11 +58,7 @@
                 <input type="password" id="password" name="password">
                 <br>   
                 <br>
-                <br>
-                <label class="formParagraph" for="phone">CUSTOMER PHONE</label>
-                <br>
-                <input type="text" id="phone" name="phone">
-                <br>   
+
                 <br>
                 <br>
                 <input class="formButton" type="submit" value="SUBMIT">
@@ -73,7 +69,6 @@
                 <p class="formError"><%=(nameError != null ? nameError : "")%> </p>
                 <p class="formError"><%=(passwordError != null ? passwordError : "")%> </p>
                 <p class="formError"><%=(createdError != null ? createdError : "")%> </p>
-                <p class="formError"><%=(phoneError != null ? phoneError : "")%> </p>
             </form>
         </div>
         <!--End of Content-->

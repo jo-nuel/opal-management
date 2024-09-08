@@ -14,17 +14,15 @@ public class User implements Serializable {
     private String ID;
     private String status;
     private String role;
-    private String phone;
 
 
-    public User(String name, String email, String password, String ID, String status, String role, String phone) {
+    public User(String name, String email, String password, String ID, String status, String role) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.ID = ID;
         this.status = status;
         this.role = role;
-        this.phone = phone;
     }
 
     public String getName() {
@@ -69,10 +67,4 @@ public class User implements Serializable {
         this.role = role;
     }
     
-    public String getPhone(){
-        return phone;
-    }
-    public void setPhone(String phone){
-        this.phone = phone;
-    }
 }

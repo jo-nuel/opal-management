@@ -64,19 +64,16 @@
                     <td>Role</td>
                     <td>${user.role}</td>
                 </tr>
-                <tr>
-                    <td>Phone</td>
-                    <td>${user.phone}</td>
-                </tr>
+             
 
             </table>
 
-            
+              
             <div class="buttonContainer">
-                <a class="mainButton" href="UserEditServlet"?email='<%= user.getEmail()%>' &name='<%= user.getName()%>' &password='<%= user.getPassword()%>' &ID='<%= user.getID()%>' &status='<%= user.getStatus()%>' &role='<%= user.getRole()%>' &phone='<%= user.getPhone()%>'">
+                <a class="mainButton" href="UserEditServlet"?email='<%= user.getEmail()%>' &name='<%= user.getName()%>' &password='<%= user.getPassword()%>' &ID='<%= user.getID()%>' &status='<%= user.getStatus()%>' &role='<%= user.getRole()%>' ">
                     <p>Edit details</p>
                 </a>
-                <a class="mainButton" href="UserDeleteServlet"?email='<%= user.getEmail()%>' &name='<%= user.getName()%>' &password='<%= user.getPassword()%>' &ID='<%= user.getID()%>' &status='<%= user.getStatus()%>' &role='<%= user.getRole()%>' &phone='<%= user.getPhone()%>'">
+                <a class="mainButton" href="UserDeleteServlet"?email='<%= user.getEmail()%>' &name='<%= user.getName()%>' &password='<%= user.getPassword()%>' &ID='<%= user.getID()%>' &status='<%= user.getStatus()%>' &role='<%= user.getRole()%>' ">
                     <p>Deactivate account</p>
                 </a>
                  <form action="AccessLogServlet">
@@ -85,12 +82,6 @@
                 <a class="mainButton" href="logOut.jsp">
     <p>Log out</p>
   </a>
-    
-    
-    
-    
-    
-    
     
 </div>            
 

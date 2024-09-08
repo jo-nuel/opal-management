@@ -28,12 +28,17 @@
         
         <!--IOTBay Header-->
         <div class="header">
-            <p class="headerText">IOT Bay</p>
+            <p class="headerText">Opal management system</p>
         </div>
         <div class="header2">
-            <a href="deviceCatalogue.jsp" class="header2ButtonAnon">CATALOGUE</a>
-            <a href="createOrder.jsp" class="header2ButtonAnon">ORDER</a>
+            <a href="main.jsp" class="header2Button">MAIN</a>
+            <a  class="header2Button">CARDS</a>
+            <a  class="header2Button">TOP-UP</a>
+            <a  class="header2Button">EVENTS</a>
+            <a  class="header2Button">TRAVEL HISTORY</a>
+            <a  class="header2Button">TRIP PLANNER</a>
 
+            <a href="logOut.jsp" class="header2Button">LOGOUT</a>
         </div>
         <!--End of IOTBay Header-->
         <br>
@@ -58,11 +63,7 @@
                 <input type="password" id="password" name="password">
                 <br>   
                 <br>
-                <br>
-                <label class="formParagraph" for="phone">CUSTOMER PHONE</label>
-                <br>
-                <input type="text" id="phone" name="phone">
-                <br>   
+
                 <br>
                 <br>
                 <input class="formButton" type="submit" value="SUBMIT">
@@ -73,7 +74,6 @@
                 <p class="formError"><%=(nameError != null ? nameError : "")%> </p>
                 <p class="formError"><%=(passwordError != null ? passwordError : "")%> </p>
                 <p class="formError"><%=(createdError != null ? createdError : "")%> </p>
-                <p class="formError"><%=(phoneError != null ? phoneError : "")%> </p>
             </form>
         </div>
         <!--End of Content-->

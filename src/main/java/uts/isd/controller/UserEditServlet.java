@@ -1,70 +1,77 @@
 package uts.isd.controller;
+
 import java.io.IOException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import uts.isd.model.User;
-import uts.isd.dao.DBManager;
 
-
-
-//UserEditServlet is 1/2 Servlets used to update details. UserEditServlet obtains the user's details.
+// UserEditServlet obtains the user's details and allows for editing from the session-stored user list
 public class UserEditServlet extends HttpServlet {
 
-    @Override
+    private static ArrayList<User> users = new ArrayList<>();
 
+    @Override
+    public void init() throws ServletException {
+        // Initialize some users if needed
+        users.add(new User("hello", "hello@gmail.com", "hello1234", "12345", "Active", "customer"));
+    }
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         UserValidator validator = new UserValidator();
-        DBManager manager = (DBManager) session.getAttribute("manager");
-        
-        
-        //Access Log Variables Created
-        //Creating Time Variable for Access Log
+
+        // Access log creation
         LocalTime time = LocalTime.now();
         DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm:ss");
         String timeString = time.format(formatterTime);
-        //Creating Date Variable for Access Log
+
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String dateString = currentDate.format(formatterDate);
-        //Getting Action Variable for Access Log
+
         String action = "Edited Details";
-        
-        
-        //Creates variables using the current details the session user has.
+
+        // Retrieve the email and password to find the user
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String name = request.getParameter("name");
-        String ID = request.getParameter("ID");
-        String phone = request.getParameter("phone");
 
-        //Creation of a new user to be used later.
-        User user = null;
-        
-        try {
-            //User is set to an existing user based on the the database manager finding a user with the email and password.
-            user = manager.findUser(email, password);
-            //If user is not null (a user was found) then the existence is confirmed and user is passed onto userEdit.jsp where new details can be put in.
-            //Access logs are updated.
-            if (user != null) {
-                session.setAttribute("user", user);
-                request.getRequestDispatcher("userEdit.jsp").include(request, response);
-                manager.addAccessLog(email, action, dateString, timeString);
-            } 
-            else {
-                //If user is null (a user was not found) then the existence is not confirmed and an error is created.
-                session.setAttribute("existErr", "user does not exist in the database!");
-                request.getRequestDispatcher("userEdit.jsp").include(request, response);
-            }
-        } catch (SQLException ex) {
+        // Find the user in the ArrayList based on email and password
+        User user = findUser(email, password);
+
+        if (user != null) {
+            // User found, allow editing and update session
+            session.setAttribute("user", user);
+            request.getRequestDispatcher("userEdit.jsp").include(request, response);
+            
+            // Optionally, store the access log in the session for simplicity
+            String accessLog = "User " + email + " performed " + action + " on " + dateString + " at " + timeString;
+            session.setAttribute("accessLog", accessLog);
+        } else {
+            // User not found, set an error and return to the edit page
+            session.setAttribute("existErr", "User does not exist in the system!");
+            request.getRequestDispatcher("userEdit.jsp").include(request, response);
         }
+
         validator.clear(session);
+    }
+
+    // Helper method to find a user by email and password in the ArrayList
+    private User findUser(String email, String password) {
+        for (User user : users) {
+            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+                return user;
+            }
+        }
+        return null;
     }
 }

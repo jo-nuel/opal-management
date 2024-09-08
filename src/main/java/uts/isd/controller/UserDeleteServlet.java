@@ -6,13 +6,15 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import uts.isd.model.User;
+
 import uts.isd.dao.DBManager;
+import uts.isd.model.User;
 
 
 
@@ -47,7 +49,7 @@ public class UserDeleteServlet extends HttpServlet {
         String password = request.getParameter("password");
         String name = request.getParameter("name");
         String ID = request.getParameter("ID");
-        String phone = request.getParameter("phone");
+       // String phone = request.getParameter("phone");
 
         //Creation of a new user to be used later.
         User user = null;

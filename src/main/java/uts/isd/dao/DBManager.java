@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package uts.isd.dao;
-import java.sql.*;
-import java.time.LocalDate;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import uts.isd.model.User;
+
 import uts.isd.model.AccessLog;
-import uts.isd.model.*;
+import uts.isd.model.User;
 
 
 public class DBManager {
@@ -21,7 +23,7 @@ public class DBManager {
 
 
 
-//----------------Alex's User Database Manager Functions-----------------------------------------------------------------------
+//---------------- User Database Manager Functions-----------------------------------------------------------------------
     
     //Function to find a user based on email and password.
     public User findUser(String email, String password) throws SQLException {
@@ -36,21 +38,21 @@ public class DBManager {
                 String userID = rs.getString(4);
                 String userStatus = rs.getString(5);
                 String userRole = rs.getString(6);
-                String userPhone = rs.getString(7);
-                return new User(userName, userEmail, userPass, userID, userStatus, userRole, userPhone);
+               // String userPhone = rs.getString(7);
+                return new User(userName, userEmail, userPass, userID, userStatus, userRole);
             }
         }
         return null;
     }
     
     //Create new user
-    public void addUser(String name, String email, String password, String ID, String status, String role, String phone) throws SQLException {
-        st.executeUpdate("INSERT INTO ISDUSER.Users " + "VALUES ('" + name + "', '" + email + "', '" + password + "', '" + ID + "',  '" + status + "',  '" + role + "',  '" + phone + "')");
+    public void addUser(String name, String email, String password, String ID, String status, String role) throws SQLException {
+        st.executeUpdate("INSERT INTO ISDUSER.Users " + "VALUES ('" + name + "', '" + email + "', '" + password + "', '" + ID + "',  '" + status + "',  '" + role + "')");
     }
     
     //Update old user
-    public void updateUser(String name, String email, String password, String ID, String status, String role, String phone) throws SQLException {
-        st.executeUpdate("UPDATE ISDUSER.Users SET NAME='" + name + "',PASSWORD='" + password + "',ID='" + ID + "',status='" + status + "',PHONE='" + phone + "' ,ROLE='" + role + "' WHERE EMAIL='" + email + "'");
+    public void updateUser(String name, String email, String password, String ID, String status, String role) throws SQLException {
+        st.executeUpdate("UPDATE ISDUSER.Users SET NAME='" + name + "',PASSWORD='" + password + "',ID='" + ID + "',status='" + status + "',ROLE='" + role + "' WHERE EMAIL='" + email + "'");
     }
     
     //Delete user (only used in testing)
@@ -76,8 +78,8 @@ public class DBManager {
                 String userNumber = rs.getString(4);
                 String userStatus = rs.getString(5);
                 String userRole = rs.getString(6);
-                String userPhone = rs.getString(7);
-                return new User(userName, userEmail, userPassword, userNumber, userStatus, userRole, userPhone);
+              //  String userPhone = rs.getString(7);
+                return new User(userName, userEmail, userPassword, userNumber, userStatus, userRole);
             }
         }
         return null;
@@ -96,8 +98,8 @@ public class DBManager {
             String ID = rs.getString(4);
             String status = rs.getString(5);
             String role = rs.getString(6);
-            String phone = rs.getString(7);
-            temp.add(new User(name, email, password, ID, status, role, phone));
+          //  String phone = rs.getString(7);
+            temp.add(new User(name, email, password, ID, status, role));
         }
         return temp;
     }

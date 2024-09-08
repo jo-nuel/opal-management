@@ -1,111 +1,112 @@
 package uts.isd.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import uts.isd.model.User;
-import uts.isd.dao.DBManager;
 
-
-
-
-//UserUpdateServlet is 2/2 Servlets used to update details. UserEditServlet edits new details in.
+// UserUpdateServlet is used to update user details based on new inputs from the edit page.
 public class UserUpdateServlet extends HttpServlet {
+
+    // In-memory list of users (simulates a database)
+    private static ArrayList<User> users = new ArrayList<>();
+
+    @Override
+    public void init() throws ServletException {
+        // Initialize with some users for testing purposes
+        users.add(new User("hello", "hello@gmail.com", "hello1234", "12345", "Active", "customer"));
+        users.add(new User("john", "john.doe@example.com", "password456", "67890", "Inactive", "admin"));
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         UserValidator validator = new UserValidator();
-        DBManager manager = (DBManager) session.getAttribute("manager");
         
-        
-        
-        //Access Log Variables Created
-        //Creating Time Variable for Access Log
+        // Access log creation
         LocalTime time = LocalTime.now();
         DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm:ss");
         String timeString = time.format(formatterTime);
-        //Creating Date Variable for Access Log
+
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String dateString = currentDate.format(formatterDate);
-        //Getting Action Variable for Access Log
+
         String action = "Edited Details";
-        
-        
-        
-        //Edit.jsp has passed in new details. New details are put into variables.
+
+        // New details are passed in from userEdit.jsp
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String ID = request.getParameter("ID");
-        String status = "Active";
+        String status = "Active";  // Assuming the user remains active
         String role = request.getParameter("role");
-        String phone = request.getParameter("phone");
 
-        //New user created with the new details.
-        User user = new User(name, email, password, ID, status, role, phone);
-        
-        //Validator reset to prevent old errors.
+        // Create a new user object with the updated details
+        User updatedUser = new User(name, email, password, ID, status, role);
+
+        // Validator reset to prevent old errors
         validator.clear(session);
-        
-        //New details are checked include:
-        //Fields are not empty.
-        //Name and password are correct formatting.
-        if (validator.checkEmptyUpdate(password, name, phone)) {
+
+        // Validation logic for name and password formatting
+        if (validator.checkEmptyUpdate(password, name)) {
             session.setAttribute("emptyError", "Please enter all fields");
             request.getRequestDispatcher("userEdit.jsp").include(request, response);
-        } 
-        else if (!validator.passwordFormat(password)) {
+        } else if (!validator.passwordFormat(password)) {
             session.setAttribute("passwordError", "Your password must have at least 5 letters and/or numbers and no spaces");
             request.getRequestDispatcher("userEdit.jsp").include(request, response);
-        } 
-        else if (!validator.nameFormat(name)) {
+        } else if (!validator.nameFormat(name)) {
             session.setAttribute("nameError", "Your name must not include numbers");
             request.getRequestDispatcher("userEdit.jsp").include(request, response);
-        }
-        else if (!validator.phoneFormat(phone)) {
-            System.out.println("its this one");
-            session.setAttribute("phoneError", "Your phone must be 10 numbers");
-            request.getRequestDispatcher("userEdit.jsp").include(request, response);
-        }
-        else {
-        //If validation passes, the real code begins:
+        } else {
             try {
-                //Double check that user is null
-                if (user != null) {
-                    //If user is not null, database is updated to new details.
-                    //Session is updated.
-                    //Updated message is sent through.
-                    //Access log updated.
-                    System.out.println("Change is registering");
-                    session.setAttribute("user", user);
-                    manager.updateUser(name, email, password, ID, status, role, phone);
-                    session.setAttribute("user", user);
+                // Find the user in the list by ID and update their details
+                User existingUser = findUserByID(ID);
+                if (existingUser != null) {
+                    // Update user details in the list
+                    existingUser.setName(name);
+                    existingUser.setEmail(email);
+                    existingUser.setPassword(password);
+                    existingUser.setRole(role);
+                    existingUser.setStatus(status); // Assuming the status remains unchanged
+
+                    // Update the session and access log
+                    session.setAttribute("user", existingUser);
+                    String accessLog = "User " + email + " performed " + action + " on " + dateString + " at " + timeString;
+                    session.setAttribute("accessLog", accessLog);
+
+                    // Redirect to the main page
                     request.getRequestDispatcher("main.jsp").include(request, response);
-                    manager.addAccessLog(email, action, dateString, timeString);
-                    
-                } 
-                else {
-                    //Rare error message that it does not work
-                    session.setAttribute("existErr", "Update was not successful");
+                } else {
+                    // User not found, show error
+                    session.setAttribute("existErr", "Update was not successful. User not found.");
                     request.getRequestDispatcher("userEdit.jsp").include(request, response);
                 }
-            } 
-            catch (SQLException ex) {
-                Logger.getLogger(UserEditServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(UserUpdateServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             validator.clear(session);
         }
-}
     }
 
+    // Helper method to find a user by ID in the ArrayList
+    private User findUserByID(String ID) {
+        for (User user : users) {
+            if (user.getID().equals(ID)) {
+                return user;
+            }
+        }
+        return null;
+    }
+}

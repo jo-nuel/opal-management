@@ -8,13 +8,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import uts.isd.model.User;
+
 import uts.isd.dao.DBManager;
+import uts.isd.model.User;
 
 
 
@@ -42,7 +44,6 @@ public class RegisterCustomerServlet extends HttpServlet {
         String ID = Integer.toString(random.nextInt(99999999) + 1);       
         String role = "Customer";
         String status = "Active";
-        String phone = request.getParameter("phone");
                 
 
         
@@ -63,7 +64,7 @@ public class RegisterCustomerServlet extends HttpServlet {
         //Customer Registration validation begins. 
         //Empty fields and formatting of email, password and name are checked.
         //If a validation fails, the customerRegister.jsp page is reloaded but this time with the corresponding errors and messages.
-        if (validator.checkEmptyRegisterCust(email, password, name, phone)) {
+        if (validator.checkEmptyRegisterCust(email, name, password)) {
             session.setAttribute("emptyError", "Please enter all fields");
             request.getRequestDispatcher("registerCustomer.jsp").include(request, response);
         } 
@@ -79,10 +80,7 @@ public class RegisterCustomerServlet extends HttpServlet {
             session.setAttribute("nameError", "Your name must not include numbers");
             request.getRequestDispatcher("registerCustomer.jsp").include(request, response);
         } 
-        else if (!validator.phoneFormat(phone)) {
-            session.setAttribute("phoneError", "Your phone must be 10 numbers");
-            request.getRequestDispatcher("registerCustomer.jsp").include(request, response);
-        }
+        
         //If validation passes, the real code begins:
         else {
             try {
@@ -97,8 +95,8 @@ public class RegisterCustomerServlet extends HttpServlet {
                 //Information is then passed onto main through the user variable.
                 //Access log is updated.
                 else {
-                    manager.addUser(name, email, password, ID, status, role, phone);
-                    User user = new User(name, email, password, ID, status, role, phone);
+                    manager.addUser(name, email, password, ID, status, role);
+                    User user = new User(name, email, password, ID, status, role);
                     session.setAttribute("user", user);
                     request.getRequestDispatcher("main.jsp").include(request, response);
                     manager.addAccessLog(email, action, dateString, timeString);

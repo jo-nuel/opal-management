@@ -3,6 +3,7 @@ package uts.isd.controller;
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpSession;
 
 
@@ -22,7 +23,7 @@ public class UserValidator implements Serializable {
     private String staffKey = "staff";
     
     //Phone needs to be 10 digits
-    private String phonePattern = "^\\d{10}$";
+    //private String phonePattern = "^\\d{10}$";
 
     
     
@@ -41,14 +42,14 @@ public class UserValidator implements Serializable {
     public boolean checkEmptyLogin(String email, String password) {
         return email.isEmpty() || password.isEmpty();
     }
-    public boolean checkEmptyRegisterCust(String email, String name, String password, String phone){
-        return email.isEmpty() || name.isEmpty() || password.isEmpty() || phone.isEmpty();
+    public boolean checkEmptyRegisterCust(String email, String name, String password){
+        return email.isEmpty() || name.isEmpty() || password.isEmpty() ;
     }
-    public boolean checkEmptyRegisterStaff(String email, String name, String password, String key, String phone){
-        return email.isEmpty() || name.isEmpty() || password.isEmpty() || key.isEmpty() || phone.isEmpty();
+    public boolean checkEmptyRegisterStaff(String email, String name, String password, String key){
+        return email.isEmpty() || name.isEmpty() || password.isEmpty() || key.isEmpty();
     }
-    public boolean checkEmptyUpdate(String name, String password, String phone){
-        return name.isEmpty() || password.isEmpty() || phone.isEmpty();
+    public boolean checkEmptyUpdate(String name, String password){
+        return name.isEmpty() || password.isEmpty();
     }
     
     //Variable format checkers - match the variables declared earlier.
@@ -61,9 +62,9 @@ public class UserValidator implements Serializable {
     public boolean passwordFormat(String password){
         return validate(passwordPattern, password);
     }
-    public boolean phoneFormat(String phone){
-        return validate(phonePattern, phone);
-    }
+    //public boolean phoneFormat(String phone){
+   //     return validate(phonePattern, phone);
+   // }
 
     //Key checker - makes sure the staff key supplied matches the preset staff key.
     public boolean checkKey(String key) {
@@ -78,7 +79,7 @@ public class UserValidator implements Serializable {
         session.setAttribute("nameError", "");
         session.setAttribute("passwordError", "");
         session.setAttribute("keyError", "");
-        session.setAttribute("phoneError", "");
+       // session.setAttribute("phoneError", "");
         session.setAttribute("createdError", "");
         session.setAttribute("badLoginError", "");
     }

@@ -12,7 +12,7 @@
     <body>
         <!--IOTBay Header-->
         <div class="header">
-            <p class="headerText">IOT Bay</p>
+            <p class="headerText">Opal Management System</p>
         </div>
         <div class="header2">
 
@@ -21,7 +21,9 @@
         
         <!--Start of Content-->
         <div class="centreBox">
-            
+            <div>
+                <a href="login.jsp" class="indexButton">LOGIN</a>
+            </div>
             <div>
                 <a href="registerOption.jsp" class="indexButton">REGISTER</a>
             </div>

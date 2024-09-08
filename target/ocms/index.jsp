@@ -21,7 +21,9 @@
         
         <!--Start of Content-->
         <div class="centreBox">
-            
+            <div>
+                <a href="login.jsp" class="indexButton">LOGIN</a>
+            </div>
             <div>
                 <a href="registerOption.jsp" class="indexButton">REGISTER</a>
             </div>

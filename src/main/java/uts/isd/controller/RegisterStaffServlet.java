@@ -42,7 +42,6 @@ public class RegisterStaffServlet extends HttpServlet {
         String ID = Integer.toString(random.nextInt(99999999) + 1);       
         String role = "Staff";
         String status = "Active";
-        String phone = request.getParameter("phone");
         
                 
 
@@ -65,7 +64,7 @@ public class RegisterStaffServlet extends HttpServlet {
         //Empty fields and formatting of email, password and name are checked.
         //Staff key is also checked.
         //If a validation fails, the staffRegister.jsp page is reloaded but this time with the corresponding errors and messages.
-        if (validator.checkEmptyRegisterStaff(email, password, name, key, phone)) {
+        if (validator.checkEmptyRegisterStaff(email, password, name, key)) {
             session.setAttribute("emptyError", "Please enter all fields");
             request.getRequestDispatcher("registerStaff.jsp").include(request, response);
         } 
@@ -85,10 +84,7 @@ public class RegisterStaffServlet extends HttpServlet {
             session.setAttribute("keyError", "Staff key is incorrect");
             request.getRequestDispatcher("registerStaff.jsp").include(request, response);
         }
-        else if (!validator.phoneFormat(phone)) {
-            session.setAttribute("phoneError", "Your phone must be 10 numbers");
-            request.getRequestDispatcher("registerStaff.jsp").include(request, response);
-        }
+        
         //If validation passes, the real code begins:
         else {
             try {
@@ -102,8 +98,8 @@ public class RegisterStaffServlet extends HttpServlet {
                 //Information is then passed onto main through the user variable.
                 //Access log is updated.
                 else {
-                    manager.addUser(name, email, password, ID, status, role, phone);
-                    User user = new User(name, email, password, ID, status, role, phone);
+                    manager.addUser(name, email, password, ID, status, role);
+                    User user = new User(name, email, password, ID, status, role);
                     session.setAttribute("user", user);
                     request.getRequestDispatcher("main.jsp").include(request, response);
                     manager.addAccessLog(email, action, dateString, timeString);

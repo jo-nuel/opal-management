@@ -3,15 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package uts.isd.controller;
-import java.sql.*;
-import java.util.*;
-import java.util.logging.*;
-import uts.isd.model.User;
-import uts.isd.dao.DBConnector;
-import uts.isd.dao.DBManager;
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import uts.isd.dao.DBConnector;
+import uts.isd.dao.DBManager;
+import uts.isd.model.User;
 
 
 public class TestUserDB {
@@ -82,10 +87,9 @@ public class TestUserDB {
         String role = in.nextLine();
         System.out.print("User Status: ");
         String status = in.nextLine();
-        System.out.print("Phone: ");
-        String phone = in.nextLine();
+
         try {
-            db.addUser(name, email, password, ID, status, role, phone);
+            db.addUser(name, email, password, ID, status, role);
         } catch (SQLException ex) {
             Logger.getLogger(TestUserDB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -121,9 +125,8 @@ public class TestUserDB {
                 String role = in.nextLine();
                 System.out.print("Status: ");
                 String status = in.nextLine();
-                System.out.print("Phone: ");
-                String phone = in.nextLine();
-                db.updateUser(name, email, password, ID, status, role, phone);
+                
+                db.updateUser(name, email, password, ID, status, role);
             } else {
                 System.out.println("User does not exist");
             }

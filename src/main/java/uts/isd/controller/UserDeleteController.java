@@ -33,17 +33,17 @@ public class UserDeleteController extends HttpServlet {
         String ID = request.getParameter("ID");
         String status = "Inactive";
         String role = request.getParameter("role");
-        String phone = request.getParameter("phone");
+       // String phone = request.getParameter("phone");
 
         //New user created with the old details.
-        User user = new User(name, email, password, ID, status, role, phone);
+        User user = new User(name, email, password, ID, status, role);
         
         validator.clear(session);
             try {
                 //Double check the user exits. If they do exist, use the updateUser function to update the status to Inactive.
                 if (user != null) {
                     session.setAttribute("user", user);
-                    manager.updateUser(name, email, password, ID, status, role, phone);
+                    manager.updateUser(name, email, password, ID, status, role);
                     session.setAttribute("user", user);
                     session.invalidate();
                     request.getRequestDispatcher("index.jsp").include(request, response);
