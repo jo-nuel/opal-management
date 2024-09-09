@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 import uts.isd.model.User;
 
-public class UserDao {
+public class DBManager {
 	private Connection con;
 	private PreparedStatement readSt;
 	private String readQuery = "SELECT Name, Password, Phone, Email FROM account";
 
-	public UserDao(Connection connection) throws SQLException {
+	public DBManager(Connection connection) throws SQLException {
 		this.con = connection;
 		connection.setAutoCommit(true);
 		readSt = connection.prepareStatement(readQuery);
