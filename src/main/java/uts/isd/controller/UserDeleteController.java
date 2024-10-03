@@ -43,18 +43,14 @@ public class UserDeleteController extends HttpServlet {
                 //Double check the user exits. If they do exist, use the updateUser function to update the status to Inactive.
                 if (user != null) {
                     session.setAttribute("user", user);
-                    manager.updateUser(name, email, password, ID, status, role);
+                    manager.updateUser(name, email, password);
                     session.setAttribute("user", user);
                     session.invalidate();
                     request.getRequestDispatcher("index.jsp").include(request, response);
                     
-                } else {
-                    //Rare error message that it does not work
-                    session.setAttribute("updated", "Deactivation was not successful");
-                    request.getRequestDispatcher("userDelete.jsp").include(request, response);
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(UserEditServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UserUpdateServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             response.sendRedirect("userDelete.jsp");
         }

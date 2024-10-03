@@ -4,7 +4,6 @@
  */
 package uts.isd.controller;
 
-import uts.isd.dao.DBConnector;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -26,7 +25,7 @@ public class ConnServlet extends HttpServlet{
     public void init() {
         try {
             db = new DBConnector();
-            System.out.println("Hello");
+            System.out.println("connection is working");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -37,14 +36,22 @@ public class ConnServlet extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        conn = db.openConnection();
-        try {
-            manager = new DBManager(conn);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
+        if (session.getAttribute("manager") == null) {
+            
+
+            try {
+                conn = db.openConnection();
+                manager = new DBManager(conn);
+                session.setAttribute("manager", manager); // Store DBManager in session
+                System.out.println("manager is set and isnt null");
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        //export the DB manager to the view-session (JSPs)
-        session.setAttribute("manager", manager);
+        
+        // Use sendRedirect to avoid forwarding loops
+        response.sendRedirect("index.jsp");
     }
 
     @Override //Destroy the servlet and release the resources of the application (terminate also the db connection)

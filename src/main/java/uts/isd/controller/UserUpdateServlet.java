@@ -1,10 +1,10 @@
 package uts.isd.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,26 +14,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import uts.isd.dao.DBManager;
 import uts.isd.model.User;
 
-// UserUpdateServlet is used to update user details based on new inputs from the edit page.
 public class UserUpdateServlet extends HttpServlet {
 
-    // In-memory list of users (simulates a database)
-    private static ArrayList<User> users = new ArrayList<>();
-
     @Override
-    public void init() throws ServletException {
-        // Initialize with some users for testing purposes
-        users.add(new User("hello", "hello@gmail.com", "hello1234", "12345", "Active", "customer"));
-        users.add(new User("john", "john.doe@example.com", "password456", "67890", "Inactive", "admin"));
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        DBManager manager = (DBManager) session.getAttribute("manager");  // Get DBManager from session
         UserValidator validator = new UserValidator();
-        
+
+        // Retrieve the currently logged-in user from the session
+        User loggedInUser = (User) session.getAttribute("user");
         // Access log creation
         LocalTime time = LocalTime.now();
         DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -45,21 +38,16 @@ public class UserUpdateServlet extends HttpServlet {
 
         String action = "Edited Details";
 
-        // New details are passed in from userEdit.jsp
+        // Get user input from the form
         String name = request.getParameter("name");
-        String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String ID = request.getParameter("ID");
-        String status = "Active";  // Assuming the user remains active
-        String role = request.getParameter("role");
 
-        // Create a new user object with the updated details
-        User updatedUser = new User(name, email, password, ID, status, role);
-
-        // Validator reset to prevent old errors
+        //these arent chnaged so will be retrieved from user
+        String email = loggedInUser.getEmail();
+        // Reset validator
         validator.clear(session);
 
-        // Validation logic for name and password formatting
+        // Validation logic
         if (validator.checkEmptyUpdate(password, name)) {
             session.setAttribute("emptyError", "Please enter all fields");
             request.getRequestDispatcher("userEdit.jsp").include(request, response);
@@ -71,42 +59,24 @@ public class UserUpdateServlet extends HttpServlet {
             request.getRequestDispatcher("userEdit.jsp").include(request, response);
         } else {
             try {
-                // Find the user in the list by ID and update their details
-                User existingUser = findUserByID(ID);
-                if (existingUser != null) {
-                    // Update user details in the list
-                    existingUser.setName(name);
-                    existingUser.setEmail(email);
-                    existingUser.setPassword(password);
-                    existingUser.setRole(role);
-                    existingUser.setStatus(status); // Assuming the status remains unchanged
+                // Update user details in the database using DBManager
 
-                    // Update the session and access log
-                    session.setAttribute("user", existingUser);
-                    String accessLog = "User " + email + " performed " + action + " on " + dateString + " at " + timeString;
-                    session.setAttribute("accessLog", accessLog);
+                manager.updateUser(name, email, password);
+                loggedInUser.setName(name);
+                loggedInUser.setPassword(password);
+                // Fetch the updated user from the database to reflect in the session
+                session.setAttribute("user", loggedInUser);  // Update user in session
 
-                    // Redirect to the main page
-                    request.getRequestDispatcher("main.jsp").include(request, response);
-                } else {
-                    // User not found, show error
-                    session.setAttribute("existErr", "Update was not successful. User not found.");
-                    request.getRequestDispatcher("userEdit.jsp").include(request, response);
-                }
-            } catch (Exception ex) {
+                // Create access log entry
+               // manager.addAccessLog(email, action, dateString, timeString);
+                
+                // Redirect to the main page
+                request.getRequestDispatcher("main.jsp").include(request, response);
+            } catch (SQLException ex) {
                 Logger.getLogger(UserUpdateServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            validator.clear(session);
-        }
-    }
-
-    // Helper method to find a user by ID in the ArrayList
-    private User findUserByID(String ID) {
-        for (User user : users) {
-            if (user.getID().equals(ID)) {
-                return user;
+                session.setAttribute("dbError", "Database error occurred while updating user details.");
+                request.getRequestDispatcher("userEdit.jsp").include(request, response);
             }
         }
-        return null;
     }
 }

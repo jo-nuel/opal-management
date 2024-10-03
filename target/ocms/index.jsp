@@ -12,7 +12,7 @@
     <body>
         <!--IOTBay Header-->
         <div class="header">
-            <p class="headerText">IOT Bay</p>
+            <p class="headerText">Opal Management System</p>
         </div>
         <div class="header2">
 
@@ -32,8 +32,8 @@
 
         
 
-        <jsp:include page="/ConnServlet" flush="true"/>
-            
+        <jsp:include page="/ConnServlet" />
+
 
     </body>
 </html>

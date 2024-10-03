@@ -4,6 +4,7 @@
  */
 package uts.isd.dao;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,15 +28,15 @@ public class DBManager {
     
     //Function to find a user based on email and password.
     public User findUser(String email, String password) throws SQLException {
-        String fetch = "select * from ISDUSER.Users where EMAIL = '" + email + "' and PASSWORD = '" + password + "'";
+        String fetch = "select * from ocms.users where EMAIL = '" + email + "' and PASSWORD = '" + password + "'";
         ResultSet rs = st.executeQuery(fetch);
 
         while (rs.next()) {
-            String userEmail = rs.getString(2);
-            String userPass = rs.getString(3);
+            String userEmail = rs.getString(3);
+            String userPass = rs.getString(4);
             if (userEmail.equals(email) && userPass.equals(password)) {
-                String userName = rs.getString(1);
-                String userID = rs.getString(4);
+                String userName = rs.getString(2);
+                String userID = rs.getString(1);
                 String userStatus = rs.getString(5);
                 String userRole = rs.getString(6);
                // String userPhone = rs.getString(7);
@@ -47,27 +48,27 @@ public class DBManager {
     
     //Create new user
     public void addUser(String name, String email, String password, String ID, String status, String role) throws SQLException {
-        st.executeUpdate("INSERT INTO ISDUSER.Users " + "VALUES ('" + name + "', '" + email + "', '" + password + "', '" + ID + "',  '" + status + "',  '" + role + "')");
+        st.executeUpdate("INSERT INTO ocms.users " + "VALUES ('" + name + "', '" + email + "', '" + password + "', '" + ID + "',  '" + status + "',  '" + role + "')");
     }
     
     //Update old user
-    public void updateUser(String name, String email, String password, String ID, String status, String role) throws SQLException {
-        st.executeUpdate("UPDATE ISDUSER.Users SET NAME='" + name + "',PASSWORD='" + password + "',ID='" + ID + "',status='" + status + "',ROLE='" + role + "' WHERE EMAIL='" + email + "'");
+    public void updateUser(String name, String email, String password) throws SQLException {
+        st.executeUpdate("UPDATE ocms.users SET NAME='" + name + "',PASSWORD='" + password  + "' WHERE EMAIL='" + email + "'");
     }
     
-    //Delete user (only used in testing)
+    //Delete user 
     public void deleteUser(String email) throws SQLException {
-        st.executeUpdate("DELETE FROM  ISDUSER.Users WHERE EMAIL = '" + email + "'");
+        st.executeUpdate("DELETE FROM  ocms.users WHERE EMAIL = '" + email + "'");
     }
     
     //Change user status
     public void changeUserStatus(String email, String status) throws SQLException {
-        st.executeUpdate("UPDATE ISDUSER.Users SET STATUS='" + status + "' WHERE EMAIL='" + email + "'");
+        st.executeUpdate("UPDATE ocms.users SET STATUS='" + status + "' WHERE EMAIL='" + email + "'");
     }
     
     //Find user using only email
     public User findUserEmailOnly(String email) throws SQLException {
-        String fetch = "select * from ISDUSER.Users where EMAIL = '" + email + "'";
+        String fetch = "select * from ocms.users where EMAIL = '" + email + "'";
         ResultSet rs = st.executeQuery(fetch);
 
         while (rs.next()) {
@@ -106,22 +107,19 @@ public class DBManager {
 
     //Find user based on email and password input
     public boolean checkUser(String email, String password) throws SQLException {
-        String fetch = "select * from ISDUSER.Users where EMAIL = '" + email + "' and password = '" + password + "'";
-        ResultSet rs = st.executeQuery(fetch);
-        
-        while (rs.next()) {
-            String userEmail = rs.getString(2);
-            String userPass = rs.getString(3);
-            if (userEmail.equals(email) && userPass.equals(password)) {
-                return true;
-            }
-        }
-        return false;
-    }
+    String query = "SELECT * FROM ocms.users WHERE email = ? AND password = ?";
+    PreparedStatement pstmt = st.getConnection().prepareStatement(query);
+    pstmt.setString(1, email);
+    pstmt.setString(2, password);
+    ResultSet rs = pstmt.executeQuery();
+    
+    // If a result is returned, then the user exists with the correct email and password
+    return rs.next(); // If rs.next() is true, it means a matching record was found
+}
     
     //Create a new access log
     public void addAccessLog(String email, String action, String date, String time) throws SQLException {
-        st.executeUpdate("INSERT INTO ISDUSER.ACCESS " + "VALUES ('" + email + "', '" + action + "', '" + date + "', '" + time + "')");
+        st.executeUpdate("INSERT INTO ocms.ACCESS " + "VALUES ('" + email + "', '" + action + "', '" + date + "', '" + time + "')");
     }
        
     //Find all access logs based off email input

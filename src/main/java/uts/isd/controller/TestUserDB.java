@@ -119,14 +119,9 @@ public class TestUserDB {
             if (db.checkUser(email, password)) {
                 System.out.print("User name: ");
                 String name = in.nextLine();
-                System.out.print("User ID: ");
-                String ID = in.nextLine();
-                System.out.print("User role: ");
-                String role = in.nextLine();
-                System.out.print("Status: ");
-                String status = in.nextLine();
+            
                 
-                db.updateUser(name, email, password, ID, status, role);
+                db.updateUser(name, email, password);
             } else {
                 System.out.println("User does not exist");
             }

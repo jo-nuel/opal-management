@@ -32,8 +32,8 @@
 
         
 
-        <jsp:include page="/ConnServlet" flush="true"/>
-            
+        <jsp:include page="/ConnServlet" />
+
 
     </body>
 </html>

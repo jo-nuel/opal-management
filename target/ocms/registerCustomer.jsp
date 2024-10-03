@@ -28,12 +28,17 @@
         
         <!--IOTBay Header-->
         <div class="header">
-            <p class="headerText">IOT Bay</p>
+            <p class="headerText">Opal management system</p>
         </div>
         <div class="header2">
-            <a href="deviceCatalogue.jsp" class="header2ButtonAnon">CATALOGUE</a>
-            <a href="createOrder.jsp" class="header2ButtonAnon">ORDER</a>
+            <a href="main.jsp" class="header2Button">MAIN</a>
+            <a  class="header2Button">CARDS</a>
+            <a  class="header2Button">TOP-UP</a>
+            <a  class="header2Button">EVENTS</a>
+            <a  class="header2Button">TRAVEL HISTORY</a>
+            <a  class="header2Button">TRIP PLANNER</a>
 
+            <a href="logOut.jsp" class="header2Button">LOGOUT</a>
         </div>
         <!--End of IOTBay Header-->
         <br>
