@@ -15,14 +15,7 @@
 
         <%
             User user = (User) session.getAttribute("user");
-            String updated = (String) session.getAttribute("updated");
-            String emptyErrUam = (String) session.getAttribute("emptyErrUam");
-            String existErr = (String) session.getAttribute("existErr");
             String emailErr = (String) session.getAttribute("emailErr");
-            String passErr = (String) session.getAttribute("passErr");
-            String UsernameErr = (String) session.getAttribute("UsernameErr");
-            String numberErr = (String) session.getAttribute("numberErr");
-            String phoneError = (String) session.getAttribute("phoneError");
         %>
         <!--End of Imports-->
         <<!--IOTBay Header-->
@@ -45,29 +38,14 @@
         
         <h1 class="h1">Are you sure you want to deactivate your account?</h1>
         
-        <form action="UserDeleteController">
+        <form action="UserDeleteController" method="post">
             <input type="hidden" id="email" name="email" value="${user.email}" readonly> <br>
-            <input type="hidden" id="name" name="name" value="${user.name}" readonly> <br>
-            <input type="hidden" id="password" name="password" value="${user.password}"><br>
-            <input type="hidden" id="ID" name="ID" value="${user.ID}" ><br>
-            <input type="hidden" id="role" name="role" value="${user.role}" ><br>
-            <input type="hidden" id="phone" name="phone" value="${user.phone}" ><br>
             <div class="deleteBox">
                 <a href="main.jsp" class="formButton">Cancel</a>
-                <input type="submit" value="Delete" class="formButton" >
+                <input type="submit" value="Delete" class="formButton">
             </div>
-            
         </form>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-
+        
 
         <!--End of Content -->
     </body>

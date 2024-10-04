@@ -53,13 +53,13 @@ public class LogOutServlet extends HttpServlet {
         try {
             //Email is still stored, so we can update the access log even though we are logged out. The Session is then
             //set to a 'null' user, meaning that we are now logged out. Session is invalidated as well and then index is loaded.
-            manager.addAccessLog(email, action, dateString, timeString);
+           // manager.addAccessLog(email, action, dateString, timeString);
             session.setAttribute("user", user);
             session.invalidate();
             request.getRequestDispatcher("index.jsp").include(request, response);
             
         } 
-        catch (SQLException | NullPointerException ex) {
+        catch (NullPointerException ex) {
 
         }
     }

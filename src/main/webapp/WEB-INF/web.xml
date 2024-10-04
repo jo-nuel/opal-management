@@ -20,10 +20,6 @@
         <servlet-class>uts.isd.controller.UserDeleteController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserDeleteServlet</servlet-name>
-        <servlet-class>uts.isd.controller.UserDeleteServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>RegisterStaffServlet</servlet-name>
         <servlet-class>uts.isd.controller.RegisterStaffServlet</servlet-class>
     </servlet>
@@ -39,7 +35,40 @@
         <servlet-name>LogOutServlet</servlet-name>
         <servlet-class>uts.isd.controller.LogOutServlet</servlet-class>
     </servlet>
+    
+    
+    <servlet>
+    <servlet-name>UserEventController</servlet-name>
+    <servlet-class>uts.isd.controller.UserEventController</servlet-class>
+</servlet>
 
+    <!-- Admin Servlets -->
+    <servlet>
+        <servlet-name>EventControllerServlet</servlet-name>
+        <servlet-class>uts.isd.controller.EventControllerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDeleteConfirmationServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AdminDeleteConfirmationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSelectUserServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AdminSelectUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDeleteUserServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AdminDeleteUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminListUsersServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AdminListUsersServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminModifyUserServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AdminModifyUserServlet</servlet-class>
+    </servlet>
+
+    <!-- Servlet Mappings -->
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
@@ -53,10 +82,6 @@
     <servlet-mapping>
         <servlet-name>UserUpdateServlet</servlet-name>
         <url-pattern>/UserUpdateServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UserDeleteServlet</servlet-name>
-        <url-pattern>/UserDeleteServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserDeleteController</servlet-name>
@@ -78,12 +103,40 @@
         <servlet-name>LogOutServlet</servlet-name>
         <url-pattern>/LogOutServlet</url-pattern>
     </servlet-mapping>
-        
+
+    <servlet-mapping>
+        <servlet-name>EventControllerServlet</servlet-name>
+        <url-pattern>/EventControllerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>UserEventController</servlet-name>
+    <url-pattern>/UserEventController</url-pattern>
+</servlet-mapping>
+    <!-- Admin Servlet Mappings -->
+    <servlet-mapping>
+        <servlet-name>AdminDeleteConfirmationServlet</servlet-name>
+        <url-pattern>/AdminDeleteConfirmationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDeleteUserServlet</servlet-name>
+        <url-pattern>/AdminDeleteUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminListUsersServlet</servlet-name>
+        <url-pattern>/AdminListUsersServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminModifyUserServlet</servlet-name>
+        <url-pattern>/AdminModifyUserServlet</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>AdminSelectUserServlet</servlet-name>
+        <url-pattern>/AdminSelectUserServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-
 
 </web-app>

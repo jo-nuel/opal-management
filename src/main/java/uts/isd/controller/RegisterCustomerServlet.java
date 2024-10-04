@@ -29,6 +29,7 @@ public class RegisterCustomerServlet extends HttpServlet {
         HttpSession session = request.getSession();
         UserValidator validator = new UserValidator();
         DBManager manager = (DBManager) session.getAttribute("manager");
+        User loggedInUser = (User) session.getAttribute("user");
 
         
         
@@ -42,8 +43,8 @@ public class RegisterCustomerServlet extends HttpServlet {
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         String ID = Integer.toString(random.nextInt(99999999) + 1);       
-        String role = "Customer";
-        String status = "Active";
+        String role = "user";
+        String status = "active";
                 
 
         
@@ -81,7 +82,7 @@ public class RegisterCustomerServlet extends HttpServlet {
             request.getRequestDispatcher("registerCustomer.jsp").include(request, response);
         } 
         
-        //If validation passes, the real code begins:
+        //If validation passes:
         else {
             try {
                 //Temp is initiated as a potenital user matching the email supplied.
@@ -95,11 +96,22 @@ public class RegisterCustomerServlet extends HttpServlet {
                 //Information is then passed onto main through the user variable.
                 //Access log is updated.
                 else {
+
                     manager.addUser(name, email, password, ID, status, role);
-                    User user = new User(name, email, password, ID, status, role);
-                    session.setAttribute("user", user);
-                    request.getRequestDispatcher("main.jsp").include(request, response);
-                    manager.addAccessLog(email, action, dateString, timeString);
+                    
+                   // manager.addAccessLog(email, action, dateString, timeString);
+
+                    // If the logged-in user is an admin, keep the admin session intact
+                    if ("admin".equals(loggedInUser.getRole())) {
+                        response.sendRedirect("adminMain.jsp"); // Redirect to admin main menu
+                    } else {
+                        // Normal user registration flow, set the new user in session
+                        User newUser = new User(name, email, password, ID, status, role);
+                        session.setAttribute("user", newUser);
+                        request.getRequestDispatcher("main.jsp").include(request, response);
+                    }
+                    
+                   
 
                 }
             } 

@@ -39,8 +39,11 @@ public class LoginServlet extends HttpServlet {
             // Use the DBManager to check if the user exists and retrieve the user info
             User user = manager.findUser(email, password);
             
-            if (user != null && "active".equals(user.getStatus())) {
+            if (user != null && "admin".equals(user.getRole()) && "active".equals(user.getStatus())) {
                 // User found and active
+                session.setAttribute("user", user);
+                response.sendRedirect("adminMain.jsp"); // Redirect to main page
+            } else if (user != null && "user".equals(user.getRole()) && "active".equals(user.getStatus())) {
                 session.setAttribute("user", user);
                 response.sendRedirect("main.jsp"); // Redirect to main page
             } else if (user != null && !"active".equals(user.getStatus())) {

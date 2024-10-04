@@ -26,6 +26,7 @@ public class RegisterStaffServlet extends HttpServlet {
         HttpSession session = request.getSession();
         UserValidator validator = new UserValidator();
         DBManager manager = (DBManager) session.getAttribute("manager");
+        User loggedInUser = (User) session.getAttribute("user"); // Check if current user is an admin
 
         
         
@@ -40,8 +41,8 @@ public class RegisterStaffServlet extends HttpServlet {
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         String ID = Integer.toString(random.nextInt(99999999) + 1);       
-        String role = "Staff";
-        String status = "Active";
+        String role = "admin";
+        String status = "active";
         
                 
 
@@ -56,7 +57,7 @@ public class RegisterStaffServlet extends HttpServlet {
         DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String dateString = currentDate.format(formatterDate);
         //Getting Action Variable for Access Log
-        String action = "Registered as a Staff";
+        String action = "Registered as a Admin";
         
         
         
@@ -94,16 +95,19 @@ public class RegisterStaffServlet extends HttpServlet {
                     session.setAttribute("createdError", "Email already in use.");
                     request.getRequestDispatcher("registerStaff.jsp").include(request, response);
                 } 
-                //If temp becomes null (query found no matching emails) then a new user is created using the supplied information.
-                //Information is then passed onto main through the user variable.
-                //Access log is updated.
                 else {
                     manager.addUser(name, email, password, ID, status, role);
-                    User user = new User(name, email, password, ID, status, role);
-                    session.setAttribute("user", user);
-                    request.getRequestDispatcher("main.jsp").include(request, response);
-                    manager.addAccessLog(email, action, dateString, timeString);
+                    //manager.addAccessLog(email, action, dateString, timeString);
 
+                    // Redirect to admin main menu if an admin is logged in
+                    if ("admin".equals(loggedInUser.getRole())) {
+                        response.sendRedirect("adminMain.jsp"); // Redirect to admin main menu
+                    } else {
+                        // Set the new user in session if normal user
+                        User newUser = new User(name, email, password, ID, status, role);
+                        session.setAttribute("user", newUser);
+                        request.getRequestDispatcher("main.jsp").include(request, response);
+                    }
                 }
             } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(RegisterStaffServlet.class.getName()).log(Level.SEVERE, null, ex);

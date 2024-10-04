@@ -27,7 +27,7 @@
             <a href="main.jsp" class="header2Button">MAIN</a>
             <a  class="header2Button">CARDS</a>
             <a  class="header2Button">TOP-UP</a>
-            <a  class="header2Button">EVENTS</a>
+            <a href="UserEventController" class="header2Button">EVENTS</a>
             <a  class="header2Button">TRAVEL HISTORY</a>
             <a  class="header2Button">TRIP PLANNER</a>
 
@@ -81,9 +81,12 @@
                 </a>
                 
           
-                <a class="mainButton" href="UserDeleteServlet"?email='<%= user.getEmail()%>' &name='<%= user.getName()%>' &password='<%= user.getPassword()%>' &ID='<%= user.getID()%>' &status='<%= user.getStatus()%>' &role='<%= user.getRole()%>' ">
-                    <p>Deactivate account</p>
-                </a>
+                <form action="UserDeleteController" method="post">
+                    <input type="hidden" name="email" value="${user.email}">
+                    <button type="submit" class="mainButton">
+                        <p>Delete account</p>
+                    </button>
+                </form>
                  <form action="AccessLogServlet">
                     <button type="submit" name="email" value="${user.email}" class="mainButton">   Access Logs </button>
                 </form>

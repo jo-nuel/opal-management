@@ -76,13 +76,17 @@
 
             
             <div class="buttonContainer">
-                <a class="mainButton" href="UserEditServlet"?email='<%= user.getEmail()%>' &name='<%= user.getName()%>' &password='<%= user.getPassword()%>' &ID='<%= user.getID()%>' &status='<%= user.getStatus()%>' &role='<%= user.getRole()%>' ">
+                <a class="mainButton" href="userEdit.jsp">
                     <p>Edit details</p>
                 </a>
+                
           
-                <a class="mainButton" href="UserDeleteServlet"?email='<%= user.getEmail()%>' &name='<%= user.getName()%>' &password='<%= user.getPassword()%>' &ID='<%= user.getID()%>' &status='<%= user.getStatus()%>' &role='<%= user.getRole()%>' ">
-                    <p>Deactivate account</p>
-                </a>
+                <form action="UserDeleteController" method="post">
+                    <input type="hidden" name="email" value="${user.email}">
+                    <button type="submit" class="mainButton">
+                        <p>Delete account</p>
+                    </button>
+                </form>
                  <form action="AccessLogServlet">
                     <button type="submit" name="email" value="${user.email}" class="mainButton">   Access Logs </button>
                 </form>

@@ -18,44 +18,24 @@ import uts.isd.dao.DBManager;
 public class UserDeleteController extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        UserValidator validator = new UserValidator();
         DBManager manager = (DBManager) session.getAttribute("manager");
-
         
-        
-        //Get variables from session.
-        //Status can manually be set as we know they are active coming into this.
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String ID = request.getParameter("ID");
-        String status = "Inactive";
-        String role = request.getParameter("role");
-       // String phone = request.getParameter("phone");
-
-        //New user created with the old details.
-        User user = new User(name, email, password, ID, status, role);
-        
-        validator.clear(session);
-            try {
-                //Double check the user exits. If they do exist, use the updateUser function to update the status to Inactive.
-                if (user != null) {
-                    session.setAttribute("user", user);
-                    manager.updateUser(name, email, password);
-                    session.setAttribute("user", user);
-                    session.invalidate();
-                    request.getRequestDispatcher("index.jsp").include(request, response);
-                    
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(UserUpdateServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            response.sendRedirect("userDelete.jsp");
+        String email = request.getParameter("email");  // Get the email from the hidden input
+        try {
+            manager.deleteUser(email);
+            session.invalidate();
+            response.sendRedirect("index.jsp");
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDeleteController.class.getName()).log(Level.SEVERE, null, ex);
+            session.setAttribute("dbError", "A database error occurred while deleting the account.");     
         }
 
+        
     }
+
+}
 
 
 
