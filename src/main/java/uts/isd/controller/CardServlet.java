@@ -1,3 +1,5 @@
-public class CardServlet{
-    
+package uts.isd.controller;
+
+public class CardServlet {
+
 }
