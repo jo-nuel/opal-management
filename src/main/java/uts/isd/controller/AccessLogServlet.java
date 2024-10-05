@@ -35,7 +35,7 @@ public class AccessLogServlet extends HttpServlet {
         //Store results in an arrayList called accesslogs.
         ArrayList<AccessLog> accesslogs;
         
-        try {
+      /*  try {
             //Use DBManager function that gets all rows form an email and store it in the accesslogs list.
             accesslogs = manager.accessEmailSearch(email);
             System.out.println(accesslogs.size());
@@ -46,6 +46,7 @@ public class AccessLogServlet extends HttpServlet {
         catch (SQLException | NullPointerException ex) {
             
         }
+        */
     }
 }
 
