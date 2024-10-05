@@ -60,16 +60,11 @@ public class TestUserDB {
                 case 'D':
                     testDelete();
                     break;
-<<<<<<< HEAD
-               // case 'L':
-               //     testAccessLog();
-                //    break;
-=======
+
               //  case 'L':
 
                 //    testAccessLog();
                //     break;
->>>>>>> b289568edba8123bc82d3172a891437d2bdf92fe
                 case 'S':
                     showAll();
                     break;
@@ -166,12 +161,9 @@ public class TestUserDB {
                     Logger.getLogger(TestUserDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-<<<<<<< HEAD
-    /*
-=======
+
 
  /*   
->>>>>>> b289568edba8123bc82d3172a891437d2bdf92fe
     private void testAccessLog(){
         Date date = Calendar.getInstance().getTime();  
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
@@ -194,10 +186,5 @@ public class TestUserDB {
         */
         
     }
-<<<<<<< HEAD
-
-=======
-        */ 
 
 }
->>>>>>> b289568edba8123bc82d3172a891437d2bdf92fe
