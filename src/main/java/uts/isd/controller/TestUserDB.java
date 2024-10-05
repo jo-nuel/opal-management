@@ -61,6 +61,7 @@ public class TestUserDB {
                     testDelete();
                     break;
               //  case 'L':
+
                 //    testAccessLog();
                //     break;
                 case 'S':
@@ -159,6 +160,7 @@ public class TestUserDB {
                     Logger.getLogger(TestUserDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
  /*   
     private void testAccessLog(){
         Date date = Calendar.getInstance().getTime();  
@@ -182,5 +184,6 @@ public class TestUserDB {
         
         
     }
-    */
+        */ 
+
 }

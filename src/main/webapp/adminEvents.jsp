@@ -9,54 +9,107 @@
 <html>
 <head>
     <title>Admin Events</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
     <style>
+        /* Styling the add button to match existing styles */
         .addButtonContainer {
             text-align: right;
             margin-bottom: 10px;
         }
 
         .addButton {
-            padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: #2D86A7;
             color: white;
+            padding: 10px 20px;
             border: none;
-            cursor: pointer;
+            border-radius: 5px;
             text-decoration: none;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
         }
 
-        table {
+        .addButton:hover {
+            background-color: #65BFE1;
+        }
+
+        /* Table styling */
+        .eventTable {
             width: 100%;
             border-collapse: collapse;
+            margin: 20px auto;
+            background-color: #87CEEB;
+            font-family: Arial, sans-serif;
         }
 
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
+        .eventTable th, .eventTable td {
+            border: 1px solid #2D86A7;
+            padding: 10px;
             text-align: left;
         }
 
-        th {
-            background-color: #f2f2f2;
+        .eventTable th {
+            background-color: #2D86A7;
+            color: white;
         }
 
-        button {
-            padding: 5px 10px;
-            background-color: #f44336;
+        .actionButton {
+            background-color: #2D86A7;
             color: white;
+            padding: 5px 10px;
             border: none;
             cursor: pointer;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+        }
+
+        .actionButton:hover {
+            background-color: #65BFE1;
+        }
+
+        .deleteButton {
+            background-color: #f44336;
+        }
+
+        .deleteButton:hover {
+            background-color: #e53935;
+        }
+
+        /* Back button styling */
+        .backButtonContainer {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .backButton {
+            background-color: #2D86A7;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+        }
+
+        .backButton:hover {
+            background-color: #65BFE1;
         }
     </style>
 </head>
 <body>
-    <h1>Manage Events</h1>
-
+    <!-- Header Section -->
+    <div class="header">
+        <p class="headerText">Manage Events</p>
+    </div>
+    <br>
     <!-- Add Event Button (Top-right corner) -->
     <div class="addButtonContainer">
         <a href="addEventForm.jsp" class="addButton">Add New Event</a>
     </div>
+    <br>
 
-    <table>
+    <!-- Events Table -->
+    <table class="eventTable">
         <tr>
             <th>ID</th>
             <th>Name</th>
@@ -71,27 +124,31 @@
                 <td>${event.category}</td>
                 <td>${event.description}</td>
                 <td>
-                    <a href="EventControllerServlet?action=edit&id=${event.id}">Edit</a>
+                    <!-- Edit Button -->
+                    <a href="EventControllerServlet?action=edit&id=${event.id}" class="actionButton">Edit</a>
+
+                    <!-- Delete Button with Confirmation -->
                     <form action="EventControllerServlet" method="post" style="display:inline;" onsubmit="return confirmDelete(${event.id})">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="${event.id}">
-                        <button type="submit">Delete</button>
+                        <button type="submit" class="actionButton deleteButton">Delete</button>
                     </form>
-
-                    <!-- JavaScript for the confirmation popup -->
-                    <script type="text/javascript">
-                        function confirmDelete(eventId) {
-                            return confirm("Are you sure you want to delete event with ID " + eventId + "?");
-                        }
-                    </script>
-
                 </td>
             </tr>
         </c:forEach>
     </table>
-    <!-- Go Back Button (Bottom of the page) -->
+
+    <!-- Go Back Button -->
     <div class="backButtonContainer">
         <a href="adminMain.jsp" class="backButton">Go Back to Admin Menu</a>
     </div>
+
+    <!-- JavaScript for the confirmation popup -->
+    <script type="text/javascript">
+        function confirmDelete(eventId) {
+            return confirm("Are you sure you want to delete event with ID " + eventId + "?");
+        }
+    </script>
+
 </body>
 </html>
