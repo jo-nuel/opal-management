@@ -7,85 +7,89 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Event List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+    <head>
+        <title>Available Events</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">
+        <style>
+            .container {
+                width: 90%; /* Make the container wider */
+                margin: 0 auto;
+            }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+            .mainTable {
+                width: 100%; /* Set table width to 100% */
+                margin: 20px 0;
+                border-collapse: collapse; /* Remove gaps between cells */
+            }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+            .mainTable th, .mainTable td {
+                border: 1px solid #2D86A7;
+                padding: 12px;
+                text-align: left;
+                font-size: 18px;
+            }
 
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
+            .mainTable th {
+                background-color: #2D86A7;
+                color: white;
+            }
 
-        th {
-            background-color: #f2f2f2;
-        }
+            .mainTable td {
+                background-color: #87CEEB;
+            }
 
-        .container {
-            width: 80%;
-            margin: 0 auto;
-        }
+            .buttonContainer {
+                text-align: center;
+                margin-top: 20px;
+            }
 
-        .buttonContainer {
-            text-align: center;
-            margin-top: 20px;
-        }
+            .mainButton {
+                padding: 10px 30px; /* Normal size for the button */
+                font-size: 18px;
+            }
+        </style>
+    </head>
+    <body>
 
-        .backButton {
-            padding: 10px 20px;
-            background-color: #2196F3;
-            color: white;
-            border: none;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .backButton:hover {
-            background-color: #1976D2;
-        }
-
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h1>Available Events</h1>
-
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Description</th>
-            </tr>
-            <c:forEach var="event" items="${userEvents}">
-                <tr>
-                    <td>${event.id}</td>
-                    <td>${event.name}</td>
-                    <td>${event.category}</td>
-                    <td>${event.description}</td>
-                </tr>
-            </c:forEach>
-        </table>
-
-        <!-- Go Back Button -->
-        <div class="buttonContainer">
-            <a href="main.jsp" class="backButton">Back to Main Menu</a>
+        <!-- Opal Management System Header -->
+        <div class="header">
+            <p class="headerText">Opal Management System</p>
         </div>
-    </div>
 
-</body>
+        <!-- Start of Content -->
+        <div class="container">
+            <h1 class="h1">Available Events</h1>
+
+            <!-- Event Table -->
+            <table class="mainTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Event Name</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="event" items="${userEvents}">
+                        <tr>
+                            <td>${event.id}</td>
+                            <td>${event.name}</td>
+                            <td>${event.category}</td>
+                            <td>${event.description}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+
+            <!-- Back Button -->
+            <div class="buttonContainer">
+                <a href="main.jsp" class="mainButton">Back to Main Menu</a>
+            </div>
+        </div>
+
+        <!-- End of Content -->
+    </body>
 </html>
