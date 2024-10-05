@@ -10,8 +10,6 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-pool:
-  vmImage: ubuntu-latest
 
 # Steps to build and test your project
 steps:
