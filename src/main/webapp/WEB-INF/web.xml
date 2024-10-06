@@ -138,5 +138,43 @@
             30
         </session-timeout>
     </session-config>
+    <!-- AddOpalCardServlet -->
+    <servlet>
+        <servlet-name>AddOpalCardServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AddOpalCardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddOpalCardServlet</servlet-name>
+        <url-pattern>/AddOpalCardServlet</url-pattern>
+    </servlet-mapping>
 
+    <!-- DeleteOpalCardServlet -->
+    <servlet>
+        <servlet-name>DeleteOpalCardServlet</servlet-name>
+        <servlet-class>uts.isd.controller.DeleteOpalCardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteOpalCardServlet</servlet-name>
+        <url-pattern>/DeleteOpalCardServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- RenameOpalCardServlet -->
+    <servlet>
+        <servlet-name>RenameOpalCardServlet</servlet-name>
+        <servlet-class>uts.isd.controller.RenameOpalCardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RenameOpalCardServlet</servlet-name>
+        <url-pattern>/RenameOpalCardServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- ListOpalCardsServlet -->
+    <servlet>
+        <servlet-name>ListOpalCardsServlet</servlet-name>
+        <servlet-class>uts.isd.controller.ListOpalCardsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListOpalCardsServlet</servlet-name>
+        <url-pattern>/ListOpalCardsServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
