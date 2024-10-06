@@ -35,25 +35,11 @@
         <servlet-name>LogOutServlet</servlet-name>
         <servlet-class>uts.isd.controller.LogOutServlet</servlet-class>
     </servlet>
-    
-    
-    <servlet>
-    <servlet-name>UserEventController</servlet-name>
-    <servlet-class>uts.isd.controller.UserEventController</servlet-class>
-</servlet>
 
     <!-- Admin Servlets -->
     <servlet>
-        <servlet-name>EventControllerServlet</servlet-name>
-        <servlet-class>uts.isd.controller.EventControllerServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AdminDeleteConfirmationServlet</servlet-name>
         <servlet-class>uts.isd.controller.AdminDeleteConfirmationServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AdminSelectUserServlet</servlet-name>
-        <servlet-class>uts.isd.controller.AdminSelectUserServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminDeleteUserServlet</servlet-name>
@@ -104,14 +90,6 @@
         <url-pattern>/LogOutServlet</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>EventControllerServlet</servlet-name>
-        <url-pattern>/EventControllerServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-    <servlet-name>UserEventController</servlet-name>
-    <url-pattern>/UserEventController</url-pattern>
-</servlet-mapping>
     <!-- Admin Servlet Mappings -->
     <servlet-mapping>
         <servlet-name>AdminDeleteConfirmationServlet</servlet-name>
@@ -129,10 +107,7 @@
         <servlet-name>AdminModifyUserServlet</servlet-name>
         <url-pattern>/AdminModifyUserServlet</url-pattern>
     </servlet-mapping>
-        <servlet-mapping>
-        <servlet-name>AdminSelectUserServlet</servlet-name>
-        <url-pattern>/AdminSelectUserServlet</url-pattern>
-    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30
