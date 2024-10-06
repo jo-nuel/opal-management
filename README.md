@@ -57,7 +57,6 @@ CREATE TABLE access (
 );
 
 SQL QUERY FOR CARD LINKING AND SAVED TRIP
--- ocms.opalcard definition
 
 CREATE TABLE `opalcard` (
   `cardID` int NOT NULL AUTO_INCREMENT,
@@ -71,8 +70,6 @@ CREATE TABLE `opalcard` (
   KEY `fk_user_opalcard` (`userID`),
   CONSTRAINT `fk_user_opalcard` FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- ocms.savedtrip definition
 
 CREATE TABLE `savedtrip` (
   `tripID` int NOT NULL AUTO_INCREMENT,
