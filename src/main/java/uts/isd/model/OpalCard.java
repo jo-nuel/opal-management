@@ -7,19 +7,21 @@ public class OpalCard implements Serializable {
     private int cardID;
     private String cardNumber;
     private String cardName;
-    private String cardSecurityCode;
+    private double balance;
     private String cardStatus;
-    private int userID;
+    private String userID;
+    private String cardSecurityCode;
 
-    // Constructor
-    public OpalCard(int cardID, String cardNumber, String cardName, String cardSecurityCode, String cardStatus,
-            int userID) {
+    // Constructor (adjusted order to match database table)
+    public OpalCard(int cardID, String cardNumber, String cardName, double balance, String cardStatus, String userID,
+            String cardSecurityCode) {
         this.cardID = cardID;
         this.cardNumber = cardNumber;
         this.cardName = cardName;
-        this.cardSecurityCode = cardSecurityCode;
+        this.balance = balance;
         this.cardStatus = cardStatus;
         this.userID = userID;
+        this.cardSecurityCode = cardSecurityCode;
     }
 
     // Getters
@@ -35,16 +37,20 @@ public class OpalCard implements Serializable {
         return cardName;
     }
 
-    public String getCardSecurityCode() {
-        return cardSecurityCode;
+    public double getBalance() {
+        return balance;
     }
 
     public String getCardStatus() {
         return cardStatus;
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return userID;
+    }
+
+    public String getCardSecurityCode() {
+        return cardSecurityCode;
     }
 
     // Setters
@@ -60,15 +66,19 @@ public class OpalCard implements Serializable {
         this.cardName = cardName;
     }
 
-    public void setCardSecurityCode(String cardSecurityCode) {
-        this.cardSecurityCode = cardSecurityCode;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     public void setCardStatus(String cardStatus) {
         this.cardStatus = cardStatus;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    public void setCardSecurityCode(String cardSecurityCode) {
+        this.cardSecurityCode = cardSecurityCode;
     }
 }
