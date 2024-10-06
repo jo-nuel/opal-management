@@ -46,6 +46,7 @@ public class ListOpalCardsServlet extends HttpServlet {
             }
         } else {
             session.setAttribute("error", "User is not logged in.");
+            System.out.println("User is not logged in!");
             response.sendRedirect("login.jsp");
         }
     }

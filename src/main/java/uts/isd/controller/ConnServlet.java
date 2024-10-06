@@ -49,7 +49,9 @@ public class ConnServlet extends HttpServlet {
                 opalCardDAO = new OpalCardDAO(conn);
                 savedTripDAO = new SavedTripDAO(conn);
                 session.setAttribute("opalCardDAO", opalCardDAO);
+                System.out.println("opalCardDAO is set and isnt null");
                 session.setAttribute("savedTripDAO", savedTripDAO);
+                System.out.println("savedTripDAO is set and isnt null");
 
             } catch (SQLException ex) {
                 Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);

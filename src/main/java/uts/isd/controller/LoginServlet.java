@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        
+
         // Initialize with some users (you can add more if needed)
         users.add(new User("hello", "hello@gmail.com", "hello1234", "12345", "Active", "customer"));
     }
@@ -38,13 +38,16 @@ public class LoginServlet extends HttpServlet {
         try {
             // Use the DBManager to check if the user exists and retrieve the user info
             User user = manager.findUser(email, password);
-            
+
             if (user != null && "admin".equals(user.getRole()) && "active".equals(user.getStatus())) {
                 // User found and active
                 session.setAttribute("user", user);
+                session.setAttribute("userID", String.valueOf(user.getID()));
                 response.sendRedirect("adminMain.jsp"); // Redirect to main page
             } else if (user != null && "user".equals(user.getRole()) && "active".equals(user.getStatus())) {
                 session.setAttribute("user", user);
+                session.setAttribute("userID", String.valueOf(user.getID()));
+                System.out.println("User ID: " + session.getAttribute("userID"));
                 response.sendRedirect("main.jsp"); // Redirect to main page
             } else if (user != null && !"active".equals(user.getStatus())) {
                 // User found but inactive
