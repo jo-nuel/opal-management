@@ -56,4 +56,31 @@ CREATE TABLE access (
     FOREIGN KEY (email) REFERENCES users(email)
 );
 
+SQL QUERY FOR CARD LINKING AND SAVED TRIP
+-- ocms.opalcard definition
 
+CREATE TABLE `opalcard` (
+  `cardID` int NOT NULL AUTO_INCREMENT,
+  `cardNumber` varchar(20) NOT NULL,
+  `cardName` varchar(100) DEFAULT NULL,
+  `balance` decimal(10,2) NOT NULL,
+  `cardStatus` enum('ACTIVE','DISABLED') DEFAULT 'ACTIVE',
+  `userID` varchar(10) DEFAULT NULL,
+  `cardSecurityCode` varchar(10) NOT NULL,
+  PRIMARY KEY (`cardID`),
+  KEY `fk_user_opalcard` (`userID`),
+  CONSTRAINT `fk_user_opalcard` FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ocms.savedtrip definition
+
+CREATE TABLE `savedtrip` (
+  `tripID` int NOT NULL AUTO_INCREMENT,
+  `tripName` varchar(100) DEFAULT NULL,
+  `startLocation` varchar(255) NOT NULL,
+  `destination` varchar(255) NOT NULL,
+  `userID` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`tripID`),
+  KEY `fk_user_savedtrip` (`userID`),
+  CONSTRAINT `fk_user_savedtrip` FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
