@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uts.isd.model.OpalCard"%>
 <%@page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -43,6 +44,17 @@
             text-align: center;
             margin: 20px 0;
         }
+        .backButton {
+            background-color: #2D86A7;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        .backButton:hover {
+            background-color: #65BFE1;
+        }
     </style>
 </head>
 <body>
@@ -75,7 +87,7 @@
                                 <input type="text" name="newCardName" placeholder="Rename card">
                                 <button type="submit" class="actionButton">Rename</button>
                             </form>
-                            <form action="DeleteOpalCardServlet" method="post" style="display:inline;">
+                            <form action="confirmDelete.jsp" method="post" style="display:inline;">
                                 <input type="hidden" name="cardID" value="${card.cardID}">
                                 <button type="submit" class="actionButton">Remove</button>
                             </form>
@@ -87,6 +99,11 @@
 
         <div class="buttonContainer">
             <a href="addCard.jsp" class="mainButton">Add New Opal Card</a>
+        </div>
+
+        <!-- Back to Main Page Button -->
+        <div class="buttonContainer">
+            <a href="main.jsp" class="backButton">Back to Main Page</a>
         </div>
     </div>
 </body>

@@ -52,6 +52,9 @@
                 <label for="cardName">Card Nickname:</label>
                 <input type="text" id="cardName" name="cardName">
 
+                <label for="balance">Initial Balance:</label>
+                <input type="number" id="balance" name="balance" step="0.01" required>
+                
                 <button type="submit">Add Card</button>
             </form>
         </div>

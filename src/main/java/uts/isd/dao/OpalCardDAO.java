@@ -13,32 +13,34 @@ public class OpalCardDAO {
 
     // Method to add a new Opal card
     public void addOpalCard(OpalCard card) throws SQLException {
-        String query = "INSERT INTO opalcard (cardNumber, cardName, cardSecurityCode, cardStatus, userID) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO opalcard (cardNumber, cardName, balance, cardStatus, userID, cardSecurityCode) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, card.getCardNumber());
             stmt.setString(2, card.getCardName());
-            stmt.setString(3, card.getCardSecurityCode()); // Added security code
+            stmt.setDouble(3, card.getBalance());
             stmt.setString(4, card.getCardStatus());
-            stmt.setInt(5, card.getUserID());
+            stmt.setString(5, card.getUserID());
+            stmt.setString(6, card.getCardSecurityCode());
             stmt.executeUpdate();
         }
     }
 
     // Method to get all cards for a specific user account
-    public ArrayList<OpalCard> getCardsByUserId(int userId) throws SQLException {
+    public ArrayList<OpalCard> getCardsByUserId(String userId) throws SQLException {
         ArrayList<OpalCard> cards = new ArrayList<>();
         String query = "SELECT * FROM opalcard WHERE userID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, userId);
+            stmt.setString(1, userId); // userID is a String
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 OpalCard card = new OpalCard(
                         rs.getInt("cardID"),
                         rs.getString("cardNumber"),
                         rs.getString("cardName"),
-                        rs.getString("cardSecurityCode"),
+                        rs.getDouble("balance"),
                         rs.getString("cardStatus"),
-                        rs.getInt("userID"));
+                        rs.getString("userID"),
+                        rs.getString("cardSecurityCode"));
                 cards.add(card);
             }
         }
