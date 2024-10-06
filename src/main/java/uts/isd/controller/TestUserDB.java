@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package uts.isd.controller;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -17,7 +18,6 @@ import java.util.logging.Logger;
 import uts.isd.dao.DBConnector;
 import uts.isd.dao.DBManager;
 import uts.isd.model.User;
-
 
 public class TestUserDB {
     private static Scanner in = new Scanner(System.in);
@@ -61,10 +61,10 @@ public class TestUserDB {
                     testDelete();
                     break;
 
-              //  case 'L':
+                // case 'L':
 
-                //    testAccessLog();
-               //     break;
+                // testAccessLog();
+                // break;
                 case 'S':
                     showAll();
                     break;
@@ -121,8 +121,7 @@ public class TestUserDB {
             if (db.checkUser(email, password)) {
                 System.out.print("User name: ");
                 String name = in.nextLine();
-            
-                
+
                 db.updateUser(name, email, password);
             } else {
                 System.out.println("User does not exist");
@@ -148,43 +147,41 @@ public class TestUserDB {
             Logger.getLogger(TestUserDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void showAll(){
+
+    private void showAll() {
         try {
             ArrayList<User> users = db.fetchUsers();
             System.out.println("Students Table:");
             users.stream().forEach((user) -> {
-                System.out.printf("%-20s %-30s %-20s %-10s\n",user.getName(), user.getEmail(), user.getPassword(), user.getID(), user.getStatus(), user.getRole());
+                System.out.printf("%-20s %-30s %-20s %-10s\n", user.getName(), user.getEmail(), user.getPassword(),
+                        user.getID(), user.getStatus(), user.getRole());
             });
             System.out.println();
-            } catch (SQLException ex){
-                    Logger.getLogger(TestUserDB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-
- /*   
-    private void testAccessLog(){
-        Date date = Calendar.getInstance().getTime();  
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
-        String stringDate = dateFormat.format(date);  
-
-        System.out.print("Time: ");
-        String time = in.nextLine();
-        System.out.print("Action: ");
-        String action = in.nextLine();
-        System.out.print("Email: ");
-        String email = in.nextLine();
-        
-        
-        try {
-            db.addAccessLog(stringDate, time, action, email);
         } catch (SQLException ex) {
             Logger.getLogger(TestUserDB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Access Log added");
-        */
-        
     }
+
+    /*
+     * private void testAccessLog(){
+     * Date date = Calendar.getInstance().getTime();
+     * DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+     * String stringDate = dateFormat.format(date);
+     * 
+     * System.out.print("Time: ");
+     * String time = in.nextLine();
+     * System.out.print("Action: ");
+     * String action = in.nextLine();
+     * System.out.print("Email: ");
+     * String email = in.nextLine();
+     * 
+     * 
+     * try {
+     * db.addAccessLog(stringDate, time, action, email);
+     * } catch (SQLException ex) {
+     * Logger.getLogger(TestUserDB.class.getName()).log(Level.SEVERE, null, ex);
+     * }
+     * System.out.println("Access Log added");
+     */
 
 }
