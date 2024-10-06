@@ -62,14 +62,14 @@ CREATE TABLE `opalcard` (
   `cardID` int NOT NULL AUTO_INCREMENT,
   `cardNumber` varchar(20) NOT NULL,
   `cardName` varchar(100) DEFAULT NULL,
-  `balance` decimal(10,2) NOT NULL,
+  `balance` double NOT NULL,
   `cardStatus` enum('ACTIVE','DISABLED') DEFAULT 'ACTIVE',
   `userID` varchar(10) DEFAULT NULL,
   `cardSecurityCode` varchar(10) NOT NULL,
   PRIMARY KEY (`cardID`),
   KEY `fk_user_opalcard` (`userID`),
   CONSTRAINT `fk_user_opalcard` FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `savedtrip` (
   `tripID` int NOT NULL AUTO_INCREMENT,
