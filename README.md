@@ -3,11 +3,11 @@
 ## 41026 Advanced Software Development - Spring 2024
 
 ## Group 5:
-- Jerry Fu
-- Louis Daniel Effendi
-- Brandon Maverick Winarto
-- Jonathan Immanuel
-- Fatin Adas
+- 24821466 Jerry Fu
+- 14545317 Louis Daniel Effendi 
+- 14545331 Brandon Maverick Winarto 
+- 14487692 Jonathan Immanuel 
+- 24506800 Fatin Adas 
 
 # IMPORTANT
 For the user [go here!](#Users-Manual)
@@ -24,12 +24,22 @@ Welcome to the Opal Card Management System! This platform allows you to efficien
 - A modern web browser (Firefox, Brave, Florp, Arc, Chrome)
 - Internet connection
 
-#### Login:
+We offer our current features:
+- [Account Management](#accounts)
+- [Managing Your Opal Card](#managing-your-opal-card)
+- [Event Management](#events)
+- [Contacting Support](#contacting-support)
+- [FAQ](#faq)
+
+
+## Accounts 
+```(Fatin - F101)```
+### Login:
 1. On the homepage, click Login.
 2. Enter your email and password.
 3. Click Submit to log in.
 
-#### Or Register:
+### Or Register:
 1. On the homepage, click Register if you are a new user.
 2. Fill out the required fields, such as name, email, and password.
 3. Submit your details to log in with your new account.
@@ -37,36 +47,49 @@ Welcome to the Opal Card Management System! This platform allows you to efficien
 ### You're set!
 From here, you can start using our management system. 
 
-We offer our current features:
-- [Managing Your Opal Card](#managing-your-opal-card)
-- [Events!](#events)
-- [Contacting Support](#contacting-support)
-- [FAQ](#faq)
+## Managing your opal card 
+```(Jonathan - F102)```
 
-## Managing your opal card
 // Please fill in
 
-## Events
+## Events 
+```(Fatin - F109)```
+
 // Please fill in
 
-## Contacting Support
-You can contact us! We're callable at `+61 2 8806 0230`, you can email us at `international@uts.edu.au`, or finally, you can simply walk right in at `15 Broadway Ultimo, NSW 2007`. Alternatively, send us a message with your name, email and message and we'll respond as soon as possible!
+## Contacting Support 
+```(Jerry - F110)```
 
-## FAQ
-This webpage has multilingual support for english, chinese and vietnamese! More soon to be added. 
+You can contact us! 
+
+We're phone is `+61 2 8806 0230`, you can also email us at `international@uts.edu.au`, or finally, you can simply walk right in at `15 Broadway Ultimo, NSW 2007`.
+
+Alternatively, send us a message with your name, email and message and we'll respond as soon as possible!
+
+## FAQ 
+```(Jerry - F110)```
+
+Our FAQ has multilingual support for English (EN), 中文 (ZH) and Tiếng Việt (VN). More, soon to be added! 
 
 ---
 
 # Engineers Manual
 
-## Notes: 
-- you can use `programNameExample -version` to check if you have something installed, Java, Maven, MySQL, Git, etc etc.
-- Whenever you make a change to the code/project/website and would like to see it, make sure you [run these commands](#mvn-commands). 
-- Everything inside of `~/target` is entirely temporary, this gets cleansed every single time `mvn clean package` is ran. Always adjust from `~/src`
-- The staff key for staff registration is : `staff`
+## Repo Structure:
+Our repo follows the Model View Controller (MVC) structure. to ensure separation between data, user interface, and business logic.
+- **Model**: Contains classes responsible for interacting with the database (`src/main/java/uts/isd/dao` folder). Handles database interactions, executing queries, and managing data through DAO classes.
 
-###  RUNNING THE PROJECT
-- Download or clone the project, make sure to be logged into github. Use `git clone https://github.com/jo-nuel/opal-management.git` or download it as .zip/.tar.gz and extract it into your directory. 
+```Example: DBManager.java, ContactDAO.java, OpalCardDAO.java.```
+
+- **View**: Consists of JSP files that define the UI and pages presented to the user (`src/main/webapp` folder). Contains JSP files for user-facing pages and CSS for styling.
+
+```Example: main.jsp, login.jsp, faq.jsp, contact.jsp.```
+
+- **Controller**: Contains servlets that handle requests and control the flow between the Model and View (`src/main/java/uts/controller` folder). Servlet classes handle requests, coordinate between the Model and View.
+
+```Example: LoginServlet.java, ContactServlet.java, AdminListUsersServlet.java.```
+
+##  RUNNING THE PROJECT
 
 ### Pre-requisites
 - Install JDK 8, Maven, MySQL installed. 
@@ -80,12 +103,23 @@ protected String dbuser = "root";// db root user # default
 protected String dbpass = "useruser"; // db root password # hopefully you set it as useruser, if not, adjust
 ```
 
+### Initialising
+- Download or clone the project, make sure to be logged into github. Use `git clone https://github.com/jo-nuel/opal-management.git` or download it as .zip/.tar.gz and extract it into your directory.
+- Open up MySQL, log into your root account, preferably `root` with `useruser`. Insert the MySQL statements found [here.](#database-setup)
+- Open the project in your chosen IDE. [Run these commands](#mvn-commands) to start.  
+
+### Misc Notes: 
+- you can use `programNameExample -version` to check if you have something installed, Java, Maven, MySQL, Git, etc etc.
+- Whenever you make a change to the code/project/website and would like to see it, make sure you [run these commands again](#mvn-commands). 
+- Everything inside of `~/target` is entirely temporary, this gets cleansed every single time `mvn clean package` is ran. Always adjust from `~/src`
+- The staff key for staff registration is : `staff`
+
 ### `mvn` commands
 TO SEE CHANGES: In the terminal run these commands every time:
 - `mvn clean package` # Rebuilds/recompiles the website
 - `mvn jetty:run` # Runs the server/Starts the website
 
-## DATABASE NOTES 
+## DATABASE SETUP
 If you initialise a new database and use it, please add it here. Make sure you have MySQL downloaded and setup with a root account. To setup the database we're all using, run the following commands in either Workbench or the terminal.
 
 - Create the ocms database:
@@ -134,7 +168,7 @@ CREATE TABLE access (
 );
 ```
 
-### SQL QUERY FOR CARD LINKING AND SAVED TRIP
+### CARD LINKING AND SAVED TRIP
 
 - Create table:
 ```sql
@@ -166,7 +200,7 @@ CREATE TABLE `savedtrip` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ```
 
-### SQL QUERY, ALLOW USERS TO SUBMIT MESSAGES TO US, THE CONTACT US
+### MESSAGE SUBMISSION, THE CONTACT US
 
 - Create table:
 ```sql
