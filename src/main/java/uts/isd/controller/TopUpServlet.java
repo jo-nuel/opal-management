@@ -25,6 +25,7 @@ public class TopUpServlet extends HttpServlet {
             dao.topUpBalance(cardNumber, topUpAmount);
             request.setAttribute("message", "Balance successfully topped up!");
         } 
+            
         catch (SQLException e) 
         {
             e.printStackTrace();
