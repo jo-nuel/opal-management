@@ -31,6 +31,10 @@
             <a  class="header2Button">TRAVEL HISTORY</a>
             <a  class="header2Button">TRIP PLANNER</a>
 
+            <a href="faq-en.jsp" class="header2Button">F.A.Q</a>
+            <a href="contact.jsp" class="header2Button">CONTACT US</a>
+
+
             <a href="logOut.jsp" class="header2Button">LOGOUT</a>
         </div>
         <!--End of IOTBay Header-->
