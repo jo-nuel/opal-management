@@ -113,3 +113,16 @@ CREATE TABLE `savedtrip` (
   KEY `fk_user_savedtrip` (`userID`),
   CONSTRAINT `fk_user_savedtrip` FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+```
+
+### SQL QUERY, ALLOW USERS TO SUBMIT MESSAGES TO US:
+```sql
+CREATE TABLE contact_submissions (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    message TEXT NOT NULL,
+    submission_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+);
+```
