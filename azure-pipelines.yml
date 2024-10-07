@@ -5,15 +5,25 @@
 
 trigger:
 - main
+- fatin
 
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+# Steps to build and test your project
+steps:
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'   # Change this based on your project's structure
+    goals: 'clean install'    # This will build your project
+  displayName: 'Build the Project'
+
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'test'             # This runs the unit tests
+  displayName: 'Run Unit Tests'
+
+- script: echo "Build and Tests Completed"
+  displayName: 'Final Build Step'
