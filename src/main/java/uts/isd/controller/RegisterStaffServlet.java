@@ -100,7 +100,7 @@ public class RegisterStaffServlet extends HttpServlet {
                     //manager.addAccessLog(email, action, dateString, timeString);
 
                     // Redirect to admin main menu if an admin is logged in
-                    if ("admin".equals(loggedInUser.getRole())) {
+                    if (loggedInUser != null && "admin".equals(loggedInUser.getRole())) {
                         response.sendRedirect("adminMain.jsp"); // Redirect to admin main menu
                     } else {
                         // Set the new user in session if normal user
