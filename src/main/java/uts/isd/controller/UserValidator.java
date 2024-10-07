@@ -17,7 +17,7 @@ public class UserValidator implements Serializable {
     private String namePattern = "^[ A-Za-z]+$";
     
     //Password length must be at least 5
-    private String passwordPattern = "[a-z0-9]{5,}";
+    private String passwordPattern = "[a-zA-Z0-9]{5,}";
   
     //Staff key is set to staff
     private String staffKey = "staff";

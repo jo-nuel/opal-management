@@ -102,7 +102,7 @@ public class RegisterCustomerServlet extends HttpServlet {
                    // manager.addAccessLog(email, action, dateString, timeString);
 
                     // If the logged-in user is an admin, keep the admin session intact
-                    if ("admin".equals(loggedInUser.getRole())) {
+                    if (loggedInUser != null && "admin".equals(loggedInUser.getRole())) {
                         response.sendRedirect("adminMain.jsp"); // Redirect to admin main menu
                     } else {
                         // Normal user registration flow, set the new user in session
