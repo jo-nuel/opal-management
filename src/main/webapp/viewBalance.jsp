@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="uts.isd.model.OpalCard"%>
 <html>
 <head>
     <title>Opal Card Balance</title>
@@ -5,7 +7,9 @@
 </head>
 <body>
     <h1>Opal Card Balance</h1>
-    <p>Balance: $${balance}</p>
+    <c:if test="${balance != null}">
+        <p>Balance: $${balance}</p>
+    </c:if>
     <form action="BalanceTopUpServlet" method="POST">
         <input type="hidden" name="cardNumber" value="${param.cardNumber}">
         <label for="amount">Top-Up Amount:</label>
