@@ -26,7 +26,8 @@ protected String dbpass = "useruser"; // db root password # hopefully you set it
 # Important Notes: 
 - you can use `programNameExample -version` to check if you have something installed, Java, Maven, MySQL, Git, etc etc.
 - Whenever you make a change to the code/project/website and would like to see it, make sure you [run these commands](#mvn-commands). 
-- Everything inside of `~/target` is entirely temporary, this gets cleansed every single time `mvn clean package` is ran. Always adjust from `~/src` 
+- Everything inside of `~/target` is entirely temporary, this gets cleansed every single time `mvn clean package` is ran. Always adjust from `~/src`
+- staff key for staff registration is : staff
 
 ## mvn commands
 In the terminal run:
