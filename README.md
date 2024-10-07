@@ -3,7 +3,7 @@
 ## 41026 Advanced Software Development - Spring 2024
 
 ## Group 5:
-- Jerry.F 24821466 
+- Jerry Fu
 - Louis Daniel Effendi
 - Brandon Maverick Winarto
 - Jonathan Immanuel
