@@ -42,7 +42,7 @@
         <h2>Are you sure you want to remove this Opal card?</h2>
         
         <!-- Card info (Optional: Display card number for clarity) -->
-        <p>Card ID: ${param.cardID}</p>
+        <p>Card Name: ${param.cardName}</p>
         
         <!-- Confirm deletion -->
         <form action="DeleteOpalCardServlet" method="post">
