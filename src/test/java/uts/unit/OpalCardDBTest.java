@@ -1,0 +1,106 @@
+package uts.unit;
+
+import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+import uts.isd.dao.OpalCardDAO;
+import uts.isd.model.OpalCard;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class OpalCardDBTest {
+
+    private OpalCardDAO opalCardDAO; // The mock object
+
+    @Before
+    public void setUp() {
+        // Create a mock of OpalCardDAO
+        opalCardDAO = mock(OpalCardDAO.class);
+    }
+
+    @Test
+    public void testAddOpalCard() throws SQLException {
+        // Arrange: Create an OpalCard instance
+        String cardNumber = "123456789";
+        String cardName = "Test Card";
+        double balance = 100.0;
+        String cardStatus = "active";
+        String userID = "1";
+        String cardSecurityCode = "1234";
+
+        OpalCard mockOpalCard = new OpalCard(0, cardNumber, cardName, balance, cardStatus, userID, cardSecurityCode);
+
+        // Act: When the addOpalCard method is called, no exception should be thrown
+        doNothing().when(opalCardDAO).addOpalCard(mockOpalCard);
+
+        // Simulate finding the Opal card after adding
+        when(opalCardDAO.getCardsByUserId(userID)).thenReturn(new ArrayList<>());
+
+        // Call the method to test
+        opalCardDAO.addOpalCard(mockOpalCard);
+
+        // Assert: Verify the interaction and the returned values
+        List<OpalCard> fetchedCards = opalCardDAO.getCardsByUserId(userID);
+        assertNotNull(fetchedCards);
+
+        // Verify that the addOpalCard method was called exactly once
+        verify(opalCardDAO, times(1)).addOpalCard(mockOpalCard);
+    }
+
+    @Test
+    public void testFindOpalCard() throws SQLException {
+        // Arrange
+        String cardNumber = "123456789";
+        String cardName = "Test Card";
+        double balance = 100.0;
+        String cardStatus = "active";
+        String userID = "1";
+        String cardSecurityCode = "1234";
+
+        OpalCard mockOpalCard = new OpalCard(0, cardNumber, cardName, balance, cardStatus, userID, cardSecurityCode);
+
+        // Simulate finding the Opal card
+        when(opalCardDAO.getCardsByUserId(userID)).thenReturn(new ArrayList<>(List.of(mockOpalCard)));
+
+        // Act
+        List<OpalCard> foundCards = opalCardDAO.getCardsByUserId(userID);
+
+        // Assert
+        assertNotNull(foundCards);
+        assertEquals(1, foundCards.size());
+        assertEquals(cardName, foundCards.get(0).getCardName());
+    }
+
+    @Test
+    public void testDeleteOpalCard() throws SQLException {
+        // Arrange
+        String cardNumber = "123456789";
+        String cardName = "Test Card";
+        double balance = 100.0;
+        String cardStatus = "active";
+        String userID = "1";
+        String cardSecurityCode = "1234";
+
+        OpalCard mockOpalCard = new OpalCard(1, cardNumber, cardName, balance, cardStatus, userID, cardSecurityCode);
+
+        // Simulate deleting the card
+        doNothing().when(opalCardDAO).deleteOpalCard(mockOpalCard.getCardID());
+
+        // Act
+        opalCardDAO.deleteOpalCard(mockOpalCard.getCardID());
+
+        // Simulate no cards being found after deletion
+        when(opalCardDAO.getCardsByUserId(userID)).thenReturn(new ArrayList<>());
+
+        // Assert: Ensure that the card is deleted and cannot be found
+        List<OpalCard> fetchedCards = opalCardDAO.getCardsByUserId(userID);
+        assertEquals(0, fetchedCards.size());
+
+        // Verify that the deleteOpalCard method was called exactly once
+        verify(opalCardDAO, times(1)).deleteOpalCard(mockOpalCard.getCardID());
+    }
+}
