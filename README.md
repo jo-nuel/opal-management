@@ -9,13 +9,72 @@
 - Jonathan Immanuel
 - Fatin Adas
 
-# RUNNING THE RPROJECT
+# IMPORTANT
+For the user [go here!](#Users-Manual)
+
+For the engineers [go here!](#Engineers-Manual)
+
+---
+
+# Users Manual
+
+Welcome to the Opal Card Management System! This platform allows you to efficiently manage your Opal card, trip planning, travel history, FAQs, contact us for support, and much more. Follow the steps below to start using the system.
+
+### System Requirements:
+- A modern web browser (Firefox, Brave, Florp, Arc, Chrome)
+- Internet connection
+
+#### Login:
+1. On the homepage, click Login.
+2. Enter your email and password.
+3. Click Submit to log in.
+
+#### Or Register:
+1. On the homepage, click Register if you are a new user.
+2. Fill out the required fields, such as name, email, and password.
+3. Submit your details to log in with your new account.
+
+### You're set!
+From here, you can start using our management system. 
+
+We offer our current features:
+- [Managing Your Opal Card](#managing-your-opal-card)
+- [Events!](#events)
+- [Contacting Support](#contacting-support)
+- [FAQ](#faq)
+
+## Managing your opal card
+// Please fill in
+
+## Events
+// Please fill in
+
+## Contacting Support
+You can contact us! We're callable at `+61 2 8806 0230`, you can email us at `international@uts.edu.au`, or finally, you can simply walk right in at `15 Broadway Ultimo, NSW 2007`. Alternatively, send us a message with your name, email and message and we'll respond as soon as possible!
+
+## FAQ
+This webpage has multilingual support for english, chinese and vietnamese! More soon to be added. 
+
+// Additional features go here: reminder to follow the above formatting with the pseudo table of contents, or to let Jerry know and I'll take care of it. 
+
+---
+
+# Engineers Manual
+
+## Notes: 
+- you can use `programNameExample -version` to check if you have something installed, Java, Maven, MySQL, Git, etc etc.
+- Whenever you make a change to the code/project/website and would like to see it, make sure you [run these commands](#mvn-commands). 
+- Everything inside of `~/target` is entirely temporary, this gets cleansed every single time `mvn clean package` is ran. Always adjust from `~/src`
+- The staff key for staff registration is : `staff`
+
+###  RUNNING THE PROJECT
 - Download or clone the project, make sure to be logged into github. Use `git clone https://github.com/jo-nuel/opal-management.git` or download it as .zip/.tar.gz and extract it into your directory. 
 
+### Pre-requisites
 - Install JDK 8, Maven, MySQL installed. 
   For MySQL, the root account has user: `root` & pass: `useruser`. You can keep every other setting as default. Alternatively, if you set your root account up in another method, modify the DB user and password variables to match those you used. 
 
-``` java
+```java
 // Found in DB.java
 protected String URL = "jdbc:mysql://localhost:3306/ocms";// replace this string with your jdbc:derby local host url # should be default
 protected String db = "ocms";// name of the database 
@@ -23,19 +82,13 @@ protected String dbuser = "root";// db root user # default
 protected String dbpass = "useruser"; // db root password # hopefully you set it as useruser, if not, adjust
 ```
 
-# Important Notes: 
-- you can use `programNameExample -version` to check if you have something installed, Java, Maven, MySQL, Git, etc etc.
-- Whenever you make a change to the code/project/website and would like to see it, make sure you [run these commands](#mvn-commands). 
-- Everything inside of `~/target` is entirely temporary, this gets cleansed every single time `mvn clean package` is ran. Always adjust from `~/src`
-- staff key for staff registration is : staff
-
-## mvn commands
-In the terminal run:
+### `mvn` commands
+TO SEE CHANGES: In the terminal run these commands every time:
 - `mvn clean package` # Rebuilds/recompiles the website
 - `mvn jetty:run` # Runs the server/Starts the website
 
-## DATABASE NOTES
-Make sure you have MySQL downloaded and setup with a root account. To setup the database we're all using, run the following commands in either Workbench or the terminal.
+## DATABASE NOTES 
+If you initialise a new database and use it, please add it here. Make sure you have MySQL downloaded and setup with a root account. To setup the database we're all using, run the following commands in either Workbench or the terminal.
 
 - Create the ocms database:
 ```sql
@@ -115,7 +168,9 @@ CREATE TABLE `savedtrip` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ```
 
-### SQL QUERY, ALLOW USERS TO SUBMIT MESSAGES TO US:
+### SQL QUERY, ALLOW USERS TO SUBMIT MESSAGES TO US, THE CONTACT US
+
+- Create table:
 ```sql
 CREATE TABLE contact_submissions (
     id INT NOT NULL AUTO_INCREMENT,
