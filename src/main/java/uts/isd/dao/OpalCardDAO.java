@@ -65,4 +65,27 @@ public class OpalCardDAO {
             stmt.executeUpdate();
         }
     }
+
+    // Method to update balance of an Opal Card 
+    public void topUpBalance(String cardNumber, double topUpAmount) throws SQLException {
+        String query = "UPDATE opalcard SET balance = balance + ? WHERE cardNumber = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setDouble(1, topUpAmount);
+            stmt.setString(2, cardNumber);
+            stmt.executeUpdate();
+        }
+    }
+
+    // Method to get the balance of an Opal Card
+    public double getBalance(String cardNumber) throws SQLException {
+        String query = "SELECT balance FROM opalcard WHERE cardNumber = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, cardNumber);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getDouble("balance");
+            }
+        }
+        return 0.0;
+    }
 }
