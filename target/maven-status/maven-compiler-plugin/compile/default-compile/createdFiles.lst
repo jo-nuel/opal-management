@@ -1,5 +1,5 @@
 uts/isd/model/dao/DBConnector.class
 uts/isd/model/User.class
-uts/isd/model/dao/UserDao.class
 uts/isd/model/dao/DB.class
+uts/isd/model/dao/UserDao.class
 CardServlet.class
