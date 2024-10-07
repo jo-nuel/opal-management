@@ -55,8 +55,6 @@ You can contact us! We're callable at `+61 2 8806 0230`, you can email us at `in
 ## FAQ
 This webpage has multilingual support for english, chinese and vietnamese! More soon to be added. 
 
-// Additional features go here: reminder to follow the above formatting with the pseudo table of contents, or to let Jerry know and I'll take care of it. 
-
 ---
 
 # Engineers Manual
