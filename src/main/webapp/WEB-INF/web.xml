@@ -177,4 +177,15 @@
         <servlet-name>ListOpalCardsServlet</servlet-name>
         <url-pattern>/ListOpalCardsServlet</url-pattern>
     </servlet-mapping>
+
+    <!-- ContactServlet -->
+    <servlet>
+        <servlet-name>ContactServlet</servlet-name>
+        <servlet-class>uts.isd.controller.ContactServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+       <servlet-name>ContactServlet</servlet-name>
+      <url-pattern>/ContactServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

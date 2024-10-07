@@ -13,5 +13,4 @@ public abstract class DB {
     protected String dbpass = "useruser"; // db root password
     protected String driver = "com.mysql.cj.jdbc.Driver";
     protected Connection conn; // connection null-instance to be initialized in sub-classes
-
 }
