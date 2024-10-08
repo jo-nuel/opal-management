@@ -87,9 +87,32 @@
                                 <input type="text" name="newCardName" placeholder="Rename card">
                                 <button type="submit" class="actionButton">Rename</button>
                             </form>
+
                             <form action="confirmDelete.jsp" method="post" style="display:inline;">
                                 <input type="hidden" name="cardID" value="${card.cardID}">
                                 <button type="submit" class="actionButton">Remove</button>
+                            </form>
+                            
+                            <!-- New Feature: Report as Lost/Stolen -->
+                            <form action="LostServlet" method="post" style="display:inline;">
+                                <input type="hidden" name="cardNumber" value="${card.cardNumber}">
+                                <select name="reason">
+                                    <option value="lost">Lost</option>
+                                    <option value="stolen">Stolen</option>
+                                </select>
+                                <button type="submit" class="actionButton">Report</button>
+                            </form>
+
+                            <!-- New Feature: Block Card -->
+                            <form action="BlockCardServlet" method="post" style="display:inline;">
+                                <input type="hidden" name="cardNumber" value="${card.cardNumber}">
+                                <button type="submit" class="actionButton">Block Card</button>
+                            </form>
+
+                            <!-- New Feature: Request Replacement -->
+                            <form action="ReplacementCardServlet" method="post" style="display:inline;">
+                                <input type="hidden" name="cardNumber" value="${card.cardNumber}">
+                                <button type="submit" class="actionButton">Request Replacement</button>
                             </form>
                         </td>
                     </tr>
@@ -106,5 +129,48 @@
             <a href="main.jsp" class="backButton">Back to Main Page</a>
         </div>
     </div>
+    <table>
+        <c:forEach var="card" items="${cards}">
+            <tr>
+                <td>${card.cardNumber}</td>
+                <td>${card.cardName}</td>
+                <td>${card.balance}</td>
+                <td>${card.cardStatus}</td>
+                <td>
+                    <!-- Form to block the card -->
+                    <form action="CardActionServlet" method="post">
+                        <input type="hidden" name="cardID" value="${card.cardID}">
+                        <input type="hidden" name="action" value="block">
+                        <button type="submit">Block Card</button>
+                    </form>
+                </td>
+                <td>
+                    <!-- Form to report lost card -->
+                    <form action="CardActionServlet" method="post">
+                        <input type="hidden" name="cardID" value="${card.cardID}">
+                        <input type="hidden" name="action" value="lost">
+                        <button type="submit">Report Lost</button>
+                    </form>
+                </td>
+                <td>
+                    <!-- Form to report stolen card -->
+                    <form action="CardActionServlet" method="post">
+                        <input type="hidden" name="cardID" value="${card.cardID}">
+                        <input type="hidden" name="action" value="stolen">
+                        <button type="submit">Report Stolen</button>
+                    </form>
+                </td>
+                <td>
+                    <!-- Form to request replacement card -->
+                    <form action="CardActionServlet" method="post">
+                        <input type="hidden" name="cardID" value="${card.cardID}">
+                        <input type="hidden" name="action" value="replacement">
+                        <button type="submit">Request Replacement</button>
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+    
 </body>
 </html>

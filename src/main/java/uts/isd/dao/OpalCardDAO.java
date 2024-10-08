@@ -65,4 +65,37 @@ public class OpalCardDAO {
             stmt.executeUpdate();
         }
     }
+
+    // Method to report a card as lost or stolen
+    public void reportLostOrStolenCard(int cardId, String status) throws SQLException {
+        String query = "UPDATE opalcard SET cardStatus = ? WHERE cardID = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, status);  // status can be "LOST" or "STOLEN"
+            stmt.setInt(2, cardId);
+            stmt.executeUpdate();
+        }
 }
+
+    // Method to temporarily block a card
+    public void blockCard(int cardId) throws SQLException {
+        String query = "UPDATE opalcard SET cardStatus = 'BLOCKED' WHERE cardID = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, cardId);
+            stmt.executeUpdate();
+        }
+}
+
+    // Method to request a replacement card
+    public void requestReplacementCard(int cardId) throws SQLException {
+        String query = "UPDATE opalcard SET cardStatus = 'REPLACEMENT_REQUESTED' WHERE cardID = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, cardId);
+            stmt.executeUpdate();
+    }
+}
+
+    
+}
+
+
+
