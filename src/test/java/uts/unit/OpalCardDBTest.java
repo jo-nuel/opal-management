@@ -11,10 +11,11 @@ import uts.isd.model.OpalCard;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 public class OpalCardDBTest {
 
-    private OpalCardDAO opalCardDAO; // The mock object
+    private OpalCardDAO opalCardDAO;
 
     @Before
     public void setUp() {
@@ -64,7 +65,7 @@ public class OpalCardDBTest {
         OpalCard mockOpalCard = new OpalCard(0, cardNumber, cardName, balance, cardStatus, userID, cardSecurityCode);
 
         // Simulate finding the Opal card
-        when(opalCardDAO.getCardsByUserId(userID)).thenReturn(new ArrayList<>(List.of(mockOpalCard)));
+        when(opalCardDAO.getCardsByUserId(userID)).thenReturn(new ArrayList<>(Arrays.asList(mockOpalCard)));
 
         // Act
         List<OpalCard> foundCards = opalCardDAO.getCardsByUserId(userID);

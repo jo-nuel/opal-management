@@ -10,11 +10,23 @@
     <title>Manage Opal Cards</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <style>
-        /* Embedded CSS */
+        /* Consistent styles with main.jsp */
+        .header {
+            background-color: #2D86A7;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        .headerText {
+            font-size: 48px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
         table {
             width: 80%;
             margin: 20px auto;
             border-collapse: collapse;
+            font-family: Arial, sans-serif;
         }
         th, td {
             padding: 10px;
@@ -22,7 +34,7 @@
             text-align: center;
         }
         th {
-            background-color: #007cba;
+            background-color: #2D86A7;
             color: white;
         }
         td {
@@ -51,6 +63,7 @@
             text-decoration: none;
             font-size: 18px;
             border-radius: 5px;
+            font-family: Arial, sans-serif;
         }
         .backButton:hover {
             background-color: #65BFE1;

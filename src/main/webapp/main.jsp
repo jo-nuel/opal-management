@@ -26,7 +26,7 @@
         <div class="header2">
             <a href="main.jsp" class="header2Button">MAIN</a>
             <a href="ListOpalCardsServlet?userID=${user.ID}" class="header2Button">CARDS</a>
-            <a  class="header2Button">TOP-UP</a>
+            <a href="viewandTopUpBalance.jsp" class="header2Button">TOP-UP</a>
             <a href="UserEventController" class="header2Button">EVENTS</a>
             <a  class="header2Button">TRAVEL HISTORY</a>
             <a  class="header2Button">TRIP PLANNER</a>
