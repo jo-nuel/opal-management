@@ -1,56 +1,77 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package uts.isd.controller;
 
-import uts.isd.dao.DBConnector;
-import uts.isd.dao.DBManager;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import uts.isd.dao.*;
 
 public class ConnServlet extends HttpServlet {
-    private DBConnector dbConnector;
+    private DBConnector db;
     private DBManager manager;
+    private OpalCardDAO opalCardDAO;
+    private SavedTripDAO savedTripDAO;
+    private LostStolenCardDAO lostStolenCardDAO; // Updated variable name for consistency
     private Connection conn;
 
-    @Override
-    public void init() throws ServletException {
+    @Override // Create and instance of DBConnector for the deployment session
+    public void init() {
         try {
-            dbConnector = new DBConnector();  // Initialize DBConnector
-            conn = dbConnector.openConnection(); // Open the connection
-            manager = new DBManager(conn); // Initialize DBManager with the connection
-
-            // Optionally log that the connection was successful
-            System.out.println("DB connection established successfully.");
+            db = new DBConnector();
+            System.out.println("connection is working");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
-            throw new ServletException("Unable to initialize DBConnector", ex);
         }
     }
 
-    @Override
+    @Override // Add the DBConnector, DBManager, Connection instances to the session
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-
         if (session.getAttribute("manager") == null) {
-            session.setAttribute("manager", manager); // Store DBManager in session
+            try {
+                conn = db.openConnection();
+                manager = new DBManager(conn);
+                session.setAttribute("manager", manager); // Store DBManager in session
+                System.out.println("manager is set and isn't null");
+
+                opalCardDAO = new OpalCardDAO(conn);
+                savedTripDAO = new SavedTripDAO(conn);
+                lostStolenCardDAO = new LostStolenCardDAO(conn); // Add LostStolenCardDAO
+
+                session.setAttribute("opalCardDAO", opalCardDAO);
+                System.out.println("opalCardDAO is set and isn't null");
+
+                session.setAttribute("savedTripDAO", savedTripDAO);
+                System.out.println("savedTripDAO is set and isn't null");
+
+                session.setAttribute("lostStolenCardDAO", lostStolenCardDAO); // Set LostStolenCardDAO in session
+                System.out.println("lostStolenCardDAO is set and isn't null");
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
-        // Redirect to index.jsp or wherever you need
+        // Use sendRedirect to avoid forwarding loops
         response.sendRedirect("index.jsp");
     }
 
-    @Override
+    @Override // Destroy the servlet and release the resources of the application (terminate also the db connection)
     public void destroy() {
         try {
-            dbConnector.closeConnection(); // Close the connection when servlet is destroyed
+            db.closeConnection();
         } catch (SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
