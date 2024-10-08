@@ -88,4 +88,60 @@ public class OpalCardDAO {
         }
         return 0.0;
     }
+
+    // Method to report the card as Lost or Stolen
+public void reportLostOrStolenCard(int cardId, String status) throws SQLException {
+    String query = "UPDATE opalcard SET cardStatus = ? WHERE cardID = ?";
+    try (PreparedStatement stmt = conn.prepareStatement(query)) {
+        stmt.setString(1, status);  // status should be "LOST" or "STOLEN"
+        stmt.setInt(2, cardId);
+        stmt.executeUpdate();
+    }
+}
+
+// Method to block a card
+public void blockCard(int cardId) throws SQLException {
+    String query = "UPDATE opalcard SET cardStatus = 'BLOCKED' WHERE cardID = ?";
+    try (PreparedStatement stmt = conn.prepareStatement(query)) {
+        stmt.setInt(1, cardId);
+        stmt.executeUpdate();
+    }
+}
+
+// Method to request a replacement card
+public void requestReplacement(int cardId) throws SQLException {
+    String query = "UPDATE opalcard SET cardStatus = 'REPLACEMENT_REQUESTED' WHERE cardID = ?";
+    try (PreparedStatement stmt = conn.prepareStatement(query)) {
+        stmt.setInt(1, cardId);
+        stmt.executeUpdate();
+    }
+}
+
+public OpalCard getCardById(int cardId) throws SQLException {
+    OpalCard card = null;
+    String query = "SELECT * FROM opalcard WHERE cardID = ?";
+    
+    try (PreparedStatement stmt = conn.prepareStatement(query)) {
+        stmt.setInt(1, cardId);
+        ResultSet rs = stmt.executeQuery();
+        
+        if (rs.next()) {
+            card = new OpalCard(
+                rs.getInt("cardID"),
+                rs.getString("cardNumber"),
+                rs.getString("cardName"),
+                rs.getDouble("balance"),
+                rs.getString("cardStatus"),
+                rs.getString("userID"),
+                rs.getString("cardSecurityCode")
+            );
+        }
+    }
+    
+    return card;
+}
+
+    
+    
+    
 }

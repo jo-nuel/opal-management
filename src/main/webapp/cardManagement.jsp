@@ -104,11 +104,31 @@
                                 <input type="hidden" name="cardID" value="${card.cardID}">
                                 <button type="submit" class="actionButton">Remove</button>
                             </form>
+                            <form action="ReportLostStolenServlet" method="POST">
+                                <input type="hidden" name="cardID" value="${card.cardID}" />
+                                <select name="status">
+                                    <option value="LOST">Report as Lost</option>
+                                    <option value="STOLEN">Report as Stolen</option>
+                                </select>
+                                <button type="submit">Report</button>
+                            </form>
+                            
+                            <form action="BlockCardServlet" method="POST">
+                                <input type="hidden" name="cardID" value="${card.cardID}" />
+                                <button type="submit">Block Card</button>
+                            </form>
+                            
+                            <form action="RequestReplacementServlet" method="POST">
+                                <input type="hidden" name="cardID" value="${card.cardID}" />
+                                <button type="submit">Request Replacement</button>
+                            </form>
+                            
                         </td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
+        
 
         <div class="buttonContainer">
             <a href="addCard.jsp" class="mainButton">Add New Opal Card</a>
