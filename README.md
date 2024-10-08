@@ -92,7 +92,7 @@ Our repo follows the Model View Controller (MVC) structure. to ensure separation
 ##  RUNNING THE PROJECT
 
 ### Pre-requisites
-- Install JDK 8, Maven, MySQL installed. 
+- Install JDK 22, Maven, MySQL installed. 
   For MySQL, the root account has user: `root` & pass: `useruser`. You can keep every other setting as default. Alternatively, if you set your root account up in another method, modify the DB user and password variables to match those you used. 
 
 ```java
