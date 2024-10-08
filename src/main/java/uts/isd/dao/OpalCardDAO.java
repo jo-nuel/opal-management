@@ -92,6 +92,15 @@ public class OpalCardDAO {
             stmt.setInt(1, cardId);
             stmt.executeUpdate();
     }
+
+    public void updateCardStatus(int cardID, String status) throws SQLException {
+        String query = "UPDATE opalcard SET cardStatus = ? WHERE cardID = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, status);
+            stmt.setInt(2, cardID);
+            stmt.executeUpdate();
+        }
+    }
 }
 
     
