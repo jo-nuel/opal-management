@@ -104,4 +104,35 @@ public class OpalCardDBTest {
         // Verify that the deleteOpalCard method was called exactly once
         verify(opalCardDAO, times(1)).deleteOpalCard(mockOpalCard.getCardID());
     }
+
+    @Test
+    public void testRenameOpalCard() throws SQLException {
+        // Arrange
+        String cardNumber = "123456789";
+        String oldCardName = "Old Card Name";
+        String newCardName = "New Card Name";
+        double balance = 100.0;
+        String cardStatus = "active";
+        String userID = "1";
+        String cardSecurityCode = "1234";
+
+        OpalCard mockOpalCard = new OpalCard(1, cardNumber, oldCardName, balance, cardStatus, userID, cardSecurityCode);
+
+        // Simulate renaming the card
+        doNothing().when(opalCardDAO).updateOpalCardName(mockOpalCard.getCardID(), newCardName);
+
+        // Act
+        opalCardDAO.updateOpalCardName(mockOpalCard.getCardID(), newCardName);
+
+        // Simulate fetching the renamed card
+        mockOpalCard.setCardName(newCardName);
+        when(opalCardDAO.getCardsByUserId(userID)).thenReturn(new ArrayList<>(Arrays.asList(mockOpalCard)));
+
+        // Assert: Ensure the card's name is updated correctly
+        List<OpalCard> updatedCards = opalCardDAO.getCardsByUserId(userID);
+        assertEquals(newCardName, updatedCards.get(0).getCardName());
+
+        // Verify that the updateOpalCardName method was called exactly once
+        verify(opalCardDAO, times(1)).updateOpalCardName(mockOpalCard.getCardID(), newCardName);
+    }
 }
