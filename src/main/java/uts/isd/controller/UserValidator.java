@@ -48,8 +48,8 @@ public class UserValidator implements Serializable {
     public boolean checkEmptyRegisterStaff(String email, String name, String password, String key){
         return email.isEmpty() || name.isEmpty() || password.isEmpty() || key.isEmpty();
     }
-    public boolean checkEmptyUpdate(String name, String password){
-        return name.isEmpty() || password.isEmpty();
+    public boolean checkEmptyUpdate(String name,String oldPassword, String password){
+        return name.isEmpty() || password.isEmpty() || oldPassword.isEmpty();
     }
     
     //Variable format checkers - match the variables declared earlier.

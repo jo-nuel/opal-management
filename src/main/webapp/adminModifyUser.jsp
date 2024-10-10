@@ -5,6 +5,9 @@
 %>
 <!DOCTYPE html>
 <html>
+    <div class="header">
+        <p class="headerText">Modify user: <%= userToModify != null ? userToModify.getID() : "" %></p>
+    </div>
     <head>
         <title>Modify User</title>
         <link rel="stylesheet" type="text/css" href="stylesheet.css">

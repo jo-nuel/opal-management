@@ -83,11 +83,11 @@
                     <td>${user.role}</td>
                     <td class="buttonContainer">
                         <!-- Delete Button -->
-                        <form action="AdminDeleteConfirmationServlet" method="post" style="display:inline;">
-                            <input type="hidden" name="email" value="${user.email}">
-                            <button type="submit" class="actionButton">Delete</button>
-                        </form>
-
+                            <!-- Delete Button with Confirmation Dialog -->
+                            <form action="AdminDeleteUserServlet" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete user ${user.name}?')">
+                                <input type="hidden" name="email" value="${user.email}">
+                                <button type="submit" class="actionButton deleteButton">Delete</button>
+                            </form>
                         <!-- Modify Button -->
                         <form action="AdminSelectUserServlet" method="get" style="display:inline;">
                             <input type="hidden" name="email" value="${user.email}">

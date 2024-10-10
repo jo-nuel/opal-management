@@ -47,10 +47,7 @@
         <servlet-name>EventControllerServlet</servlet-name>
         <servlet-class>uts.isd.controller.EventControllerServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>AdminDeleteConfirmationServlet</servlet-name>
-        <servlet-class>uts.isd.controller.AdminDeleteConfirmationServlet</servlet-class>
-    </servlet>
+
     <servlet>
         <servlet-name>AdminSelectUserServlet</servlet-name>
         <servlet-class>uts.isd.controller.AdminSelectUserServlet</servlet-class>
@@ -113,10 +110,7 @@
     <url-pattern>/UserEventController</url-pattern>
 </servlet-mapping>
     <!-- Admin Servlet Mappings -->
-    <servlet-mapping>
-        <servlet-name>AdminDeleteConfirmationServlet</servlet-name>
-        <url-pattern>/AdminDeleteConfirmationServlet</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>AdminDeleteUserServlet</servlet-name>
         <url-pattern>/AdminDeleteUserServlet</url-pattern>
