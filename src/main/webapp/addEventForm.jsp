@@ -42,11 +42,22 @@
                 </select>
                 <br><br>
 
-
                 <!-- Description Field -->
                 <label class="formParagraph" for="description">DESCRIPTION</label>
                 <br>
                 <textarea id="description" name="description" class="formInput" rows="5" required></textarea>
+                <br><br>
+
+                <!-- Date Field (Date picker) -->
+                <label class="formParagraph" for="date">EVENT DATE</label>
+                <br>
+                <input type="date" id="date" name="date" class="formInput" required>
+                <br><br>
+
+                <!-- Location Field -->
+                <label class="formParagraph" for="location">LOCATION</label>
+                <br>
+                <input type="text" id="location" name="location" class="formInput" required>
                 <br><br>
 
                 <!-- Submit and Go Back Buttons -->

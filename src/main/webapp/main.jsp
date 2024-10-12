@@ -1,6 +1,8 @@
 <%@page import="uts.isd.model.User"%>
 <%@page import="uts.isd.model.AccessLog"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <html>
@@ -24,7 +26,7 @@
             <p class="headerText">Opal Management System</p>
         </div>
         <div class="header2">
-            <a href="main.jsp" class="header2Button">MAIN</a>
+            <a href="main.jsp" class="header2Button">Profile Settings</a>
             <a href="ListOpalCardsServlet?userID=${user.ID}" class="header2Button">CARDS</a>
             <a href="viewandTopUpBalance.jsp" class="header2Button">TOP-UP</a>
             <a href="UserEventController" class="header2Button">EVENTS</a>
@@ -60,20 +62,19 @@
                 </tr>
                 <tr>
                     <td>Password</td>
-                    <td>${user.password}</td>
+                    <td>
+                        <c:set var="passwordLength" value="${fn:length(user.password)}" />
+                        <c:forEach begin="1" end="${passwordLength}" var="i">
+                            *
+                        </c:forEach>
+                    </td>
                 </tr>
-                <tr>
-                    <td>User ID</td>
-                    <td>${user.ID}</td>
-                </tr>
+                
                 <tr>
                     <td>Account Status</td>
                     <td>${user.status}</td>
                 </tr>
-                <tr>
-                    <td>Role</td>
-                    <td>${user.role}</td>
-                </tr>
+                
              
 
             </table>
@@ -85,15 +86,19 @@
                 </a>
                 
           
-                <form action="UserDeleteController" method="post">
+                <form action="UserDeleteController" method="post" onsubmit="return confirmDelete()">
                     <input type="hidden" name="email" value="${user.email}">
                     <button type="submit" class="mainButton">
                         <p>Delete account</p>
                     </button>
                 </form>
-                 <form action="AccessLogServlet">
-                    <button type="submit" name="email" value="${user.email}" class="mainButton">   Access Logs </button>
-                </form>
+                
+                <script type="text/javascript">
+                    function confirmDelete() {
+                        return confirm("Are you sure you want to delete this account?");
+                    }
+                </script>
+                 
                 <a class="mainButton" href="logOut.jsp">
                     <p>Log out</p>
                 </a>

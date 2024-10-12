@@ -139,8 +139,11 @@ CREATE TABLE events (
     name VARCHAR(100) NOT NULL,
     category VARCHAR(100),
     description TEXT,
+    event_date DATE,  
+    location VARCHAR(255), 
     PRIMARY KEY (id)
 );
+
 ```
 
 - Create the users table:
