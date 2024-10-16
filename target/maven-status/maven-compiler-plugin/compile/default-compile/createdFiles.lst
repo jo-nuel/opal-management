@@ -13,7 +13,6 @@ uts\isd\controller\LogOutServlet.class
 uts\isd\model\AccessLog.class
 uts\isd\controller\UserValidator.class
 uts\isd\dao\DB.class
-uts\isd\controller\AdminDeleteConfirmationServlet.class
 uts\isd\controller\TestUserDB.class
 uts\isd\controller\AdminListUsersServlet.class
 uts\isd\controller\UserUpdateServlet.class

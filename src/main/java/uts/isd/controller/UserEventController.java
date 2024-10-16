@@ -18,7 +18,7 @@ public class UserEventController extends HttpServlet {
 
         try {
             ArrayList<Event> userEvents = dbManager.fetchEvents();  // Fetch all events from the database
-        session.setAttribute("userEvents", userEvents); 
+        session.setAttribute("events", userEvents); 
         request.getRequestDispatcher("userEventView.jsp").forward(request, response);  // Forward to userEventView.jsp
 
         } catch (SQLException e) {

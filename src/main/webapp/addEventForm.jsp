@@ -29,16 +29,35 @@
                 <input type="text" id="name" name="name" class="formInput" required>
                 <br><br>
 
-                <!-- Category Field -->
+                <!-- Category Field (Dropdown) -->
                 <label class="formParagraph" for="category">CATEGORY</label>
                 <br>
-                <input type="text" id="category" name="category" class="formInput" required>
+                <select id="category" name="category" class="formInput" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="Concert">Concert</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Maintenance">Maintenance</option>
+                    <option value="Festival">Festival</option>
+                    <option value="Public Gathering">Public Gathering</option>
+                </select>
                 <br><br>
 
                 <!-- Description Field -->
                 <label class="formParagraph" for="description">DESCRIPTION</label>
                 <br>
                 <textarea id="description" name="description" class="formInput" rows="5" required></textarea>
+                <br><br>
+
+                <!-- Date Field (Date picker) -->
+                <label class="formParagraph" for="date">EVENT DATE</label>
+                <br>
+                <input type="date" id="date" name="date" class="formInput" required>
+                <br><br>
+
+                <!-- Location Field -->
+                <label class="formParagraph" for="location">LOCATION</label>
+                <br>
+                <input type="text" id="location" name="location" class="formInput" required>
                 <br><br>
 
                 <!-- Submit and Go Back Buttons -->

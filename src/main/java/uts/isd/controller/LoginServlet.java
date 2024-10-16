@@ -2,7 +2,6 @@ package uts.isd.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,16 +13,7 @@ import uts.isd.dao.DBManager;
 import uts.isd.model.User;
 
 public class LoginServlet extends HttpServlet {
-
-    private static ArrayList<User> users = new ArrayList<>();
-
-    @Override
-    public void init() throws ServletException {
-
-        // Initialize with some users (you can add more if needed)
-        users.add(new User("hello", "hello@gmail.com", "hello1234", "12345", "Active", "customer"));
-    }
-
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

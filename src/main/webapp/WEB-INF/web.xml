@@ -47,10 +47,7 @@
         <servlet-name>EventControllerServlet</servlet-name>
         <servlet-class>uts.isd.controller.EventControllerServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>AdminDeleteConfirmationServlet</servlet-name>
-        <servlet-class>uts.isd.controller.AdminDeleteConfirmationServlet</servlet-class>
-    </servlet>
+
     <servlet>
         <servlet-name>AdminSelectUserServlet</servlet-name>
         <servlet-class>uts.isd.controller.AdminSelectUserServlet</servlet-class>
@@ -113,10 +110,7 @@
     <url-pattern>/UserEventController</url-pattern>
 </servlet-mapping>
     <!-- Admin Servlet Mappings -->
-    <servlet-mapping>
-        <servlet-name>AdminDeleteConfirmationServlet</servlet-name>
-        <url-pattern>/AdminDeleteConfirmationServlet</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>AdminDeleteUserServlet</servlet-name>
         <url-pattern>/AdminDeleteUserServlet</url-pattern>
@@ -188,4 +182,32 @@
        <servlet-name>ContactServlet</servlet-name>
       <url-pattern>/ContactServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+    <servlet-name>ReportLostStolenServlet</servlet-name>
+    <servlet-class>uts.isd.controller.ReportLostStolenServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>ReportLostStolenServlet</servlet-name>
+    <url-pattern>/ReportLostStolenServlet</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>BlockCardServlet</servlet-name>
+    <servlet-class>uts.isd.controller.BlockCardServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>BlockCardServlet</servlet-name>
+    <url-pattern>/BlockCardServlet</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>RequestReplacementServlet</servlet-name>
+    <servlet-class>uts.isd.controller.RequestReplacementServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>RequestReplacementServlet</servlet-name>
+    <url-pattern>/RequestReplacementServlet</url-pattern>
+</servlet-mapping>
+
 </web-app>

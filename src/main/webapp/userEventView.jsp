@@ -3,7 +3,7 @@
 <%@ page import="uts.isd.model.Event" %>
 <%@ page import="java.util.ArrayList" %>
 <%
-    ArrayList<Event> events = (ArrayList<Event>) request.getAttribute("userEvents");
+    ArrayList<Event> events = (ArrayList<Event>) request.getAttribute("events");
 %>
 <!DOCTYPE html>
 <html>
@@ -58,6 +58,44 @@
             <p class="headerText">Opal Management System</p>
         </div>
 
+        <!-- Filter Form -->
+    <div class="filterContainer">
+        <form action="EventControllerServlet" method="get">
+            <input type="hidden" name="action" value="filter">
+           
+            <!-- Category Filter -->
+            <label for="filterCategory">Filter by Category:</label>
+            <select id="filterCategory" name="filterCategory" class="formInput">
+                <option value="" disabled selected>Select a category</option>
+                <option value="Concert">Concert</option>
+                <option value="Sports">Sports</option>
+                <option value="Maintenance">Maintenance</option>
+                <option value="Festival">Festival</option>
+                <option value="Public Gathering">Public Gathering</option>
+            </select>
+            
+            <!-- Date Filter -->
+            <label for="filterDate">Filter by Date:</label>
+            <input type="date" id="filterDate" name="filterDate" class="formInput">
+    
+            
+            <!-- Location Filter -->
+            <label for="filterLocation">Filter by Location:</label>
+            <input type="text" id="filterLocation" name="filterLocation" class="formInput" placeholder="Enter location">
+            
+            <!-- Submit Filter Button -->
+            <input type="submit" class="formButton" value="Apply Filter">
+        </form>
+        </div>
+        <br>
+        <!-- Error message if filter retrieves no events -->
+        <c:if test="${not empty errorMessage}">
+            <div class="error">
+                <p>${errorMessage}</p>
+            </div>
+        </c:if>
+    
+
         <!-- Start of Content -->
         <div class="container">
             <h1 class="h1">Available Events</h1>
@@ -66,19 +104,21 @@
             <table class="mainTable">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Event Name</th>
                         <th>Category</th>
                         <th>Description</th>
+                        <th>Date</th> <!-- New column for Date -->
+                        <th>Location</th> <!-- New column for Location -->
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="event" items="${userEvents}">
+                    <c:forEach var="event" items="${events}">
                         <tr>
-                            <td>${event.id}</td>
                             <td>${event.name}</td>
                             <td>${event.category}</td>
                             <td>${event.description}</td>
+                            <td>${event.date}</td> <!-- Displaying Date -->
+                            <td>${event.location}</td> <!-- Displaying Location -->
                         </tr>
                     </c:forEach>
                 </tbody>
