@@ -10,16 +10,12 @@
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
     </head>
     <body>
-      
-        
-        <!--IOTBay Header-->
+        <!-- Header -->
         <div class="header">
             <p class="headerText">Opal Management System - Admin Main Menu</p>
         </div>
-        <!--End of IOTBay Header-->
-        
-        <!-- Content-->
-        <!-- Content-->
+
+        <!-- Button Container -->
         <div class="buttonContainer">
             <a class="mainButton" href="AdminListUsersServlet">
                 <p>View All Users</p>
@@ -29,7 +25,11 @@
                 <p>Register Users or Admins</p>
             </a>
 
-            <!-- New button to go to Events Admin -->
+            <!-- New button to manage Opal cards -->
+            <a class="mainButton" href="AdminManageCardsServlet">
+                <p>Manage All Opal Cards</p>
+            </a>
+
             <a class="mainButton" href="EventControllerServlet?action=list">
                 <p>Manage Events</p>
             </a>

@@ -13,7 +13,7 @@ import uts.isd.dao.DBManager;
 import uts.isd.model.User;
 
 public class LoginServlet extends HttpServlet {
-   
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -33,12 +33,12 @@ public class LoginServlet extends HttpServlet {
                 // User found and active
                 session.setAttribute("user", user);
                 session.setAttribute("userID", String.valueOf(user.getID()));
-                response.sendRedirect("adminMain.jsp"); // Redirect to main page
+                response.sendRedirect("adminMain.jsp");
             } else if (user != null && "user".equals(user.getRole()) && "active".equals(user.getStatus())) {
                 session.setAttribute("user", user);
                 session.setAttribute("userID", String.valueOf(user.getID()));
                 System.out.println("User ID: " + session.getAttribute("userID"));
-                response.sendRedirect("main.jsp"); // Redirect to main page
+                response.sendRedirect("ListOpalCardsServlet");
             } else if (user != null && !"active".equals(user.getStatus())) {
                 // User found but inactive
                 session.setAttribute("badLoginError", "Account is inactive");
