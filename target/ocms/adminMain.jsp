@@ -10,25 +10,33 @@
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
     </head>
     <body>
-        <!-- Imports -->
-        <%
-            User user = (User) session.getAttribute("user");
-        %>
-        <!--End of Imports-->
-        
-        <!--IOTBay Header-->
+        <!-- Header -->
         <div class="header">
             <p class="headerText">Opal Management System - Admin Main Menu</p>
         </div>
-        <!--End of IOTBay Header-->
-        
-        <!-- Content-->
-        <div>
-            <ul>
-                <li><a href="AdminListUsersServlet">View All Users</a></li>
-                <li><a href="registerOption.jsp">Register Users or Admins</a></li>
-            </ul>
-            <a href="logOut.jsp">Log Out</a>
+
+        <!-- Button Container -->
+        <div class="buttonContainer">
+            <a class="mainButton" href="AdminListUsersServlet">
+                <p>View All Users</p>
+            </a>
+            
+            <a class="mainButton" href="registerOption.jsp">
+                <p>Register Users or Admins</p>
+            </a>
+
+            <!-- New button to manage Opal cards -->
+            <a class="mainButton" href="AdminManageCardsServlet">
+                <p>Manage All Opal Cards</p>
+            </a>
+
+            <a class="mainButton" href="EventControllerServlet?action=list">
+                <p>Manage Events</p>
+            </a>
+
+            <a class="mainButton" href="logOut.jsp">
+                <p>Log Out</p>
+            </a>
         </div>
     </body> 
 </html>

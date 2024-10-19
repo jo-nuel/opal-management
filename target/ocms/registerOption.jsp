@@ -1,6 +1,8 @@
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="uts.isd.model.User"%>
+
 <!DOCTYPE html>
 <html>
      <head>
@@ -26,7 +28,14 @@
                 <a href="registerCustomer.jsp" class="indexButton">CUSTOMER REGISTRATION</a>
             </div>
             <div>
-                <a href="index.jsp" class="indexButton">GO BACK</a>
+                <% 
+                    User loggedInUser = (User) session.getAttribute("user"); // Assuming the logged-in user is stored in session
+                    String backPage = "index.jsp"; // Default to index.jsp
+                    if (loggedInUser != null && "admin".equals(loggedInUser.getRole())) {
+                        backPage = "adminMain.jsp"; // Redirect to admin main menu if the user is admin
+                    }
+                %>
+                <a href="<%= backPage %>" class="indexButton">GO BACK</a>
             </div>
         </div>
         <!--End of Content-->

@@ -30,19 +30,32 @@
                 <!-- Name Field -->
                 <label class="formParagraph" for="name">EVENT NAME</label>
                 <br>
-                <input type="text" id="name" name="name" value="${event.name}">
+                <input type="text" id="name" name="name" value="${event.name}" required>
                 <br><br>
+
 
                 <!-- Category Field -->
                 <label class="formParagraph" for="category">CATEGORY</label>
                 <br>
-                <input type="text" id="category" name="category" value="${event.category}">
+                <input type="text" id="category" name="category" value="${event.category}" required>
                 <br><br>
 
                 <!-- Description Field -->
                 <label class="formParagraph" for="description">DESCRIPTION</label>
                 <br>
-                <textarea id="description" name="description">${event.description}</textarea>
+                <textarea id="description" name="description" required>${event.description}</textarea>
+                <br><br>
+
+                <!-- Date Field -->
+                <label class="formParagraph" for="date" required>EVENT DATE</label>
+                <br>
+                <input type="date" id="date" name="date" value="${event.date}">
+                <br><br>
+
+                <!-- Location Field -->
+                <label class="formParagraph" for="location">LOCATION</label>
+                <br>
+                <input type="text" id="location" name="location" value="${event.location}" required>
                 <br><br>
 
                 <!-- Submit and Go Back Buttons -->

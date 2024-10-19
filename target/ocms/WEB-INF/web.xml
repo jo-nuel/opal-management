@@ -35,11 +35,22 @@
         <servlet-name>LogOutServlet</servlet-name>
         <servlet-class>uts.isd.controller.LogOutServlet</servlet-class>
     </servlet>
+    
+    
+    <servlet>
+    <servlet-name>UserEventController</servlet-name>
+    <servlet-class>uts.isd.controller.UserEventController</servlet-class>
+</servlet>
 
     <!-- Admin Servlets -->
     <servlet>
-        <servlet-name>AdminDeleteConfirmationServlet</servlet-name>
-        <servlet-class>uts.isd.controller.AdminDeleteConfirmationServlet</servlet-class>
+        <servlet-name>EventControllerServlet</servlet-name>
+        <servlet-class>uts.isd.controller.EventControllerServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>AdminSelectUserServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AdminSelectUserServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminDeleteUserServlet</servlet-name>
@@ -90,11 +101,16 @@
         <url-pattern>/LogOutServlet</url-pattern>
     </servlet-mapping>
 
-    <!-- Admin Servlet Mappings -->
     <servlet-mapping>
-        <servlet-name>AdminDeleteConfirmationServlet</servlet-name>
-        <url-pattern>/AdminDeleteConfirmationServlet</url-pattern>
+        <servlet-name>EventControllerServlet</servlet-name>
+        <url-pattern>/EventControllerServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>UserEventController</servlet-name>
+    <url-pattern>/UserEventController</url-pattern>
+</servlet-mapping>
+    <!-- Admin Servlet Mappings -->
+    
     <servlet-mapping>
         <servlet-name>AdminDeleteUserServlet</servlet-name>
         <url-pattern>/AdminDeleteUserServlet</url-pattern>
@@ -107,11 +123,101 @@
         <servlet-name>AdminModifyUserServlet</servlet-name>
         <url-pattern>/AdminModifyUserServlet</url-pattern>
     </servlet-mapping>
-    
+        <servlet-mapping>
+        <servlet-name>AdminSelectUserServlet</servlet-name>
+        <url-pattern>/AdminSelectUserServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <!-- AddOpalCardServlet -->
+    <servlet>
+        <servlet-name>AddOpalCardServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AddOpalCardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddOpalCardServlet</servlet-name>
+        <url-pattern>/AddOpalCardServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- DeleteOpalCardServlet -->
+    <servlet>
+        <servlet-name>DeleteOpalCardServlet</servlet-name>
+        <servlet-class>uts.isd.controller.DeleteOpalCardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteOpalCardServlet</servlet-name>
+        <url-pattern>/DeleteOpalCardServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- RenameOpalCardServlet -->
+    <servlet>
+        <servlet-name>RenameOpalCardServlet</servlet-name>
+        <servlet-class>uts.isd.controller.RenameOpalCardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RenameOpalCardServlet</servlet-name>
+        <url-pattern>/RenameOpalCardServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- ListOpalCardsServlet -->
+    <servlet>
+        <servlet-name>ListOpalCardsServlet</servlet-name>
+        <servlet-class>uts.isd.controller.ListOpalCardsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListOpalCardsServlet</servlet-name>
+        <url-pattern>/ListOpalCardsServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- ContactServlet -->
+    <servlet>
+        <servlet-name>ContactServlet</servlet-name>
+        <servlet-class>uts.isd.controller.ContactServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+       <servlet-name>ContactServlet</servlet-name>
+      <url-pattern>/ContactServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReportLostStolenServlet</servlet-name>
+        <servlet-class>uts.isd.controller.ReportLostStolenServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReportLostStolenServlet</servlet-name>
+        <url-pattern>/ReportLostStolenServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>BlockCardServlet</servlet-name>
+        <servlet-class>uts.isd.controller.BlockCardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BlockCardServlet</servlet-name>
+        <url-pattern>/BlockCardServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RequestReplacementServlet</servlet-name>
+        <servlet-class>uts.isd.controller.RequestReplacementServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RequestReplacementServlet</servlet-name>
+        <url-pattern>/RequestReplacementServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminManageCardsServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AdminManageCardsServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AdminManageCardsServlet</servlet-name>
+        <url-pattern>/AdminManageCardsServlet</url-pattern>
+    </servlet-mapping>
 
 </web-app>
