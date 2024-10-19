@@ -68,7 +68,7 @@
 
     <!-- Header -->
     <div class="header">
-        Add New Opal Card
+        Link New Opal Card
     </div>
 
     <!-- Form Container -->

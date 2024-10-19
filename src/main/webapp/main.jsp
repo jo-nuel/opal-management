@@ -22,6 +22,10 @@
             color: white;
             font-size: 1.1em;
             margin-right: 20px;
+            transition: color 0.3s ease, border-bottom 0.3s ease; 
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ffc107;
         }
         .mainTable {
             width: 80%;
@@ -114,8 +118,6 @@
                 <input type="hidden" name="email" value="${user.email}">
                 <button type="submit" class="btn btn-danger btn-main">Delete Account</button>
             </form>
-
-            <a href="logOut.jsp" class="btn btn-warning btn-main">Log Out</a>
         </div>
     </div>
 

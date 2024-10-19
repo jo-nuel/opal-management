@@ -3,37 +3,72 @@
 <%@page import="uts.isd.model.*" %>
 
 <html>
-    <head>
-        <title>Index</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="stylesheet.css">
-    </head>
-    <body>
-        <!--IOTBay Header-->
-        <div class="header">
-            <p class="headerText">Opal Management System</p>
-        </div>
-        <div class="header2">
+<head>
+    <title>Opal Management System - Welcome</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .headerText {
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .welcome-text {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 24px;
+            color: #555;
+        }
+        .centreBox {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        .indexButton {
+            display: inline-block;
+            width: 250px;
+            padding: 15px;
+            margin: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        .indexButton:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Opal Management System Header -->
+    <div class="header">
+        <p class="headerText">Opal Management System</p>
+    </div>
 
-        </div>
-        <!--End of IOTBay Header-->
-        
-        <!--Start of Content-->
-        <div class="centreBox">
-            <div>
-                <a href="login.jsp" class="indexButton">LOGIN</a>
-            </div>
-            <div>
-                <a href="registerOption.jsp" class="indexButton">REGISTER</a>
-            </div>
-        </div>
-        <!--End of Content-->
+    <!-- Content -->
+    <div class="container centreBox">
+        <a href="login.jsp" class="indexButton">Login</a>
+        <a href="registerOption.jsp" class="indexButton">Register</a>
+    </div>
 
-        
+    <jsp:include page="/ConnServlet" />
 
-        <jsp:include page="/ConnServlet" />
-
-
-    </body>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

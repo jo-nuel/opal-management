@@ -6,64 +6,75 @@
     ArrayList<Event> events = (ArrayList<Event>) request.getAttribute("events");
 %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Events</title>
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        /* Styling the add button to match existing styles */
-        .addButtonContainer {
-            text-align: right;
-            margin-bottom: 10px;
+        body {
+            background-color: #f8f9fa;
         }
 
-        .addButton {
-            background-color: #2D86A7;
+        .header {
+            background-color: #007bff;
             color: white;
+            padding: 15px 0;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .headerText {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .addButton, .backButton {
+            background-color: #007bff;
+            color: white;
+            margin: 30px auto;
             padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
             text-decoration: none;
-            cursor: pointer;
-            font-family: Arial, sans-serif;
+            border-radius: 5px;
+            display: inline-block;
         }
 
-        .addButton:hover {
-            background-color: #65BFE1;
+        .addButton:hover, .backButton:hover {
+            background-color: #0056b3;
         }
 
-        /* Table styling */
-        .eventTable {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px auto;
-            background-color: #87CEEB;
-            font-family: Arial, sans-serif;
+        .filterContainer {
+            margin: 20px 0;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 900px; 
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .eventTable th, .eventTable td {
-            border: 1px solid #2D86A7;
-            padding: 10px;
-            text-align: left;
+            padding: 12px;
+            text-align: center;
         }
 
         .eventTable th {
-            background-color: #2D86A7;
+            background-color: #007bff;
             color: white;
         }
 
         .actionButton {
-            background-color: #2D86A7;
+            background-color: #007bff;
             color: white;
             padding: 5px 10px;
-            border: none;
-            cursor: pointer;
             border-radius: 5px;
-            font-family: Arial, sans-serif;
+            border: none;
         }
 
         .actionButton:hover {
-            background-color: #65BFE1;
+            background-color: #0056b3;
         }
 
         .deleteButton {
@@ -73,127 +84,122 @@
         .deleteButton:hover {
             background-color: #e53935;
         }
-
-        /* Back button styling */
-        .backButtonContainer {
-            text-align: left;
-            margin-top: 20px;
-        }
-
-        .backButton {
-            background-color: #2D86A7;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-            font-family: Arial, sans-serif;
-        }
-
-        .backButton:hover {
-            background-color: #65BFE1;
-        }
     </style>
 </head>
 <body>
+
     <!-- Header Section -->
     <div class="header">
-        <p class="headerText">Manage Events</p>
+        <h1 class="headerText">Manage Events</h1>
     </div>
-    <br>
-    <!-- Add Event Button (Top-right corner) -->
-    <div class="addButtonContainer">
+
+    <!-- Add Event Button -->
+    <div class="container text-end">
         <a href="addEventForm.jsp" class="addButton">Add New Event</a>
     </div>
-    <br>
-    <!-- Filter Form -->
-    <div class="filterContainer">
-    <form action="EventControllerServlet" method="get">
-        <input type="hidden" name="action" value="filter">
-        <!-- ID Filter -->
-        <label for="filterId">Filter by ID:</label>
-        <input type="number" id="filterId" name="filterId" class="formInput" placeholder="Enter event ID">
 
-        <!-- Category Filter -->
-        <label for="filterCategory">Filter by Category:</label>
-        <select id="filterCategory" name="filterCategory" class="formInput">
-            <option value="" disabled selected>Select a category</option>
-            <option value="Concert">Concert</option>
-            <option value="Sports">Sports</option>
-            <option value="Maintenance">Maintenance</option>
-            <option value="Festival">Festival</option>
-            <option value="Public Gathering">Public Gathering</option>
-        </select>
-        
-        <!-- Date Filter -->
-        <label for="filterDate">Filter by Date:</label>
-        <input type="date" id="filterDate" name="filterDate" class="formInput">
+    <!-- Filter Section -->
+    <div class="container filterContainer">
+        <form action="EventControllerServlet" method="get">
+            <input type="hidden" name="action" value="filter">
+            <div class="row">
+                <!-- ID Filter -->
+                <div class="col-md-3">
+                    <label for="filterId">Filter by ID:</label>
+                    <input type="number" id="filterId" name="filterId" class="form-control formInput" placeholder="Enter event ID">
+                </div>
 
-        
-        <!-- Location Filter -->
-        <label for="filterLocation">Filter by Location:</label>
-        <input type="text" id="filterLocation" name="filterLocation" class="formInput" placeholder="Enter location">
-        
-        <!-- Submit Filter Button -->
-        <input type="submit" class="formButton" value="Apply Filter">
-    </form>
+                <!-- Category Filter -->
+                <div class="col-md-3">
+                    <label for="filterCategory">Filter by Category:</label>
+                    <select id="filterCategory" name="filterCategory" class="form-select formInput">
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="Concert">Concert</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Festival">Festival</option>
+                        <option value="Public Gathering">Public Gathering</option>
+                    </select>
+                </div>
+
+                <!-- Date Filter -->
+                <div class="col-md-3">
+                    <label for="filterDate">Filter by Date:</label>
+                    <input type="date" id="filterDate" name="filterDate" class="form-control formInput">
+                </div>
+
+                <!-- Location Filter -->
+                <div class="col-md-3">
+                    <label for="filterLocation">Filter by Location:</label>
+                    <input type="text" id="filterLocation" name="filterLocation" class="form-control formInput" placeholder="Enter location">
+                </div>
+
+                <!-- Submit Button -->
+                <div class="col-12 text-center mt-3">
+                    <button type="submit" class="formButton">Apply Filter</button>
+                </div>
+            </div>
+        </form>
     </div>
-    <br>
-    <!-- Error message if filter retrieves no events -->
+
+    <!-- Error Message if No Events -->
     <c:if test="${not empty errorMessage}">
-        <div class="error">
+        <div class="container alert alert-danger mt-3">
             <p>${errorMessage}</p>
         </div>
     </c:if>
 
     <!-- Events Table -->
-    <table class="eventTable">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Description</th>
-            <th>Date</th> 
-            <th>Location</th> 
-            <th>Actions</th>
-        </tr>
-        <c:forEach var="event" items="${events}">
-            <tr>
-                <td>${event.id}</td>
-                <td>${event.name}</td>
-                <td>${event.category}</td>
-                <td>${event.description}</td>
-                <td>${event.date}</td> 
-                <td>${event.location}</td> 
-                <td>
-                    <!-- Edit Button -->
-                    <a href="EventControllerServlet?action=edit&id=${event.id}" class="actionButton">Edit</a>
-
-                    <!-- Delete Button with Confirmation -->
-                    <form action="EventControllerServlet" method="post" style="display:inline;" onsubmit="return confirmDelete(${event.id})">
-                        <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="id" value="${event.id}">
-                        <button type="submit" class="actionButton deleteButton">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
-    
-    
+    <div class="container">
+        <table class="eventTable table table-striped table-hover mt-4">
+            <thead class="table-primary">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="event" items="${events}">
+                    <tr>
+                        <td>${event.id}</td>
+                        <td>${event.name}</td>
+                        <td>${event.category}</td>
+                        <td>${event.description}</td>
+                        <td>${event.date}</td>
+                        <td>${event.location}</td>
+                        <td>
+                            <a href="EventControllerServlet?action=edit&id=${event.id}" class="actionButton">Edit</a>
+                            <form action="EventControllerServlet" method="post" style="display:inline;" onsubmit="return confirmDelete(${event.id})">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="id" value="${event.id}">
+                                <button type="submit" class="actionButton deleteButton">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
 
     <!-- Go Back Button -->
-    <div class="backButtonContainer">
+    <div class="container text-start mt-4">
         <a href="adminMain.jsp" class="backButton">Go Back to Admin Menu</a>
     </div>
 
-    <!-- JavaScript for the confirmation popup -->
+    <!-- JavaScript for Confirmation -->
     <script type="text/javascript">
         function confirmDelete(eventId) {
             return confirm("Are you sure you want to delete event with ID " + eventId + "?");
         }
     </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
