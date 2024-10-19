@@ -4,81 +4,114 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Manage Opal Cards</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Opal Card Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        /* Consistent styles with main.jsp */
-        .header {
-            background-color: #2D86A7;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
+        body {
+            background-color: #f8f9fa;
         }
-        .headerText {
-            font-size: 48px;
-            font-weight: bold;
-            font-family: Arial, sans-serif;
+
+        .navbar {
+            background-color: #007bff;
         }
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            font-family: Arial, sans-serif;
+
+        .navbar-nav .nav-link {
+            color: white;
+            font-size: 1.1em;
+            margin-right: 20px;
+            transition: color 0.3s ease, border-bottom 0.3s ease; 
         }
-        th, td {
-            padding: 10px;
-            border: 1px solid #2D86A7;
-            text-align: center;
+
+        .navbar-nav .nav-link:hover {
+            color: #ffc107;
         }
-        th {
-            background-color: #2D86A7;
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .table {
+            background-color: white;
+        }
+
+        .table th {
+            background-color: #007bff;
             color: white;
         }
-        td {
-            background-color: #f9f9f9;
-        }
-        .actionButton {
-            padding: 10px;
-            background-color: #2D86A7;
+
+        .btn-primary, .btn-info, .btn-secondary, .btn-success, .btn-danger, .btn-warning {
             color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 5px;
         }
-        .actionButton:hover {
-            background-color: #65BFE1;
+
+        /* Responsive nav that stacks the items vertically for smaller screens */
+        @media (max-width: 768px) {
+            .navbar-nav {
+                flex-direction: column;
+                text-align: center;
+            }
         }
-        .buttonContainer {
-            text-align: center;
-            margin: 20px 0;
+
+        /* Custom button colors */
+        .btn-primary {
+            background-color: #0056b3;
         }
-        .backButton {
-            background-color: #2D86A7;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            font-size: 18px;
-            border-radius: 5px;
-            font-family: Arial, sans-serif;
+
+        .btn-info {
+            background-color: #17a2b8;
         }
-        .backButton:hover {
-            background-color: #65BFE1;
+
+        .btn-secondary {
+            background-color: #6c757d;
         }
+
+        .btn-success {
+            background-color: #28a745;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            color: black;
+        }
+        
     </style>
 </head>
 <body>
-    <div class="header">
-        <p class="headerText">Manage Your Opal Cards</p>
-    </div>
 
-    <div class="container">
-        <h3>Your Linked Cards</h3>
-        <table>
-            <thead>
+    <!-- Header Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="#">Opal Management</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="main.jsp">Profile Settings</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ListOpalCardsServlet?userID=${user.ID}">Manage Cards</a></li>
+                    <li class="nav-item"><a class="nav-link" href="viewandTopUpBalance.jsp">Top-up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="UserEventController">Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Travel History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Trip Planner</a></li>
+                    <li class="nav-item"><a class="nav-link" href="faq-en.jsp">F.A.Q</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.jsp">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="logOut.jsp">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <!-- Card Management Table -->
+        <table class="table table-striped table-hover mt-4">
+            <thead class="table-dark">
                 <tr>
                     <th>Card Number</th>
                     <th>Card Nickname</th>
@@ -95,49 +128,54 @@
                         <td>${card.balance}</td>
                         <td>${card.cardStatus}</td>
                         <td>
-                            <form action="RenameOpalCardServlet" method="post" style="display:inline;">
+                            <!-- Rename Card -->
+                            <form action="RenameOpalCardServlet" method="post" class="d-inline">
                                 <input type="hidden" name="cardID" value="${card.cardID}">
-                                <input type="text" name="newCardName" placeholder="Rename card">
-                                <button type="submit" class="actionButton">Rename</button>
+                                <input type="text" name="newCardName" placeholder="Rename card" class="form-control d-inline w-auto">
+                                <button type="submit" class="btn btn-info btn-sm">Rename</button>
                             </form>
-                            <form action="confirmDelete.jsp" method="post" style="display:inline;">
+
+                            <!-- Remove Card -->
+                            <form action="confirmDelete.jsp" method="post" class="d-inline">
                                 <input type="hidden" name="cardID" value="${card.cardID}">
-                                <button type="submit" class="actionButton">Remove</button>
+                                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                             </form>
-                            <form action="ReportLostStolenServlet" method="POST">
-                                <input type="hidden" name="cardID" value="${card.cardID}" />
-                                <select name="status">
-                                    <option value="LOST">Report as Lost</option>
-                                    <option value="STOLEN">Report as Stolen</option>
+
+                            <!-- Report Lost/Stolen -->
+                            <form action="ReportLostStolenServlet" method="post" class="d-inline">
+                                <input type="hidden" name="cardID" value="${card.cardID}">
+                                <select name="status" class="form-control d-inline w-auto">
+                                    <option value="LOST">Lost</option>
+                                    <option value="STOLEN">Stolen</option>
                                 </select>
-                                <button type="submit">Report</button>
+                                <button type="submit" class="btn btn-warning btn-sm">Report</button>
                             </form>
-                            
-                            <form action="BlockCardServlet" method="POST">
-                                <input type="hidden" name="cardID" value="${card.cardID}" />
-                                <button type="submit">Block Card</button>
+
+                            <!-- Block Card -->
+                            <form action="BlockCardServlet" method="post" class="d-inline">
+                                <input type="hidden" name="cardID" value="${card.cardID}">
+                                <button type="submit" class="btn btn-secondary btn-sm">Block</button>
                             </form>
-                            
-                            <form action="RequestReplacementServlet" method="POST">
-                                <input type="hidden" name="cardID" value="${card.cardID}" />
-                                <button type="submit">Request Replacement</button>
+
+                            <!-- Request Replacement -->
+                            <form action="RequestReplacementServlet" method="post" class="d-inline">
+                                <input type="hidden" name="cardID" value="${card.cardID}">
+                                <button type="submit" class="btn btn-primary btn-sm">Request Replacement</button>
                             </form>
-                            
                         </td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
-        
 
-        <div class="buttonContainer">
-            <a href="addCard.jsp" class="mainButton">Add New Opal Card</a>
-        </div>
-
-        <!-- Back to Main Page Button -->
-        <div class="buttonContainer">
-            <a href="main.jsp" class="backButton">Back to Main Page</a>
+        <!-- Link New Card Button -->
+        <div class="text-center mt-4">
+            <a href="addCard.jsp" class="btn btn-success">Link New Card</a>
         </div>
     </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
