@@ -2,39 +2,27 @@ package uts.isd.model;
 
 import java.io.Serializable;
 
-public class Trip implements Serializable {
-    private String tripID;
-    private String tripName;
+public class Route implements Serializable {
+    private String routeID;
     private String startLocation;
     private String destination;
-    private String routeDetails; // Details about the route
-    private double fare; // Itemized cost of the trip
-    private String userID; // Links the trip to the user
+    private double cost;
 
-    public Trip(String tripID, String tripName, String startLocation, String destination, String routeDetails, double fare, String userID) {
-        this.tripID = tripID;
-        this.tripName = tripName;
+    // Constructor
+    public Route(String routeID, String startLocation, String destination, double cost) {
+        this.routeID = routeID;
         this.startLocation = startLocation;
         this.destination = destination;
-        this.routeDetails = routeDetails;
-        this.fare = fare;
-        this.userID = userID;
+        this.cost = cost;
     }
 
-    public String getTripID() {
-        return tripID;
+    // Getters and setters
+    public String getRouteID() {
+        return routeID;
     }
 
-    public void setTripID(String tripID) {
-        this.tripID = tripID;
-    }
-
-    public String getTripName() {
-        return tripName;
-    }
-
-    public void setTripName(String tripName) {
-        this.tripName = tripName;
+    public void setRouteID(String routeID) {
+        this.routeID = routeID;
     }
 
     public String getStartLocation() {
@@ -53,27 +41,11 @@ public class Trip implements Serializable {
         this.destination = destination;
     }
 
-    public String getRouteDetails() {
-        return routeDetails;
+    public double getCost() {
+        return cost;
     }
 
-    public void setRouteDetails(String routeDetails) {
-        this.routeDetails = routeDetails;
-    }
-
-    public double getFare() {
-        return fare;
-    }
-
-    public void setFare(double fare) {
-        this.fare = fare;
-    }
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setCost(double cost) {
+        this.cost = cost;
     }
 }
