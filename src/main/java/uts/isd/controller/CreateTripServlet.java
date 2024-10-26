@@ -1,38 +1,48 @@
 package uts.isd.controller;
 
-import java.io.IOException;
+import uts.isd.model.Trip;
+import uts.isd.model.Route;
+import uts.isd.model.dao.TripDAO;
+import uts.isd.model.dao.RouteDAO;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import uts.isd.model.*;
-import uts.isd.model.dao.*;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-@WebServlet("/createTrip")
 public class CreateTripServlet extends HttpServlet {
+    private TripDAO tripDAO;
+    private RouteDAO routeDAO;
+
+    public void init() {
+        Connection conn = (Connection) getServletContext().getAttribute("conn");
+        tripDAO = new TripDAO(conn);
+        routeDAO = new RouteDAO(conn);
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String userID = (String) session.getAttribute("userID");
         String tripName = request.getParameter("tripName");
-
-        Trip trip = new Trip(null, tripName, userID);
-
-        String[] routeIDs = request.getParameterValues("routeID");
-
-        for (String routeID : routeIDs) {
-            String startLocation = request.getParameter("startLocation_" + routeID);
-            String destination = request.getParameter("destination_" + routeID);
-            double cost = Double.parseDouble(request.getParameter("cost_" + routeID));
-
-            Route route = new Route(routeID, startLocation, destination, cost);
-            trip.addRoute(route);
-        }
+        String[] routeIDs = request.getParameterValues("routeIDs");
+        String userID = ((HttpSession) request.getSession()).getAttribute("userID").toString();
 
         try {
-            TripDAO tripDAO = new TripDAO(DBConnection.getConnection());
+            Trip trip = new Trip(0, tripName, userID); 
+            List<Route> selectedRoutes = new ArrayList<>();
+
+            for (String routeIDStr : routeIDs) {
+                int routeID = Integer.parseInt(routeIDStr);
+                selectedRoutes.add(routeDAO.getRouteById(routeID));
+            }
+
+            trip.getRoutes().addAll(selectedRoutes);
             tripDAO.saveTrip(trip);
-            response.sendRedirect("tripSummary.jsp?tripID=" + trip.getTripID());
-        } catch (Exception e) {
-            throw new ServletException("Error creating trip", e);
+
+            response.sendRedirect("trips.jsp");
+        } catch (SQLException e) {
+            throw new ServletException("Database error during trip creation", e);
         }
     }
 }
