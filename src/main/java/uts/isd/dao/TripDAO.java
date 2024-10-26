@@ -7,17 +7,17 @@ import uts.isd.model.Trip;
 import uts.isd.model.Route;
 
 public class TripDAO {
-    private Connection connection;
+    private Connection conn;
 
-    public TripDAO(Connection connection) {
-        this.connection = connection;
+    public TripDAO(Connection conn) {
+        this.conn = conn;
     }
 
     // Create a new trip
     public void saveTrip(Trip trip) throws SQLException {
         String query = "INSERT INTO Trips (tripID, tripName, userID) VALUES (?, ?, ?)";
-        PreparedStatement ps = connection.prepareStatement(query);
-        ps.setString(1, trip.getTripID());
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setInt(1, trip.getTripID());
         ps.setString(2, trip.getTripName());
         ps.setString(3, trip.getUserID());
         ps.executeUpdate();
@@ -29,21 +29,22 @@ public class TripDAO {
     }
 
     // Save a route associated with a trip
-    private void saveRoute(String tripID, Route route) throws SQLException {
-        String query = "INSERT INTO Routes (routeID, tripID, startLocation, destination, cost) VALUES (?, ?, ?, ?, ?)";
-        PreparedStatement ps = connection.prepareStatement(query);
-        ps.setString(1, route.getRouteID());
+    private void saveRoute(int tripID, Route route) throws SQLException {
+        String query = "INSERT INTO Routes (routeID, tripID, startLocation, destination, cost, travelTime) VALUES (?, ?, ?, ?, ?, ?)";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setInt(1, route.getRouteID());
         ps.setString(2, tripID);
         ps.setString(3, route.getStartLocation());
         ps.setString(4, route.getDestination());
         ps.setDouble(5, route.getCost());
+        ps.setInt(6, route.getTravelTime());
         ps.executeUpdate();
     }
 
     // Retrieve trips for a user
     public List<Trip> getTripsByUser(String userID) throws SQLException {
         String query = "SELECT * FROM Trips WHERE userID = ?";
-        PreparedStatement ps = connection.prepareStatement(query);
+        PreparedStatement ps = conn.prepareStatement(query);
         ps.setString(1, userID);
         ResultSet rs = ps.executeQuery();
 
@@ -59,7 +60,7 @@ public class TripDAO {
     // Retrieve routes associated with a trip
     private List<Route> getRoutesByTrip(String tripID) throws SQLException {
         String query = "SELECT * FROM Routes WHERE tripID = ?";
-        PreparedStatement ps = connection.prepareStatement(query);
+        PreparedStatement ps = conn.prepareStatement(query);
         ps.setString(1, tripID);
         ResultSet rs = ps.executeQuery();
 
@@ -70,6 +71,7 @@ public class TripDAO {
                 rs.getString("startLocation"),
                 rs.getString("destination"),
                 rs.getDouble("cost")
+                rs.getInt("travelTime")
             );
             routes.add(route);
         }
