@@ -3,25 +3,28 @@ package uts.isd.model;
 import java.io.Serializable;
 
 public class Route implements Serializable {
-    private String routeID;
+    private 
+    private int routeID;
     private String startLocation;
     private String destination;
     private double cost;
+    private int travelTime;
 
     // Constructor
-    public Route(String routeID, String startLocation, String destination, double cost) {
+    public Route(int routeID, String startLocation, String destination, double cost, int travelTime) {
         this.routeID = routeID;
         this.startLocation = startLocation;
         this.destination = destination;
         this.cost = cost;
+        this.travelTime = travelTime;
     }
 
     // Getters and setters
-    public String getRouteID() {
+    public int getRouteID() {
         return routeID;
     }
 
-    public void setRouteID(String routeID) {
+    public void setRouteID(int routeID) {
         this.routeID = routeID;
     }
 
@@ -47,5 +50,13 @@ public class Route implements Serializable {
 
     public void setCost(double cost) {
         this.cost = cost;
+    }
+
+    public int getTravelTime() {
+        return travelTime;
+    }
+
+    public void setTravelTime(int travelTime) {
+        this.travelTime = travelTime;
     }
 }
