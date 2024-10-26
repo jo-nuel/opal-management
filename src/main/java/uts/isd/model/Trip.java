@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Trip implements Serializable {
-    private String tripID;
+    private int tripID;
     private String tripName; // Name for the saved trip (e.g., "Home to Office")
     private String userID; // Links the trip to a user
     private List<Route> routes; // List of routes for the trip
 
     // Constructor
-    public Trip(String tripID, String tripName, String userID) {
+    public Trip(int tripID, String tripName, String userID) {
         this.tripID = tripID;
         this.tripName = tripName;
         this.userID = userID;
@@ -24,11 +24,11 @@ public class Trip implements Serializable {
     }
 
     // Getters and setters
-    public String getTripID() {
+    public int getTripID() {
         return tripID;
     }
 
-    public void setTripID(String tripID) {
+    public void setTripID(int tripID) {
         this.tripID = tripID;
     }
 
