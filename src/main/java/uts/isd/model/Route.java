@@ -3,7 +3,6 @@ package uts.isd.model;
 import java.io.Serializable;
 
 public class Route implements Serializable {
-    private 
     private int routeID;
     private String startLocation;
     private String destination;
