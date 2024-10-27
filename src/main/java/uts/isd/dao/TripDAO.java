@@ -15,29 +15,22 @@ public class TripDAO {
 
     // Create a new trip
     public void saveTrip(Trip trip) throws SQLException {
-        String query = "INSERT INTO Trips (tripID, tripName, userID) VALUES (?, ?, ?)";
+        // Convert route list to a comma-separated string
+        StringBuilder routeIDs = new StringBuilder();
+        for (Route route : trip.getRoutes()) {
+            routeIDs.append(route.getRouteID()).append(",");
+        }
+        // Remove the trailing comma
+        if (routeIDs.length() > 0) {
+            routeIDs.setLength(routeIDs.length() - 1);
+        }
+
+        String query = "INSERT INTO Trips (tripID, tripName, userID, routeIDs) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, trip.getTripID());
         ps.setString(2, trip.getTripName());
         ps.setString(3, trip.getUserID());
-        ps.executeUpdate();
-
-        // Save routes for the trip
-        for (Route route : trip.getRoutes()) {
-            saveRoute(trip.getTripID(), route);
-        }
-    }
-
-    // Save a route associated with a trip
-    private void saveRoute(int tripID, Route route) throws SQLException {
-        String query = "INSERT INTO Routes (routeID, tripID, startLocation, destination, cost, travelTime) VALUES (?, ?, ?, ?, ?, ?)";
-        PreparedStatement ps = conn.prepareStatement(query);
-        ps.setInt(1, route.getRouteID());
-        ps.setInt(2, tripID);
-        ps.setString(3, route.getStartLocation());
-        ps.setString(4, route.getDestination());
-        ps.setDouble(5, route.getCost());
-        ps.setInt(6, route.getTravelTime());
+        ps.setString(4, routeIDs.toString()); // Store route IDs as a string
         ps.executeUpdate();
     }
 
@@ -51,30 +44,16 @@ public class TripDAO {
         List<Trip> trips = new ArrayList<>();
         while (rs.next()) {
             Trip trip = new Trip(rs.getInt("tripID"), rs.getString("tripName"), userID);
-            trip.getRoutes().addAll(getRoutesByTrip(trip.getTripID()));
+            // Retrieve route IDs from the string and add Route objects to the trip
+            String[] routeIDArray = rs.getString("routeIDs").split(",");
+            for (String id : routeIDArray) {
+                Route route = new RouteDAO(conn).getRouteById(Integer.parseInt(id));
+                if (route != null) {
+                    trip.getRoutes().add(route);
+                }
+            }
             trips.add(trip);
         }
         return trips;
-    }
-
-    // Retrieve routes associated with a trip
-    private List<Route> getRoutesByTrip(int tripID) throws SQLException {
-        String query = "SELECT * FROM Routes WHERE tripID = ?";
-        PreparedStatement ps = conn.prepareStatement(query);
-        ps.setInt(1, tripID);
-        ResultSet rs = ps.executeQuery();
-
-        List<Route> routes = new ArrayList<>();
-        while (rs.next()) {
-            Route route = new Route(
-                rs.getInt("routeID"),
-                rs.getString("startLocation"),
-                rs.getString("destination"),
-                rs.getDouble("cost"),
-                rs.getInt("travelTime")
-            );
-            routes.add(route);
-        }
-        return routes;
     }
 }
