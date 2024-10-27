@@ -216,3 +216,16 @@ CREATE TABLE contact_submissions (
     PRIMARY KEY (id)
 );
 ```
+### TRIP PLANNING AND FARES
+
+- Create table:
+```sql
+CREATE TABLE `Routes` (
+  `routeID` INT NOT NULL AUTO_INCREMENT,
+  `startLocation` VARCHAR(255) NOT NULL,
+  `destination` VARCHAR(255) NOT NULL,
+  `cost` DOUBLE NOT NULL,
+  `travelTime` INT NOT NULL,
+  PRIMARY KEY (`routeID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
