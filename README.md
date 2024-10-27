@@ -229,3 +229,13 @@ CREATE TABLE `Routes` (
   PRIMARY KEY (`routeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+- Create table:
+```sql
+CREATE TABLE `Trips` (
+  `tripID` INT NOT NULL AUTO_INCREMENT,
+  `tripName` VARCHAR(100) DEFAULT NULL,
+  `userID` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`tripID`),
+  KEY `fk_user_trip` (`userID`),
+  CONSTRAINT `fk_user_trip` FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
