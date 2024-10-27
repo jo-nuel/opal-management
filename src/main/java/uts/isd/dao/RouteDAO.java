@@ -1,4 +1,4 @@
-package uts.isd.model.dao;
+package uts.isd.dao;
 
 import uts.isd.model.Route;
 import java.sql.*;
@@ -31,3 +31,22 @@ public class RouteDAO {
         }
         return routes;
     }
+
+    public Route getRouteById(int routeID) throws SQLException {
+        String query = "SELECT * FROM Routes WHERE routeID = ?";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setInt(1, routeID);
+        ResultSet rs = ps.executeQuery();
+    
+        if (rs.next()) {
+            return new Route(
+                rs.getInt("routeID"),
+                rs.getString("startLocation"),
+                rs.getString("destination"),
+                rs.getDouble("cost"),
+                rs.getInt("travelTime")
+            );
+        }
+        return null; 
+    }
+}
