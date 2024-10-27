@@ -92,7 +92,7 @@ Our repo follows the Model View Controller (MVC) structure. to ensure separation
 ##  RUNNING THE PROJECT
 
 ### Pre-requisites
-- Install JDK 8, Maven, MySQL installed. 
+- Install JDK 22, Maven, MySQL installed. 
   For MySQL, the root account has user: `root` & pass: `useruser`. You can keep every other setting as default. Alternatively, if you set your root account up in another method, modify the DB user and password variables to match those you used. 
 
 ```java
@@ -139,8 +139,11 @@ CREATE TABLE events (
     name VARCHAR(100) NOT NULL,
     category VARCHAR(100),
     description TEXT,
+    event_date DATE,  
+    location VARCHAR(255), 
     PRIMARY KEY (id)
 );
+
 ```
 
 - Create the users table:
@@ -213,3 +216,26 @@ CREATE TABLE contact_submissions (
     PRIMARY KEY (id)
 );
 ```
+### TRIP PLANNING AND FARES
+
+- Create table:
+```sql
+CREATE TABLE `Routes` (
+  `routeID` INT NOT NULL AUTO_INCREMENT,
+  `startLocation` VARCHAR(255) NOT NULL,
+  `destination` VARCHAR(255) NOT NULL,
+  `cost` DOUBLE NOT NULL,
+  `travelTime` INT NOT NULL,
+  PRIMARY KEY (`routeID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+- Create table:
+```sql
+CREATE TABLE `Trips` (
+  `tripID` INT NOT NULL AUTO_INCREMENT,
+  `tripName` VARCHAR(100) DEFAULT NULL,
+  `userID` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`tripID`),
+  KEY `fk_user_trip` (`userID`),
+  CONSTRAINT `fk_user_trip` FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
