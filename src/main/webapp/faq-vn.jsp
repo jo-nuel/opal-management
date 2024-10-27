@@ -18,7 +18,7 @@
             color: white;
             font-size: 1.1em;
             margin-right: 20px;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, border-bottom 0.3s ease; 
         }
 
         .navbar-nav .nav-link:hover {
@@ -76,7 +76,7 @@
 </head>
 <body>
 
-    <!-- Header Navigation (same as cardManagement.jsp) -->
+    <!-- Header Navigation -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand text-white" href="#">Opal Management</a>

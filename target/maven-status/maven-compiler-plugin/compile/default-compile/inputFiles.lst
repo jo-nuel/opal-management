@@ -13,8 +13,13 @@ C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\control
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\ReportLostStolenServlet.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\model\OpalCard.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\AccessLogServlet.java
+C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\model\Trip.java
+C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\CreateTripServlet.java
+C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\ViewTripsServlet.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\CardServlet.java
+C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\ViewRoutesServlet.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\LoginServlet.java
+C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\dao\RouteDAO.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\AdminDeleteUserServlet.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\UserValidator.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\UserEventController.java
@@ -28,11 +33,13 @@ C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\model\E
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\TopUpServlet.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\AdminListUsersServlet.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\dao\SavedTripDAO.java
+C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\model\Route.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\dao\DB.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\AdminSelectUserServlet.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\model\User.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\LogOutServlet.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\ContactServlet.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\RequestReplacementServlet.java
+C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\dao\TripDAO.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\AdminModifyUserServlet.java
 C:\Users\Jonathan\Documents\GitHub\opal-management\src\main\java\uts\isd\controller\TestUserDB.java
