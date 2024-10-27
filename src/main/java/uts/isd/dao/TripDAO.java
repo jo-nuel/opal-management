@@ -1,4 +1,4 @@
-package uts.isd.model.dao;
+package uts.isd.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class TripDAO {
         String query = "INSERT INTO Routes (routeID, tripID, startLocation, destination, cost, travelTime) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, route.getRouteID());
-        ps.setString(2, tripID);
+        ps.setInt(2, tripID);
         ps.setString(3, route.getStartLocation());
         ps.setString(4, route.getDestination());
         ps.setDouble(5, route.getCost());
@@ -50,7 +50,7 @@ public class TripDAO {
 
         List<Trip> trips = new ArrayList<>();
         while (rs.next()) {
-            Trip trip = new Trip(rs.getString("tripID"), rs.getString("tripName"), userID);
+            Trip trip = new Trip(rs.getInt("tripID"), rs.getString("tripName"), userID);
             trip.getRoutes().addAll(getRoutesByTrip(trip.getTripID()));
             trips.add(trip);
         }
@@ -58,19 +58,19 @@ public class TripDAO {
     }
 
     // Retrieve routes associated with a trip
-    private List<Route> getRoutesByTrip(String tripID) throws SQLException {
+    private List<Route> getRoutesByTrip(int tripID) throws SQLException {
         String query = "SELECT * FROM Routes WHERE tripID = ?";
         PreparedStatement ps = conn.prepareStatement(query);
-        ps.setString(1, tripID);
+        ps.setInt(1, tripID);
         ResultSet rs = ps.executeQuery();
 
         List<Route> routes = new ArrayList<>();
         while (rs.next()) {
             Route route = new Route(
-                rs.getString("routeID"),
+                rs.getInt("routeID"),
                 rs.getString("startLocation"),
                 rs.getString("destination"),
-                rs.getDouble("cost")
+                rs.getDouble("cost"),
                 rs.getInt("travelTime")
             );
             routes.add(route);
