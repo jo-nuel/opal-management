@@ -18,7 +18,7 @@
             color: white;
             font-size: 1.1em;
             margin-right: 20px;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, border-bottom 0.3s ease; 
         }
 
         .navbar-nav .nav-link:hover {
@@ -85,7 +85,7 @@
 </head>
 <body>
 
-    <!-- Header Navigation (same as cardManagement.jsp) -->
+    <!-- Header Navigation -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand text-white" href="#">Opal Management</a>
@@ -98,6 +98,7 @@
                     <li class="nav-item"><a class="nav-link" href="ListOpalCardsServlet?userID=${user.ID}">Manage Cards</a></li>
                     <li class="nav-item"><a class="nav-link" href="viewandTopUpBalance.jsp">Top-up</a></li>
                     <li class="nav-item"><a class="nav-link" href="UserEventController">Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="savedtrips.jsp">Saved Trips</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Travel History</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Trip Planner</a></li>
                     <li class="nav-item"><a class="nav-link" href="faq-en.jsp">F.A.Q</a></li>
