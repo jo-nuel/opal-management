@@ -51,3 +51,4 @@ public class Trip implements Serializable {
     public List<Route> getRoutes() {
         return routes;
     }
+}
