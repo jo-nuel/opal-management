@@ -1,4 +1,4 @@
-<%@ page import="uts.isd.model.Route, uts.isd.model.dao.RouteDAO" %>
+<%@ page import="uts.isd.model.Route, uts.isd.dao.RouteDAO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.Connection" %>
 
