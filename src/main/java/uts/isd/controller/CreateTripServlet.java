@@ -2,8 +2,8 @@ package uts.isd.controller;
 
 import uts.isd.model.Trip;
 import uts.isd.model.Route;
-import uts.isd.model.dao.TripDAO;
-import uts.isd.model.dao.RouteDAO;
+import uts.isd.dao.TripDAO;
+import uts.isd.dao.RouteDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
