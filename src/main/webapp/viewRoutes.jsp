@@ -1,7 +1,7 @@
 <%@ page import="uts.isd.model.Route, uts.isd.dao.RouteDAO" %>
 <%@ page import="java.util.List" %>
 
-<jsp:useBean id="routeDAO" class="uts.isd.model.dao.RouteDAO" scope="request">
+<jsp:useBean id="routeDAO" class="uts.isd.dao.RouteDAO" scope="request">
     <jsp:setProperty name="routeDAO" property="conn" value="${applicationScope.conn}" />
 </jsp:useBean>
 
