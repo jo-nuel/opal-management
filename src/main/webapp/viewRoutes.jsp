@@ -35,9 +35,8 @@
     </table>
 
 <br>
-    <a href="saveTrip.jsp">
-        <button type="button">Create a New Trip</button>
-    </a>
+    <button onclick="window.location.href='main.jsp'">Back to Main</button>
+    <button onclick="window.location.href='savetrip.jsp'">Create Trip</button>
 
 </body>
 </html>
