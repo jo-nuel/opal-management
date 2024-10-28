@@ -10,79 +10,39 @@
     <title>Opal Card Management</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .navbar {
-            background-color: #007bff;
-        }
-
-        .navbar-nav .nav-link {
-            color: white;
-            font-size: 1.1em;
-            margin-right: 20px;
-            transition: color 0.3s ease, border-bottom 0.3s ease; 
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #ffc107;
-        }
-
-        .container {
-            margin-top: 30px;
-        }
-
-        .table {
-            background-color: white;
-        }
-
-        .table th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .btn-primary, .btn-info, .btn-secondary, .btn-success, .btn-danger, .btn-warning {
-            color: white;
-        }
-
-        /* Responsive nav that stacks the items vertically for smaller screens */
-        @media (max-width: 768px) {
-            .navbar-nav {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-
-        /* Custom button colors */
-        .btn-primary {
-            background-color: #0056b3;
-        }
-
-        .btn-info {
-            background-color: #17a2b8;
-        }
-
-        .btn-secondary {
-            background-color: #6c757d;
-        }
-
-        .btn-success {
-            background-color: #28a745;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-        }
-
-        .btn-warning {
-            background-color: #ffc107;
-            color: black;
-        }
-        
+        body { background-color: #f8f9fa; }
+        .navbar { background-color: #007bff; }
+        .navbar-nav .nav-link { color: white; font-size: 1.1em; margin-right: 20px; transition: color 0.3s ease, border-bottom 0.3s ease; }
+        .navbar-nav .nav-link:hover { color: #ffc107; }
+        .container { margin-top: 30px; }
+        .table { background-color: white; }
+        .table th { background-color: #007bff; color: white; }
+        .btn-primary, .btn-info, .btn-secondary, .btn-success, .btn-danger, .btn-warning { color: white; }
+        @media (max-width: 768px) { .navbar-nav { flex-direction: column; text-align: center; } }
+        .btn-primary { background-color: #0056b3; }
+        .btn-info { background-color: #17a2b8; }
+        .btn-secondary { background-color: #6c757d; }
+        .btn-success { background-color: #28a745; }
+        .btn-danger { background-color: #dc3545; }
+        .btn-warning { background-color: #ffc107; color: black; }
     </style>
 </head>
 <body>
+
+    <!-- Notification for Top-Up and Low Balance -->
+    <c:if test="${not empty sessionScope.notification}">
+        <div class="alert alert-info" role="alert">
+            ${sessionScope.notification}
+        </div>
+        <c:remove var="notification" scope="session"/>
+    </c:if>
+
+    <c:if test="${not empty sessionScope.lowBalanceNotification}">
+        <div class="alert alert-warning" role="alert">
+            ${sessionScope.lowBalanceNotification}
+        </div>
+        <c:remove var="lowBalanceNotification" scope="session"/>
+    </c:if>
 
     <!-- Header Navigation -->
     <nav class="navbar navbar-expand-lg">
@@ -162,6 +122,13 @@
                             <form action="RequestReplacementServlet" method="post" class="d-inline">
                                 <input type="hidden" name="cardID" value="${card.cardID}">
                                 <button type="submit" class="btn btn-primary btn-sm">Request Replacement</button>
+                            </form>
+
+                            <!-- Top-Up Button -->
+                            <form action="TopUpLouisServlet" method="post" class="d-inline">
+                                <input type="hidden" name="cardID" value="${card.cardID}">
+                                <input type="number" name="topUpAmount" placeholder="Amount" class="form-control d-inline w-auto" min="1" required>
+                                <button type="submit" class="btn btn-success btn-sm">Top-Up</button>
                             </form>
                         </td>
                     </tr>
