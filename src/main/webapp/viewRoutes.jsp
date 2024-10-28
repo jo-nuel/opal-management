@@ -33,5 +33,11 @@
             </tr>
         <% } %>
     </table>
+
+<br>
+    <a href="saveTrip.jsp">
+        <button type="button">Create a New Trip</button>
+    </a>
+
 </body>
 </html>
