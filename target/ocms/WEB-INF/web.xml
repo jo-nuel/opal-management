@@ -10,7 +10,6 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>uts.isd.controller.LoginServlet</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>UserUpdateServlet</servlet-name>
         <servlet-class>uts.isd.controller.UserUpdateServlet</servlet-class>
@@ -35,12 +34,10 @@
         <servlet-name>LogOutServlet</servlet-name>
         <servlet-class>uts.isd.controller.LogOutServlet</servlet-class>
     </servlet>
-    
-    
     <servlet>
-    <servlet-name>UserEventController</servlet-name>
-    <servlet-class>uts.isd.controller.UserEventController</servlet-class>
-</servlet>
+        <servlet-name>UserEventController</servlet-name>
+        <servlet-class>uts.isd.controller.UserEventController</servlet-class>
+    </servlet>
 
     <!-- Admin Servlets -->
     <servlet>
@@ -106,11 +103,11 @@
         <url-pattern>/EventControllerServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-    <servlet-name>UserEventController</servlet-name>
-    <url-pattern>/UserEventController</url-pattern>
-</servlet-mapping>
+        <servlet-name>UserEventController</servlet-name>
+        <url-pattern>/UserEventController</url-pattern>
+    </servlet-mapping>
+
     <!-- Admin Servlet Mappings -->
-    
     <servlet-mapping>
         <servlet-name>AdminDeleteUserServlet</servlet-name>
         <url-pattern>/AdminDeleteUserServlet</url-pattern>
@@ -132,6 +129,7 @@
             30
         </session-timeout>
     </session-config>
+    
     <!-- AddOpalCardServlet -->
     <servlet>
         <servlet-name>AddOpalCardServlet</servlet-name>
@@ -220,4 +218,43 @@
         <url-pattern>/AdminManageCardsServlet</url-pattern>
     </servlet-mapping>
 
+    <!-- Servlet for Adding a Saved Trip -->
+    <servlet>
+        <servlet-name>AddSavedTripServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AddSavedTripServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddSavedTripServlet</servlet-name>
+        <url-pattern>/AddSavedTripServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- Servlet for Viewing Saved Trips -->
+    <servlet>
+        <servlet-name>ViewSavedTripsServlet</servlet-name>
+        <servlet-class>uts.isd.controller.ViewSavedTripsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewSavedTripsServlet</servlet-name>
+        <url-pattern>/ViewSavedTripsServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- Servlet for Updating a Saved Trip -->
+    <servlet>
+        <servlet-name>EditSavedTripServlet</servlet-name>
+        <servlet-class>uts.isd.controller.EditSavedTripServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditSavedTripServlet</servlet-name>
+        <url-pattern>/EditSavedTripServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- Servlet for Deleting a Saved Trip -->
+    <servlet>
+        <servlet-name>DeleteSavedTripServlet</servlet-name>
+        <servlet-class>uts.isd.controller.DeleteSavedTripServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteSavedTripServlet</servlet-name>
+        <url-pattern>/DeleteSavedTripServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
