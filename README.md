@@ -49,8 +49,9 @@ From here, you can start using our management system.
 
 ## Managing your opal card 
 ```(Jonathan - F102)```
-
-// Please fill in
+Once logged in to the system, you are directed to your card page. 
+In the page you are able to link your cards, edit, or remove them. 
+Make sure to enter the correct credentials when attempting the functionalities above.
 
 ## Events 
 ```(Fatin - F109)```
@@ -72,6 +73,12 @@ Alternatively, send us a message with your name, email and message and we'll res
 Our FAQ has multilingual support for English (EN), 中文 (ZH) and Tiếng Việt (VN). More, soon to be added! 
 
 ---
+
+## Saved Trips
+```(Jonathan - F102)```
+Saved trips are essentially the ability to make a shortcut to your most frequent trip planners.
+You can access your saved trips through the navigation bar. Once in the page, you can add a saved trip and edit or remove them.
+You are also able to label your saved trips which helps organize your saved trips.
 
 # Engineers Manual
 
