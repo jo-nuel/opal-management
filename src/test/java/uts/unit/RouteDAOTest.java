@@ -1,3 +1,8 @@
+package uts.unit;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -9,9 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class RouteDAOTest {
 
@@ -67,3 +69,4 @@ public class RouteDAOTest {
         assertEquals("A", route.getStartLocation());
     }
 }
+
