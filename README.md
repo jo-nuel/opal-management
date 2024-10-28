@@ -249,3 +249,18 @@ CREATE TABLE `Trips` (
   CONSTRAINT `fk_user_trip` FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ```
+-- ocms.lost_stolen_cards definition
+
+### Lost and stolen and alerts and notifications
+CREATE TABLE `lost_stolen_cards` (
+  `reportID` int NOT NULL AUTO_INCREMENT,
+  `cardID` int DEFAULT NULL,
+  `userID` varchar(255) DEFAULT NULL,
+  `reportType` varchar(10) DEFAULT NULL,
+  `reportDate` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`reportID`),
+  KEY `cardID` (`cardID`),
+  KEY `userID` (`userID`),
+  CONSTRAINT `lost_stolen_cards_ibfk_1` FOREIGN KEY (`cardID`) REFERENCES `opalcard` (`cardID`),
+  CONSTRAINT `lost_stolen_cards_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
