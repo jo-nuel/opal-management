@@ -229,6 +229,7 @@ CREATE TABLE `Routes` (
   `travelTime` INT NOT NULL,
   PRIMARY KEY (`routeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+```
 
 - Create table:
 ```sql
@@ -240,3 +241,4 @@ CREATE TABLE `Trips` (
   KEY `fk_user_trip` (`userID`),
   CONSTRAINT `fk_user_trip` FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+```
