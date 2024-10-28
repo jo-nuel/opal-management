@@ -12,7 +12,7 @@ public class OpalCard implements Serializable {
     private String userID;
     private String cardSecurityCode;
 
-    // Constructor (adjusted order to match database table)
+    // Constructor
     public OpalCard(int cardID, String cardNumber, String cardName, double balance, String cardStatus, String userID,
             String cardSecurityCode) {
         this.cardID = cardID;

@@ -192,15 +192,16 @@ CREATE TABLE `opalcard` (
 - Create table:
 ```sql
 CREATE TABLE `savedtrip` (
-  `tripID` int NOT NULL AUTO_INCREMENT,
-  `tripName` varchar(100) DEFAULT NULL,
+  `savedTripID` int NOT NULL AUTO_INCREMENT,
+  `savedTripName` varchar(100) NOT NULL,
   `startLocation` varchar(255) NOT NULL,
   `destination` varchar(255) NOT NULL,
-  `userID` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`tripID`),
-  KEY `fk_user_savedtrip` (`userID`),
-  CONSTRAINT `fk_user_savedtrip` FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `userID` varchar(10) NOT NULL,
+  `label` varchar(100),
+  PRIMARY KEY (`savedTripID`),
+  KEY `userID` (`userID`),
+  CONSTRAINT `savedtrip_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ```
 
 ### MESSAGE SUBMISSION, THE CONTACT US
