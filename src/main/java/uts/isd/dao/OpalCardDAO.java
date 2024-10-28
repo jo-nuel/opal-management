@@ -30,7 +30,7 @@ public class OpalCardDAO {
         ArrayList<OpalCard> cards = new ArrayList<>();
         String query = "SELECT * FROM opalcard WHERE userID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, userId); // userID is a String
+            stmt.setString(1, userId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 OpalCard card = new OpalCard(

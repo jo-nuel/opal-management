@@ -98,9 +98,9 @@
                     <li class="nav-item"><a class="nav-link" href="ListOpalCardsServlet?userID=${user.ID}">Manage Cards</a></li>
                     <li class="nav-item"><a class="nav-link" href="viewandTopUpBalance.jsp">Top-up</a></li>
                     <li class="nav-item"><a class="nav-link" href="UserEventController">Events</a></li>
-                    <li class="nav-item"><a class="nav-link" href="savedtrips.jsp">Saved Trips</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Travel History</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Trip Planner</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ViewSavedTripsServlet">Saved Trips</a></li>
                     <li class="nav-item"><a class="nav-link" href="faq-en.jsp">F.A.Q</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.jsp">Contact Us</a></li>
                     <li class="nav-item"><a class="nav-link" href="logOut.jsp">Logout</a></li>

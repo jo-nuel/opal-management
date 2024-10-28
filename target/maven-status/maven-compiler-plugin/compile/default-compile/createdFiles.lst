@@ -29,7 +29,6 @@ uts\isd\controller\ListOpalCardsServlet.class
 uts\isd\controller\ReportLostStolenServlet.class
 uts\isd\model\AccessLog.class
 uts\isd\controller\UserValidator.class
-uts\isd\controller\CardServlet.class
 uts\isd\dao\DB.class
 uts\isd\controller\TestUserDB.class
 uts\isd\controller\AddOpalCardServlet.class
