@@ -33,5 +33,8 @@
 
         <input type="submit" value="Save Trip">
     </form>
+
+    <br>
+    <button onclick="window.location.href='viewroutes.jsp'">Back to View Routes</button>
 </body>
 </html>
