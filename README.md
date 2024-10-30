@@ -56,7 +56,8 @@ Make sure to enter the correct credentials when attempting the functionalities a
 ## Events 
 ```(Fatin - F109)```
 
-// Please fill in
+- For admin can manage and add events
+- For user once logged in and access the events page from navbar can see and filter through events.
 
 ## Contacting Support 
 ```(Jerry - F110)```
