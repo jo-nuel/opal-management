@@ -16,7 +16,7 @@ For the engineers [go here!](#Engineers-Manual)
 
 ---
 
-# Users Manual
+# Users Manual 
 
 Welcome to the Opal Card Management System! This platform allows you to efficiently manage your Opal card, trip planning, travel history, FAQs, contact us for support, and much more. Follow the steps below to start using the system.
 
@@ -77,8 +77,11 @@ Our FAQ has multilingual support for English (EN), 中文 (ZH) and Tiếng Việ
 
 ## Saved Trips
 ```(Jonathan - F102)```
+
 Saved trips are essentially the ability to make a shortcut to your most frequent trip planners.
+
 You can access your saved trips through the navigation bar. Once in the page, you can add a saved trip and edit or remove them.
+
 You are also able to label your saved trips which helps organize your saved trips.
 
 # Engineers Manual
@@ -130,17 +133,17 @@ TO SEE CHANGES: In the terminal run these commands every time:
 ## DATABASE SETUP
 If you initialise a new database and use it, please add it here. Make sure you have MySQL downloaded and setup with a root account. To setup the database we're all using, run the following commands in either Workbench or the terminal.
 
-- Create the ocms database:
+### OCMS database:
+
 ```sql
 CREATE DATABASE ocms;
 ```
 
-- Use the ocms database:
 ```sql
 USE ocms;
 ```
 
-- Create the events table:
+### Events Table:
 ```sql
 CREATE TABLE events (
     id INT NOT NULL AUTO_INCREMENT,
@@ -154,7 +157,7 @@ CREATE TABLE events (
 
 ```
 
-- Create the users table:
+### Users Table:
 ```sql
 CREATE TABLE users (
     id VARCHAR(10) NOT NULL,
@@ -166,8 +169,8 @@ CREATE TABLE users (
     PRIMARY KEY (id)
 );
 ```
+### Access Table:
 
-- Create the access table (based on your database structure):
 ```sql
 CREATE TABLE access (
     email VARCHAR(100),
@@ -179,9 +182,8 @@ CREATE TABLE access (
 );
 ```
 
-### CARD LINKING AND SAVED TRIP
+### Card Table
 
-- Create table:
 ```sql
 CREATE TABLE `opalcard` (
   `cardID` int NOT NULL AUTO_INCREMENT,
@@ -197,7 +199,7 @@ CREATE TABLE `opalcard` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ```
 
-- Create table:
+### Saved Trip Table:
 ```sql
 CREATE TABLE `savedtrip` (
   `savedTripID` int NOT NULL AUTO_INCREMENT,
@@ -212,9 +214,8 @@ CREATE TABLE `savedtrip` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ```
 
-### MESSAGE SUBMISSION, THE CONTACT US
+### Message/Contact Table:
 
-- Create table:
 ```sql
 CREATE TABLE contact_submissions (
     id INT NOT NULL AUTO_INCREMENT,
@@ -225,9 +226,8 @@ CREATE TABLE contact_submissions (
     PRIMARY KEY (id)
 );
 ```
-### TRIP PLANNING AND FARES
+### Routes Table:
 
-- Create table:
 ```sql
 CREATE TABLE `Routes` (
   `routeID` INT NOT NULL AUTO_INCREMENT,
@@ -239,7 +239,8 @@ CREATE TABLE `Routes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ```
 
-- Create table:
+### Trips Table:
+
 ```sql
 CREATE TABLE `Trips` (
   `tripID` INT NOT NULL AUTO_INCREMENT,
@@ -250,9 +251,9 @@ CREATE TABLE `Trips` (
   CONSTRAINT `fk_user_trip` FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ```
--- ocms.lost_stolen_cards definition
+### Lost & Stolen Table:
 
-### Lost and stolen and alerts and notifications
+```sql
 CREATE TABLE `lost_stolen_cards` (
   `reportID` int NOT NULL AUTO_INCREMENT,
   `cardID` int DEFAULT NULL,
@@ -265,3 +266,4 @@ CREATE TABLE `lost_stolen_cards` (
   CONSTRAINT `lost_stolen_cards_ibfk_1` FOREIGN KEY (`cardID`) REFERENCES `opalcard` (`cardID`),
   CONSTRAINT `lost_stolen_cards_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+```
