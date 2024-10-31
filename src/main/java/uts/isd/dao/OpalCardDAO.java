@@ -30,7 +30,7 @@ public class OpalCardDAO {
         ArrayList<OpalCard> cards = new ArrayList<>();
         String query = "SELECT * FROM opalcard WHERE userID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, userId); // userID is a String
+            stmt.setString(1, userId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 OpalCard card = new OpalCard(
@@ -66,7 +66,7 @@ public class OpalCardDAO {
         }
     }
 
-    // Method to update balance of an Opal Card 
+    // Method to update balance of an Opal Card
     public void topUpBalance(String cardNumber, double topUpAmount) throws SQLException {
         String query = "UPDATE opalcard SET balance = balance + ? WHERE cardNumber = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -88,4 +88,124 @@ public class OpalCardDAO {
         }
         return 0.0;
     }
+
+    // Method to report the card as Lost or Stolen
+    public void reportLostOrStolenCard(int cardId, String status) throws SQLException {
+        String query = "UPDATE opalcard SET cardStatus = ? WHERE cardID = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, status); // status should be "LOST" or "STOLEN"
+            stmt.setInt(2, cardId);
+            stmt.executeUpdate();
+        }
+    }
+
+    // Method to block a card
+    public void blockCard(int cardId) throws SQLException {
+        String query = "UPDATE opalcard SET cardStatus = 'BLOCKED' WHERE cardID = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, cardId);
+            stmt.executeUpdate();
+        }
+    }
+
+    // Method to request a replacement card
+    public void requestReplacement(int cardId) throws SQLException {
+        String query = "UPDATE opalcard SET cardStatus = 'REPLACEMENT_REQUESTED' WHERE cardID = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, cardId);
+            stmt.executeUpdate();
+        }
+    }
+
+    public OpalCard getCardById(int cardId) throws SQLException {
+        OpalCard card = null;
+        String query = "SELECT * FROM opalcard WHERE cardID = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, cardId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                card = new OpalCard(
+                        rs.getInt("cardID"),
+                        rs.getString("cardNumber"),
+                        rs.getString("cardName"),
+                        rs.getDouble("balance"),
+                        rs.getString("cardStatus"),
+                        rs.getString("userID"),
+                        rs.getString("cardSecurityCode"));
+            }
+        }
+
+        return card;
+    }
+
+    // ADMIN FEATURES
+
+    // Method to get all Opal cards in the system (for admin)
+    public ArrayList<OpalCard> getAllOpalCards() throws SQLException {
+        ArrayList<OpalCard> cards = new ArrayList<>();
+        String query = "SELECT * FROM opalcard";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                OpalCard card = new OpalCard(
+                        rs.getInt("cardID"),
+                        rs.getString("cardNumber"),
+                        rs.getString("cardName"),
+                        rs.getDouble("balance"),
+                        rs.getString("cardStatus"),
+                        rs.getString("userID"),
+                        rs.getString("cardSecurityCode"));
+                cards.add(card);
+            }
+        }
+        return cards;
+    }
+
+    // Method to search cards with filters
+    public ArrayList<OpalCard> searchCardsWithFilters(String userID, String cardNumber, String cardStatus)
+            throws SQLException {
+        ArrayList<OpalCard> cards = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT * FROM opalcard WHERE 1=1"); // Start with a base query
+
+        if (userID != null && !userID.isEmpty()) {
+            query.append(" AND userID LIKE ?");
+        }
+        if (cardNumber != null && !cardNumber.isEmpty()) {
+            query.append(" AND cardNumber LIKE ?");
+        }
+        if (cardStatus != null && !cardStatus.isEmpty()) {
+            query.append(" AND cardStatus = ?");
+        }
+
+        try (PreparedStatement stmt = conn.prepareStatement(query.toString())) {
+            int paramIndex = 1;
+
+            if (userID != null && !userID.isEmpty()) {
+                stmt.setString(paramIndex++, "%" + userID + "%");
+            }
+            if (cardNumber != null && !cardNumber.isEmpty()) {
+                stmt.setString(paramIndex++, "%" + cardNumber + "%");
+            }
+            if (cardStatus != null && !cardStatus.isEmpty()) {
+                stmt.setString(paramIndex++, cardStatus);
+            }
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                OpalCard card = new OpalCard(
+                        rs.getInt("cardID"),
+                        rs.getString("cardNumber"),
+                        rs.getString("cardName"),
+                        rs.getDouble("balance"),
+                        rs.getString("cardStatus"),
+                        rs.getString("userID"),
+                        rs.getString("cardSecurityCode"));
+                cards.add(card);
+            }
+        }
+        return cards;
+    }
+
 }

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package uts.isd.controller;
 
 import java.io.IOException;
@@ -21,6 +18,8 @@ public class ConnServlet extends HttpServlet {
     private DBManager manager;
     private OpalCardDAO opalCardDAO;
     private SavedTripDAO savedTripDAO;
+    private RouteDAO routeDAO;
+    private TripDAO tripDAO;
     private Connection conn;
 
     @Override // Create and instance of DBConnector for the deployment session
@@ -33,8 +32,7 @@ public class ConnServlet extends HttpServlet {
         }
     }
 
-    @Override // Add the DBConnector, DBManager, Connection instances to the session
-
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -43,7 +41,7 @@ public class ConnServlet extends HttpServlet {
             try {
                 conn = db.openConnection();
                 manager = new DBManager(conn);
-                session.setAttribute("manager", manager); // Store DBManager in session
+                session.setAttribute("manager", manager);
                 System.out.println("manager is set and isnt null");
 
                 opalCardDAO = new OpalCardDAO(conn);
@@ -52,6 +50,11 @@ public class ConnServlet extends HttpServlet {
                 System.out.println("opalCardDAO is set and isnt null");
                 session.setAttribute("savedTripDAO", savedTripDAO);
                 System.out.println("savedTripDAO is set and isnt null");
+
+                routeDAO = new RouteDAO(conn);
+                session.setAttribute("routeDAO", routeDAO);
+                tripDAO = new TripDAO(conn);
+                session.setAttribute("tripDAO", tripDAO);
 
             } catch (SQLException ex) {
                 Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,9 +65,7 @@ public class ConnServlet extends HttpServlet {
         response.sendRedirect("index.jsp");
     }
 
-    @Override // Destroy the servlet and release the resources of the application (terminate
-              // also the db connection)
-
+    @Override
     public void destroy() {
         try {
             db.closeConnection();

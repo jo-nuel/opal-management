@@ -30,7 +30,7 @@ public class ListOpalCardsServlet extends HttpServlet {
                 List<OpalCard> opalCards = opalCardDAO.getCardsByUserId(userID);
 
                 // Set the Opal cards list in the session to display on the JSP page
-                session.setAttribute("cards", opalCards); // Update session attribute
+                session.setAttribute("cards", opalCards);
                 request.getRequestDispatcher("cardManagement.jsp").forward(request, response);
 
             } catch (SQLException e) {
