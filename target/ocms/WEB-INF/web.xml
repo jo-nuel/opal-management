@@ -257,4 +257,14 @@
         <servlet-name>DeleteSavedTripServlet</servlet-name>
         <url-pattern>/DeleteSavedTripServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TopUpLouisServlet</servlet-name>
+        <servlet-class>uts.isd.controller.TopUpLouisServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>TopUpLouisServlet</servlet-name>
+        <url-pattern>/TopUpLouisServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

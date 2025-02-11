@@ -1,11 +1,16 @@
 <%@ page import="uts.isd.model.Route, uts.isd.dao.RouteDAO" %>
 <%@ page import="java.util.List" %>
 
-<jsp:useBean id="routeDAO" class="uts.isd.dao.RouteDAO" scope="request">
-    <jsp:setProperty name="routeDAO" property="conn" value="${applicationScope.conn}" />
-</jsp:useBean>
-
 <%
+    // Retrieve RouteDAO from the session, where it was set by ConnServlet
+    RouteDAO routeDAO = (RouteDAO) session.getAttribute("routeDAO");
+
+    // Check if routeDAO is null, which would indicate an issue with ConnServlet initialization
+    if (routeDAO == null) {
+        throw new ServletException("RouteDAO not found in session. Ensure ConnServlet initializes it.");
+    }
+
+    // Fetch the list of routes using the existing RouteDAO
     List<Route> routes = routeDAO.getAllRoutes();
 %>
 
@@ -34,9 +39,9 @@
         <% } %>
     </table>
 
-<br>
+    <br>
     <button onclick="window.location.href='main.jsp'">Back to Main</button>
-    <button onclick="window.location.href='savetrip.jsp'">Create Trip</button>
+    <button onclick="window.location.href='saveTrip.jsp'">Create Trip</button>
 
 </body>
 </html>

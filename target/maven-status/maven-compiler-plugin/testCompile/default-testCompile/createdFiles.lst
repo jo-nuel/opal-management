@@ -2,5 +2,7 @@ uts\unit\OpalCardDBTest.class
 uts\unit\ContactDAOTest.class
 uts\unit\RouteDAOTest.class
 uts\unit\OpalCardFeatureTest.class
+uts\unit\OpalCardTopUpTest.class
+uts\unit\SavedTripDBTest.class
 uts\unit\UserDBTest.class
 uts\unit\TripDAOTest.class

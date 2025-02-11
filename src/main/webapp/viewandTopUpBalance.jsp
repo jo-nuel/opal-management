@@ -5,13 +5,29 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%
-    Connection conn = (Connection) application.getAttribute("dbConnection");
-    OpalCardDAO dao = new OpalCardDAO(conn);
+    // Retrieve OpalCardDAO from session
+    OpalCardDAO dao = (OpalCardDAO) session.getAttribute("opalCardDAO");
     String cardNumber = request.getParameter("cardNumber");
-    OpalCard card = dao.getCardsByUserId((String) session.getAttribute("userID"))
-                         .stream().filter(c -> c.getCardNumber().equals(cardNumber))
-                         .findFirst().orElse(null);
-    double balance = card != null ? card.getBalance() : 0.0;
+    OpalCard card = null;
+
+    if (dao != null) {
+        // Get user ID from session and retrieve the list of cards
+        String userID = (String) session.getAttribute("userID");
+        
+        if (userID != null) {
+            for (OpalCard c : dao.getCardsByUserId(userID)) {
+                if (c.getCardNumber().equals(cardNumber)) {
+                    card = c;
+                    break;
+                }
+            }
+        }
+    } else {
+        throw new ServletException("OpalCardDAO not found in session. Ensure ConnServlet initializes it.");
+    }
+
+    // Set the balance based on whether the card was found
+    double balance = (card != null) ? card.getBalance() : 0.0;
 %>
 <!DOCTYPE html>
 <html>
@@ -111,11 +127,11 @@
     <div class="container">
         <div class="balanceContainer">
             <h2>My Opal Card Balance</h2>
-            <h3>Current Balance: $</h3>
+            <h3>Current Balance: $<%= balance %></h3> <!-- Display balance here -->
         </div>
 
         <form action="TopUpServlet" method="post">
-            <input type="hidden" name="cardNumber" value="">
+            <input type="hidden" name="cardNumber" value="<%= cardNumber %>">
 
             <div class="form-group">
                 <label for="topUpAmount">Enter Amount to Top-Up:</label>
