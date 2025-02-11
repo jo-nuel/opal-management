@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 import uts.isd.model.AccessLog;
 import uts.isd.model.User;
@@ -162,6 +163,55 @@ public class DBManager {
         pstmt.executeUpdate();
     }
 
+    public ArrayList<User> fetchFilteredUsers(String filterId, String filterEmail, String filterRole, String filterStatus) throws SQLException {
+        ArrayList<User> users = new ArrayList<>();
+        String query = "SELECT * FROM users WHERE 1=1";  // Base query
+    
+        // Add conditions based on provided filters
+        if (filterId != null && !filterId.isEmpty()) {
+            query += " AND id = ?";
+        }
+        if (filterEmail != null && !filterEmail.isEmpty()) {
+            query += " AND email LIKE ?";
+        }
+        if (filterRole != null && !filterRole.isEmpty()) {
+            query += " AND role = ?";
+        }
+        if (filterStatus != null && !filterStatus.isEmpty()) {
+            query += " AND status = ?";
+        }
+    
+        PreparedStatement ps = conn.prepareStatement(query);
+        int paramIndex = 1;
+    
+        if (filterId != null && !filterId.isEmpty()) {
+            ps.setInt(paramIndex++, Integer.parseInt(filterId));
+        }
+        if (filterEmail != null && !filterEmail.isEmpty()) {
+            ps.setString(paramIndex++, "%" + filterEmail + "%");
+        }
+        if (filterRole != null && !filterRole.isEmpty()) {
+            ps.setString(paramIndex++, filterRole);
+        }
+        if (filterStatus != null && !filterStatus.isEmpty()) {
+            ps.setString(paramIndex++, filterStatus);
+        }
+    
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            String id = rs.getString("id");
+            String name = rs.getString("name");
+            String email = rs.getString("email");
+            String password = rs.getString("password");
+            String status = rs.getString("status");
+            String role = rs.getString("role");
+    
+            users.add(new User(name, email, password,id, status, role));
+
+        }
+        return users;
+    }
+    
 
 
 
@@ -169,69 +219,121 @@ public class DBManager {
 
     // --------------------EVENTS DATABASE METHODS--------------------------
 
-    // Add a new event
-    public void addEvent(Event event) throws SQLException {
-        String query = "INSERT INTO events (id, name, category, description) VALUES (?, ?, ?, ?)";
-        PreparedStatement ps = conn.prepareStatement(query);
-        ps.setInt(1, event.getId()); // Explicitly adding ID
-        ps.setString(2, event.getName());
-        ps.setString(3, event.getCategory());
-        ps.setString(4, event.getDescription());
-        ps.executeUpdate();
+// Add a new event
+public void addEvent(Event event) throws SQLException {
+    String query = "INSERT INTO events (id, name, category, description, event_date, location) VALUES (?, ?, ?, ?, ?, ?)";
+    PreparedStatement ps = conn.prepareStatement(query);
+    ps.setInt(1, event.getId()); // Explicitly adding ID
+    ps.setString(2, event.getName());
+    ps.setString(3, event.getCategory());
+    ps.setString(4, event.getDescription());
+    ps.setDate(5, new java.sql.Date(event.getDate().getTime())); // Converting java.util.Date to java.sql.Date
+    ps.setString(6, event.getLocation());
+    ps.executeUpdate();
+}
+
+// Fetch all events
+public ArrayList<Event> fetchEvents() throws SQLException {
+    String query = "SELECT * FROM events";
+    ResultSet rs = st.executeQuery(query);
+    ArrayList<Event> events = new ArrayList<>();
+
+    while (rs.next()) {
+        int id = rs.getInt("id");
+        String name = rs.getString("name");
+        String category = rs.getString("category");
+        String description = rs.getString("description");
+        Date date = rs.getDate("event_date"); // Fetching date from the database
+        String location = rs.getString("location");
+        
+        events.add(new Event(id, name, category, description, date, location));
+    }
+    return events;
+
+}
+ // Get an event by ID
+ public Event getEventById(int id) throws SQLException {
+    String query = "SELECT * FROM events WHERE id = ?";
+    PreparedStatement ps = conn.prepareStatement(query);
+    ps.setInt(1, id);
+    ResultSet rs = ps.executeQuery();
+
+    if (rs.next()) {
+        String name = rs.getString("name");
+        String category = rs.getString("category");
+        String description = rs.getString("description");
+        Date date = rs.getDate("event_date"); // Fetching date from the database
+        String location = rs.getString("location");
+
+        return new Event(id, name, category, description, date, location);
+    }
+    return null;
+}
+//get events based on filter
+public ArrayList<Event> filterEvents(String filterId, String filterCategory, String filterDate, String filterLocation) throws SQLException {
+    ArrayList<Event> events = new ArrayList<>();
+    String query = "SELECT * FROM events WHERE 1=1";  // Base query to allow flexible conditions
+
+    if (filterId != null && !filterId.isEmpty()) {
+        query += " AND id = ?";
+    }
+    if (filterCategory != null && !filterCategory.isEmpty()) {
+        query += " AND category = ?";
+    }
+    if (filterDate != null && !filterDate.isEmpty()) {
+        query += " AND event_date = ?";
+    }
+    if (filterLocation != null && !filterLocation.isEmpty()) {
+        query += " AND location LIKE ?";
     }
 
-    // Fetch all events
-    public ArrayList<Event> fetchEvents() throws SQLException {
-        String query = "SELECT * FROM events";
-        ResultSet rs = st.executeQuery(query);
-        ArrayList<Event> events = new ArrayList<>();
+    PreparedStatement ps = conn.prepareStatement(query);
+    int paramIndex = 1;
 
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            String name = rs.getString("name");
-            String category = rs.getString("category");
-            String description = rs.getString("description");
-            events.add(new Event(id, name, category, description));
-        }
-        return events;
+    if (filterId != null && !filterId.isEmpty()) {
+        ps.setInt(paramIndex++, Integer.parseInt(filterId));
     }
-    
-
-    // Get an event by ID
-    public Event getEventById(int id) throws SQLException {
-        String query = "SELECT * FROM events WHERE id = ?";
-        PreparedStatement ps = conn.prepareStatement(query);
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
-
-        if (rs.next()) {
-            String name = rs.getString("name");
-            String category = rs.getString("category");
-            String description = rs.getString("description");
-
-            return new Event(id, name, category, description);
-        }
-        return null;
+    if (filterCategory != null && !filterCategory.isEmpty()) {
+        ps.setString(paramIndex++, filterCategory);
+    }
+    if (filterDate != null && !filterDate.isEmpty()) {
+        ps.setDate(paramIndex++, java.sql.Date.valueOf(filterDate));
+    }
+    if (filterLocation != null && !filterLocation.isEmpty()) {
+        ps.setString(paramIndex++, "%" + filterLocation + "%");  // Wildcard search for partial matches
     }
 
-    // Update an event
-    public void updateEvent(Event event) throws SQLException {
-        String query = "UPDATE events SET name = ?, category = ?, description = ? WHERE id = ?";
-        PreparedStatement ps = conn.prepareStatement(query);
-        ps.setString(1, event.getName());
-        ps.setString(2, event.getCategory());
-        ps.setString(3, event.getDescription());
-        ps.setInt(4, event.getId());
-        ps.executeUpdate();
-    }
+    ResultSet rs = ps.executeQuery();
+    while (rs.next()) {
+        int id = rs.getInt("id");
+        String name = rs.getString("name");
+        String category = rs.getString("category");
+        String description = rs.getString("description");
+        Date date = rs.getDate("event_date");
+        String location = rs.getString("location");
 
-    // Delete an event
-    public void deleteEvent(int id) throws SQLException {
-        String query = "DELETE FROM events WHERE id = ?";
-        PreparedStatement ps = conn.prepareStatement(query);
-        ps.setInt(1, id);
-        ps.executeUpdate();
+        events.add(new Event(id, name, category, description, date, location));
     }
+    return events;
+}
+// Update an event
+public void updateEvent(Event event) throws SQLException {
+    String query = "UPDATE events SET name = ?, category = ?, description = ?, event_date = ?, location = ? WHERE id = ?";
+    PreparedStatement ps = conn.prepareStatement(query);
+    ps.setString(1, event.getName());
+    ps.setString(2, event.getCategory());
+    ps.setString(3, event.getDescription());
+    ps.setDate(4, new java.sql.Date(event.getDate().getTime())); // Converting java.util.Date to java.sql.Date
+    ps.setString(5, event.getLocation());
+    ps.setInt(6, event.getId());
+    ps.executeUpdate();
+}
 
-    
+// Delete an event
+public void deleteEvent(int id) throws SQLException {
+    String query = "DELETE FROM events WHERE id = ?";
+    PreparedStatement ps = conn.prepareStatement(query);
+    ps.setInt(1, id);
+    ps.executeUpdate();
+}
 }

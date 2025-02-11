@@ -3,36 +3,39 @@ package uts.isd.model;
 import java.io.Serializable;
 
 public class SavedTrip implements Serializable {
-    private String tripID;
-    private String tripName; // A name for the saved trip (e.g., "Home to Office")
-    private String startLocation; // Current location
-    private String destination; // Destination
-    private String userID; // Links the trip to a user
+    private int savedTripID;
+    private String savedTripName;
+    private String startLocation;
+    private String destination;
+    private String userID;
+    private String label;
 
     // Constructor
-    public SavedTrip(String tripID, String tripName, String startLocation, String destination, String userID) {
-        this.tripID = tripID;
-        this.tripName = tripName;
+    public SavedTrip(int savedTripID, String savedTripName, String startLocation, String destination,
+            String userID, String label) {
+        this.savedTripID = savedTripID;
+        this.savedTripName = savedTripName;
         this.startLocation = startLocation;
         this.destination = destination;
         this.userID = userID;
+        this.label = label;
     }
 
     // Getters and setters
-    public String getTripID() {
-        return tripID;
+    public int getSavedTripID() {
+        return savedTripID;
     }
 
-    public void setTripID(String tripID) {
-        this.tripID = tripID;
+    public void setSavedTripID(int savedTripID) {
+        this.savedTripID = savedTripID;
     }
 
-    public String getTripName() {
-        return tripName;
+    public String getSavedTripName() {
+        return savedTripName;
     }
 
-    public void setTripName(String tripName) {
-        this.tripName = tripName;
+    public void setSavedTripName(String savedTripName) {
+        this.savedTripName = savedTripName;
     }
 
     public String getStartLocation() {
@@ -57,5 +60,13 @@ public class SavedTrip implements Serializable {
 
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

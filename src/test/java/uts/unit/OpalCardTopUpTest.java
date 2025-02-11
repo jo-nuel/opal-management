@@ -32,7 +32,8 @@ public class OpalCardTopUpTest {
         String userID = "1";
         String cardSecurityCode = "1234";
 
-        OpalCard mockOpalCard = new OpalCard(0, cardNumber, cardName, initialBalance, cardStatus, userID, cardSecurityCode);
+        OpalCard mockOpalCard = new OpalCard(0, cardNumber, cardName, initialBalance, cardStatus, userID,
+                cardSecurityCode);
 
         double topUpAmount = 20.0;
 
@@ -41,7 +42,7 @@ public class OpalCardTopUpTest {
 
         // Act: When the topUpBalance method is called, no exception should be thrown
         doNothing().when(opalCardDAO).topUpBalance(cardNumber, topUpAmount);
-        
+
         // Call the method to test
         opalCardDAO.topUpBalance(cardNumber, topUpAmount);
 
